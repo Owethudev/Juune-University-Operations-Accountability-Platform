@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-secondary-container":"#1e5882","on-error":"#ffffff","on-background":"#131d26","background":"#f7f9ff","surface-container":"#e5effc","primary-fixed":"#d0e4ff","on-primary-fixed":"#001d35","on-primary-fixed-variant":"#304963","on-primary":"#ffffff","primary-container":"#18324b","primary-fixed-dim":"#afc9e8","on-secondary-fixed-variant":"#044b73","surface-bright":"#f7f9ff","on-tertiary-fixed":"#00201f","surface-container-high":"#dfe9f6","surface":"#f7f9ff","inverse-on-surface":"#e8f2ff","inverse-primary":"#afc9e8","on-tertiary-fixed-variant":"#00504d","primary":"#001d35","outline":"#73777e","error":"#ba1a1a","secondary":"#2b638c","surface-tint":"#48607c","secondary-fixed-dim":"#98ccfb","error-container":"#ffdad6","on-secondary-fixed":"#001d32","surface-dim":"#d1dbe8","tertiary-fixed-dim":"#90d2cf","outline-variant":"#c3c6ce","surface-container-low":"#edf4ff","on-tertiary-container":"#62a3a0","secondary-container":"#9bcefe","surface-container-highest":"#d9e3f0","tertiary":"#00201f","on-secondary":"#ffffff","secondary-fixed":"#cde5ff","on-error-container":"#93000a","tertiary-container":"#003735","tertiary-fixed":"#acefeb","surface-variant":"#d9e3f0","on-surface-variant":"#43474d","on-primary-container":"#829ab8","inverse-surface":"#28313b","on-surface":"#131d26"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"gutter-mobile":"1rem",gutter:"1.5rem","space-xs":"0.25rem","space-sm":"0.5rem","space-md":"1rem",margin:"2rem","space-lg":"1.5rem","space-xl":"2rem","margin-mobile":"1rem"},fontFamily:{"data-mono":["JetBrains Mono"],"headline-xl-mobile":["Inter"],"body-lg":["Inter"],"label-sm":["Inter"],"body-sm":["Inter"],"headline-xl":["Inter"],"label-xs":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"label-md":["Inter"],"headline-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-md":["Inter"]},fontSize:{"data-mono":["0.8125rem",{lineHeight:"1.125rem",fontWeight:"400"}],"headline-xl-mobile":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-lg":["1rem",{lineHeight:"1.5rem",fontWeight:"400"}],"label-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.01em",fontWeight:"500"}],"body-sm":["0.8125rem",{lineHeight:"1.125rem",fontWeight:"400"}],"headline-xl":["2.25rem",{lineHeight:"2.75rem",letterSpacing:"-0.025em",fontWeight:"600"}],"label-xs":["0.6875rem",{lineHeight:"0.875rem",letterSpacing:"0.025em",fontWeight:"600"}],"headline-lg":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["0.875rem",{lineHeight:"1.25rem",fontWeight:"400"}],"label-md":["0.875rem",{lineHeight:"1.25rem",fontWeight:"500"}],"headline-sm":["1.125rem",{lineHeight:"1.5rem",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-lg-mobile":["1.375rem",{lineHeight:"1.75rem",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-md":["1.25rem",{lineHeight:"1.625rem",letterSpacing:"-0.015em",fontWeight:"600"}]}}}};</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-xl bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[20px]">account_balance</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Juune Core</span><span class="font-data-mono text-label-xs text-on-surface-variant">v4.2-STABLE</span></div></div><span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface font-label-xs text-label-xs font-semibold">OPS</span></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Workspace</div><nav class="mt-space-xs flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-xl"><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="home" href="#"><span class="font-label-md text-label-md">Home</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="my-requests" href="#"><span class="font-label-md text-label-md">My Requests</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="announcements" href="#"><span class="font-label-md text-label-md">Announcements</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="opportunities" href="#"><span class="font-label-md text-label-md">Opportunities</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="notifications" href="#"><span class="font-label-md text-label-md">Notifications</span><span class="px-1.5 py-0.5 rounded-full bg-secondary text-on-secondary font-label-xs text-label-xs">5</span></a></nav></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Governance &amp; Oversight</div><nav class="mt-space-xs flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-xl"><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-console" href="#"><span class="font-label-md text-label-md">Admin Console</span><span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-semibold">ADMIN</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="audit-log" href="#"><span class="font-label-md text-label-md">Audit Log</span><span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-semibold">SEC</span></a></nav></div></div><div class="flex flex-col gap-space-sm mx-space-md mb-space-md"><div class="p-space-md bg-surface-container-low rounded-xl"><div class="flex items-center justify-between mb-space-xs"><span class="font-label-xs text-label-xs text-on-surface-variant uppercase font-semibold">Platform Clearance</span><span class="font-label-xs text-label-xs text-secondary font-semibold">Tier 4</span></div><div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden"><div class="bg-secondary h-full w-full"></div></div><div class="mt-space-xs font-data-mono text-label-xs text-on-surface-variant">SLA Health: 99.98% OK</div></div><nav data-active-classes="bg-primary-container text-on-primary font-semibold rounded-xl"><a class="flex items-center justify-between p-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="profile-settings" href="#"><div class="flex items-center gap-space-sm overflow-hidden"><div class="w-8 h-8 rounded-full bg-primary flex-shrink-0 flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col text-left overflow-hidden"><span class="font-label-md text-label-md font-semibold truncate">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-on-surface-variant truncate">Facilities Ops Mgr</span></div></div><span class="material-symbols-outlined text-[18px] text-on-surface-variant flex-shrink-0">settings</span></a></nav></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm"><span class="hover:text-on-surface cursor-pointer font-medium">Juune Central</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="hover:text-on-surface cursor-pointer font-medium">Operations Core</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-primary font-semibold">Console</span></div></div><div class="flex items-center gap-space-lg"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[18px]">search</span><input class="w-72 h-9 pl-9 pr-space-md rounded-xl bg-surface-container-lowest font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/60 shadow-[0_1px_4px_rgba(0,0,0,0.03)] focus:outline-none focus:ring-2 focus:ring-secondary/40" placeholder="Search requests, audit logs, facilities..." type="text"/></div><div class="flex items-center gap-space-sm"><button aria-label="Notifications" class="relative w-9 h-9 flex items-center justify-center rounded-xl bg-surface-container-lowest hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.03)]"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button><button aria-label="Help and Documentation" class="w-9 h-9 flex items-center justify-center rounded-xl bg-surface-container-lowest hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.03)]"><span class="material-symbols-outlined text-[20px]">help_outline</span></button></div><a class="flex items-center gap-space-md pl-space-sm cursor-pointer hover:opacity-85 transition-opacity" data-path="profile-settings" href="#"><div class="flex flex-col items-end"><span class="font-label-md text-label-md text-on-surface font-semibold">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-on-surface-variant">Super Admin · Facilities Ops Mgr</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></a></div></header><main class="w-full pt-16 px-space-xl bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Toast Notification Center (Absolute/Fixed relative container) -->
+<div class="fixed top-20 right-8 z-50 transform transition-all duration-300 translate-y-[-100%] opacity-0 pointer-events-none flex items-center gap-space-md p-space-md bg-surface-container-lowest shadow-xl rounded-xl" id="toastNotification">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-secondary-fixed text-[18px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Preferences Saved</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Notification matrix and shift relays committed to DIR-2024 ledger.</span>
+</div>
+<button aria-label="Dismiss toast" class="p-1 text-on-surface-variant hover:text-on-surface transition-colors ml-space-sm" onclick="dismissToast()">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<!-- State Simulator Toolbar -->
+<div class="mb-space-lg p-space-md bg-surface-container-low rounded-xl flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">tune</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">State Simulator (QA Sandbox)</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">Simulate S11 response modes &amp; ledger handshake</span>
+</div>
+</div>
+<div aria-label="Component State Simulator" class="flex flex-wrap items-center gap-1.5" role="toolbar">
+<button class="px-space-sm py-1.5 rounded-lg font-label-xs text-label-xs font-semibold transition-all bg-primary-container text-on-primary" id="btnStateNormal" onclick="setState('normal')">
+        Normal (Active)
+      </button>
+<button class="px-space-sm py-1.5 rounded-lg font-label-xs text-label-xs font-semibold transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface" id="btnStateToast" onclick="setState('toast')">
+        Preference Saved (Toast)
+      </button>
+<button class="px-space-sm py-1.5 rounded-lg font-label-xs text-label-xs font-semibold transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface" id="btnStateSaving" onclick="setState('saving')">
+        Saving / Updating
+      </button>
+<button class="px-space-sm py-1.5 rounded-lg font-label-xs text-label-xs font-semibold transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface" id="btnStateSkeleton" onclick="setState('skeleton')">
+        Loading Skeleton
+      </button>
+<button class="px-space-sm py-1.5 rounded-lg font-label-xs text-label-xs font-semibold transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface" id="btnStateError" onclick="setState('error')">
+        API Error / Offline
+      </button>
+<button class="px-space-sm py-1.5 rounded-lg font-label-xs text-label-xs font-semibold transition-all bg-error-container text-on-error-container hover:opacity-90" id="btnStateSignout" onclick="setState('signout')">
+        Sign Out Modal
+      </button>
+</div>
+</div>
+<!-- API Offline Banner (Hidden by default) -->
+<div class="hidden mb-space-lg p-space-md bg-error-container text-on-error-container rounded-xl flex items-center justify-between" id="apiErrorBanner">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-[24px]">signal_wifi_connected_no_internet_4</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-semibold">Central Directory API Link Disconnected</span>
+<span class="font-body-sm text-body-sm">Unable to verify cryptographic signature for Staff #80922 against Azure AD Gateway. Operating in local-read mode.</span>
+</div>
+</div>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm font-semibold shadow-sm hover:bg-surface-container-high transition-colors" onclick="setState('normal')">
+      Retry Connection
+    </button>
+</div>
+<!-- Loading Skeleton Layer (Hidden by default) -->
+<div class="hidden flex-col gap-space-lg animate-pulse mb-space-xl" id="skeletonLoader">
+<div class="h-28 bg-surface-container-high rounded-xl w-full"></div>
+<div class="h-64 bg-surface-container-high rounded-xl w-full"></div>
+<div class="h-80 bg-surface-container-high rounded-xl w-full"></div>
+</div>
+<!-- Master Page Main Content Layout -->
+<div class="flex flex-col gap-space-xl" id="mainContentContainer">
+<!-- Header & Institutional Identity Staging -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg pb-space-lg bg-surface-container-lowest p-space-xl rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-semibold uppercase">Directive DIR-2024</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">SSO-HASH: 99a4·b81c·4f9e</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary font-semibold tracking-tight">Profile &amp; Institutional Settings</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+          Manage authenticated identity parameters, operational notifications, multi-channel relays, and session credentials under Juune Directory Directive DIR-2024.
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm flex-shrink-0">
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-medium transition-colors" id="btnDownloadAudit" onclick="simulateDownload()">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span>Download Audit Log</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-primary-container text-on-primary hover:bg-secondary font-label-md text-label-md font-semibold transition-colors shadow-sm" id="btnSavePreferences" onclick="saveSettings()">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span id="saveBtnText">Save Preferences</span>
+</button>
+</div>
+</section>
+<!-- SECTION 1: Institutional Identity & Authoritative Directory (Read-Only) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center justify-between flex-wrap gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Institutional Identity &amp; Authoritative Directory</h2>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Synchronized via Pretoria Central LDAP / Azure Active Directory</span>
+</div>
+</div>
+<span class="px-space-sm py-1 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant font-medium flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> SYNC INTERVAL: 15m
+        </span>
+</div>
+<!-- Policy Banner -->
+<div class="p-space-md bg-surface-container-low rounded-lg flex items-start gap-space-md">
+<span class="material-symbols-outlined text-secondary text-[22px] mt-0.5">shield_lock</span>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Identity-Managed Entity</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Department, official role, and employee grade are synchronized directly from the University Central Directory (LDAP/Azure AD) and cannot be self-modified under Institutional Policy POL-SEC-09. All operational events reference these immutable identifiers.
+          </p>
+</div>
+</div>
+<!-- Read-Only Identity Matrix Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Full Legal Name -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center justify-between">
+<label class="font-label-xs text-label-xs uppercase font-semibold text-on-surface-variant tracking-wider">Full Legal Name</label>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Nomvula Khumalo</span>
+<span class="font-label-xs text-label-xs text-secondary font-medium">Registrar Verified Record</span>
+</div>
+<!-- Institutional Email -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center justify-between">
+<label class="font-label-xs text-label-xs uppercase font-semibold text-on-surface-variant tracking-wider">Institutional Email</label>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</div>
+<span class="font-data-mono text-body-sm font-semibold text-on-surface">n.khumalo@juune.ac.za</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Primary SSO Anchor</span>
+</div>
+<!-- University ID -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center justify-between">
+<label class="font-label-xs text-label-xs uppercase font-semibold text-on-surface-variant tracking-wider">Staff Code / UID</label>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</div>
+<span class="font-data-mono text-body-sm font-semibold text-on-surface">#80922</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Enterprise SAP / Oracle Ref</span>
+</div>
+<!-- Department -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center justify-between">
+<label class="font-label-xs text-label-xs uppercase font-semibold text-on-surface-variant tracking-wider">Department / Unit</label>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Facilities &amp; Estates Operations</span>
+<span class="font-label-xs text-label-xs text-secondary font-medium">Authoritative Dispatch Target</span>
+</div>
+<!-- Role & Clearance -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center justify-between">
+<label class="font-label-xs text-label-xs uppercase font-semibold text-on-surface-variant tracking-wider">Platform Clearance</label>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Facilities Ops Mgr</span>
+<span class="px-1.5 py-0.5 rounded bg-primary text-on-primary font-label-xs text-label-xs font-semibold">Tier 4 Super Admin</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Escalation &amp; Ledger Signatory</span>
+</div>
+<!-- Location -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center justify-between">
+<label class="font-label-xs text-label-xs uppercase font-semibold text-on-surface-variant tracking-wider">Primary Operations Site</label>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Pretoria Main Campus</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Bldg 4 · Engineering &amp; Ops Hub</span>
+</div>
+</div>
+<!-- Request Modification Notice -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md p-space-md bg-surface-container-high/40 rounded-xl">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">contact_support</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Need to update official personnel details or department assignment? Submit an approved HR Identity Change Requisition via the Registrar.
+          </p>
+</div>
+<button class="flex-shrink-0 px-space-md py-2 rounded-lg bg-surface-container-lowest text-secondary font-label-md text-label-md font-semibold shadow-sm hover:bg-surface-container-high transition-colors" onclick="requestDirectoryReview()">
+          Request Directory Review
+        </button>
+</div>
+</section>
+<!-- SECTION 2: Operational Notification Preferences -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-sm flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between flex-wrap gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Operational Notification Matrix</h2>
+</div>
+<div class="flex items-center gap-space-md font-label-xs text-label-xs text-on-surface-variant font-medium">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> Web UI</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary-container"></span> Mobile APNS</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span> Urgent SMS</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Select notification dispatch pathways for operations events. Real-time channels are authenticated via Juune APNS Relay and Campus Telecom Gateways.
+        </p>
+</div>
+<!-- Notification Groups Bento/List -->
+<div class="flex flex-col gap-space-lg">
+<!-- Category A: Request Queue & Triage Alerts -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm font-semibold text-primary uppercase tracking-wider">A. Request Queue &amp; Triage Alerts</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Queue Target: Facilities &amp; Estates</span>
+</div>
+<div class="grid grid-cols-1 gap-space-sm">
+<!-- Row 1 -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<span class="font-label-md text-label-md font-semibold text-on-surface">New requests assigned to Facilities queue</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Immediate notification when work orders or inquiries route to Estates triage.</span>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant">Channels: Web + Mobile APNS</span>
+</div>
+</div>
+<button aria-checked="true" class="w-12 h-6 rounded-full bg-secondary transition-colors relative flex items-center p-1 cursor-pointer" onclick="toggleSwitch(this)" role="switch">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-6 transition-transform"></div>
+</button>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Status transitions and technician assignments</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Updates when field artisans accept tickets, request parts, or close items.</span>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant">Channels: Web + Mobile APNS</span>
+</div>
+</div>
+<button aria-checked="true" class="w-12 h-6 rounded-full bg-secondary transition-colors relative flex items-center p-1 cursor-pointer" onclick="toggleSwitch(this)" role="switch">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-6 transition-transform"></div>
+</button>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-md text-label-md font-semibold text-on-surface">SLA Assistance Protocol Eligibility warnings</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs font-semibold">Priority Escalation</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Automated trigger when pending response approaches the 4-hour university compliance window.</span>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant">Channels: Web + SMS + Mobile APNS</span>
+</div>
+</div>
+<button aria-checked="true" class="w-12 h-6 rounded-full bg-secondary transition-colors relative flex items-center p-1 cursor-pointer" onclick="toggleSwitch(this)" role="switch">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-6 transition-transform"></div>
+</button>
+</div>
+</div>
+</div>
+<!-- Category B: Operational Bulletins & Maintenance Advisories -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm font-semibold text-primary uppercase tracking-wider">B. Operational Bulletins &amp; Maintenance Advisories</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Publisher Scope: Campus Command</span>
+</div>
+<div class="grid grid-cols-1 gap-space-sm">
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Critical campus service interruptions &amp; outage notices</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">HVAC, power grid, municipal water disruptions, or academic lab closures.</span>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant">Channels: Web + Mobile APNS</span>
+</div>
+</div>
+<button aria-checked="true" class="w-12 h-6 rounded-full bg-secondary transition-colors relative flex items-center p-1 cursor-pointer" onclick="toggleSwitch(this)" role="switch">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-6 transition-transform"></div>
+</button>
+</div>
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Departmental policy updates and hazmat protocols</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Safety governance guidelines, chemical handling directives, and SOP revisions.</span>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant">Channels: Web Only</span>
+</div>
+</div>
+<button aria-checked="true" class="w-12 h-6 rounded-full bg-secondary transition-colors relative flex items-center p-1 cursor-pointer" onclick="toggleSwitch(this)" role="switch">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-6 transition-transform"></div>
+</button>
+</div>
+</div>
+</div>
+<!-- Category C: Opportunities & Talent Mobility -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm font-semibold text-primary uppercase tracking-wider">C. Opportunities &amp; Talent Mobility</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Internal Faculty &amp; Staff Registry</span>
+</div>
+<div class="grid grid-cols-1 gap-space-sm">
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<span class="font-label-md text-label-md font-semibold text-on-surface">New Facilities &amp; Engineering postings matching grade</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Notifications regarding managerial and project-lead roles within University Operations.</span>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant">Channels: Web Only</span>
+</div>
+</div>
+<button aria-checked="true" class="w-12 h-6 rounded-full bg-secondary transition-colors relative flex items-center p-1 cursor-pointer" onclick="toggleSwitch(this)" role="switch">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-6 transition-transform"></div>
+</button>
+</div>
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Secondment deadlines approaching</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Reminders regarding interim transfer windows and joint departmental projects.</span>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant">Channels: Web Only</span>
+</div>
+</div>
+<!-- Disabled by default -->
+<button aria-checked="false" class="w-12 h-6 rounded-full bg-outline-variant transition-colors relative flex items-center p-1 cursor-pointer" onclick="toggleSwitch(this)" role="switch">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-0 transition-transform"></div>
+</button>
+</div>
+</div>
+</div>
+<!-- Category D: Security & Administrative Audit Events -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm font-semibold text-primary uppercase tracking-wider">D. Security &amp; Administrative Audit Events</span>
+<span class="font-label-xs text-label-xs text-error font-semibold">Tier 4 Clearance Mandate</span>
+</div>
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-low">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Tamper-evident ledger integrity alerts &amp; dual-auth signoffs</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-label-xs text-label-xs font-semibold text-on-surface-variant">Mandatory Policy</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Cryptographic check failures or requests for high-clearance access override. Cannot be disabled under Juune Security Regulation SEC-101.</span>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-mono text-label-xs text-on-surface-variant">Channels: Web + Urgent SMS</span>
+</div>
+</div>
+<!-- Locked Mandatory Switch -->
+<div class="w-12 h-6 rounded-full bg-primary-container relative flex items-center p-1 opacity-70 cursor-not-allowed" title="Mandatory Security Parameter">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-6"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quiet Hours / Operational Shift Scheduling -->
+<div class="p-space-lg bg-surface-container-low rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<span class="material-symbols-outlined text-secondary text-[24px]">bedtime</span>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Respect Operational Shifts (Quiet Hours)</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Suppress non-urgent mobile notifications outside official dispatch hours (07:00 – 19:00 SAST). Critical campus emergencies and SLA escalation alerts strictly bypass quiet hours.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<span class="font-data-mono text-label-xs text-on-surface-variant font-medium">STATUS: ACTIVE</span>
+<button aria-checked="true" class="w-12 h-6 rounded-full bg-secondary transition-colors relative flex items-center p-1 cursor-pointer" onclick="toggleSwitch(this)" role="switch">
+<div class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transform translate-x-6 transition-transform"></div>
+</button>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Privacy & Data Stewardship Notice -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container flex items-center justify-center text-on-tertiary">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Institutional Privacy Notice &amp; Least-Privilege Standard</h2>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Governed by POPIA Compliance Standard &amp; University Bylaws</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<div class="p-space-md bg-surface-container-low rounded-lg flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">lock_reset</span>
+            Immutable Event Audit
+          </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Every ticket reassignment, escalation bypass, and preference alteration performed under Staff #80922 is permanently indexed in the SHA-256 ledger to preserve structural impartiality.
+          </p>
+</div>
+<div class="p-space-md bg-surface-container-low rounded-lg flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">visibility_off</span>
+            Zero-Knowledge Protection
+          </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Undergraduate and faculty personal mobile numbers remain encrypted at rest. Outgoing SMS notifications leverage the University SMS gateway proxy without revealing personal credentials.
+          </p>
+</div>
+<div class="p-space-md bg-surface-container-low rounded-lg flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">history_edu</span>
+            Data Retention Standard
+          </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            In compliance with statutory requirements for higher education facilities, incident logs and dispatch communications are retained for 7 years before cryptographic retirement.
+          </p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs font-label-sm text-label-sm text-secondary font-semibold">
+<a class="hover:underline flex items-center gap-1" href="#">Institutional Privacy Directive LP-2024 <span class="material-symbols-outlined text-[14px]">open_in_new</span></a>
+<span class="text-outline-variant">•</span>
+<a class="hover:underline flex items-center gap-1" href="#">Audit Governance Charter <span class="material-symbols-outlined text-[14px]">open_in_new</span></a>
+<span class="text-outline-variant">•</span>
+<a class="hover:underline flex items-center gap-1" href="#">Data Retention Bylaws (7 Years) <span class="material-symbols-outlined text-[14px]">open_in_new</span></a>
+</div>
+</section>
+<!-- SECTION 4: Session Security & Prominent Sign Out -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-sm flex flex-col gap-space-lg mb-space-xl">
+<div class="flex items-center justify-between flex-wrap gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">key</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Active Session &amp; Credential State</h2>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Secured via Microsoft Entra ID SSO Federation</span>
+</div>
+</div>
+<span class="px-space-sm py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-data-mono text-label-xs font-semibold">
+          TOKEN VALID: 20:00 SAST
+        </span>
+</div>
+<div class="p-space-md bg-surface-container-low rounded-lg font-data-mono text-body-sm text-on-surface-variant flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<span class="text-on-surface font-semibold">Session ID: sess_prd_0989b12a88</span>
+<span>Source: 10.14.88.104 (Pretoria Campus Core Intranet)</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-xs text-label-xs text-on-surface font-semibold uppercase tracking-wider">TLS 1.3 Strict Mutual Auth</span>
+</div>
+</div>
+<!-- Sign Out Zone -->
+<div class="p-space-lg rounded-xl bg-error-container/20 flex flex-col md:flex-row md:items-center justify-between gap-space-lg">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-on-error-container flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-error">Terminate Active Operations Session</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xl">
+              Signing out will invalidate your active session token across Juune Central and return you to the central Sign In gateway (S1). All unsaved operational drafts will be cleared from local cache.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-space-md flex-shrink-0">
+<a class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-surface-container-lowest text-error hover:bg-error hover:text-on-error font-label-md text-label-md font-semibold transition-all shadow-sm" data-path="signin" href="#" onclick="openSignOutModal(event)">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span>Sign Out of Juune Central</span>
+</a>
+</div>
+</div>
+</section>
+</div>
+<!-- Sign Out Confirmation Modal Overlay -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-space-md" id="signOutModal">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-xl shadow-xl flex flex-col gap-space-lg animate-in fade-in zoom-in duration-200">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-on-error-container flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">logout</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Terminate Authenticated Session?</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            You are signed in as <strong>Nomvula Khumalo (Staff #80922)</strong> with Tier-4 Administrative privileges. Terminating will flush cached ticket tokens and dispatch a session revocation event to the audit ledger.
+          </p>
+</div>
+</div>
+<div class="p-space-md bg-surface-container-low rounded-lg flex items-center justify-between font-data-mono text-label-xs text-on-surface-variant">
+<span>Target: S1 Gateway (sso.juune.ac.za)</span>
+<span class="text-secondary font-semibold">TOKEN: FLUSH</span>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-variant transition-colors" onclick="closeSignOutModal()">
+          Cancel &amp; Retain Session
+        </button>
+<button class="px-space-lg py-2 rounded-lg bg-error text-on-error font-label-md text-label-md font-semibold hover:opacity-90 transition-opacity" onclick="executeSignOut()">
+          Confirm Sign Out
+        </button>
+</div>
+</div>
+</div>
+<!-- Directory Review Request Modal -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-space-md" id="directoryModal">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-xl shadow-xl flex flex-col gap-space-lg">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">manage_accounts</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Submit HR Identity Change Requisition</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Official records for Staff #80922 are synchronized under Policy POL-SEC-09. Changes to title, department, or grade must be verified by the Registrar.
+          </p>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<label class="font-label-xs text-label-xs uppercase font-semibold text-on-surface-variant">Requisition Justification</label>
+<textarea class="w-full p-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary/40" placeholder="State requested revision (e.g. Building transfer, secondary role assignment)..." rows="3"></textarea>
+</div>
+<div class="flex items-center justify-end gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-variant transition-colors" onclick="closeDirectoryModal()">
+          Cancel
+        </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-secondary transition-colors" onclick="confirmDirectoryRequisition()">
+          Submit to Registrar
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // State simulation state tracker
+  let activeState = 'normal';
+
+  function setState(state) {
+    activeState = state;
+    const allButtons = [
+      'btnStateNormal', 'btnStateToast', 'btnStateSaving', 
+      'btnStateSkeleton', 'btnStateError', 'btnStateSignout'
+    ];
+    
+    allButtons.forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) {
+        btn.classList.remove('bg-primary-container', 'text-on-primary');
+        if (!btn.classList.contains('bg-error-container')) {
+          btn.classList.add('bg-surface-container-highest', 'text-on-surface-variant');
+        }
+      }
+    });
+
+    const mainContent = document.getElementById('mainContentContainer');
+    const skeleton = document.getElementById('skeletonLoader');
+    const apiError = document.getElementById('apiErrorBanner');
+    const saveBtn = document.getElementById('btnSavePreferences');
+    const saveBtnText = document.getElementById('saveBtnText');
+    const signOutModal = document.getElementById('signOutModal');
+
+    // Reset standard display elements
+    if (skeleton) skeleton.classList.add('hidden');
+    if (skeleton) skeleton.classList.remove('flex');
+    if (mainContent) mainContent.classList.remove('hidden');
+    if (apiError) apiError.classList.add('hidden');
+    if (saveBtnText) saveBtnText.innerText = 'Save Preferences';
+    if (saveBtn) saveBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+
+    switch (state) {
+      case 'normal':
+        document.getElementById('btnStateNormal').classList.add('bg-primary-container', 'text-on-primary');
+        document.getElementById('btnStateNormal').classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+        dismissToast();
+        break;
+
+      case 'toast':
+        document.getElementById('btnStateToast').classList.add('bg-primary-container', 'text-on-primary');
+        document.getElementById('btnStateToast').classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+        showToast();
+        break;
+
+      case 'saving':
+        document.getElementById('btnStateSaving').classList.add('bg-primary-container', 'text-on-primary');
+        document.getElementById('btnStateSaving').classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+        if (saveBtnText) saveBtnText.innerText = 'Committing SHA-256...';
+        if (saveBtn) saveBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        setTimeout(() => {
+          if (activeState === 'saving') {
+            setState('toast');
+          }
+        }, 1200);
+        break;
+
+      case 'skeleton':
+        document.getElementById('btnStateSkeleton').classList.add('bg-primary-container', 'text-on-primary');
+        document.getElementById('btnStateSkeleton').classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+        if (mainContent) mainContent.classList.add('hidden');
+        if (skeleton) {
+          skeleton.classList.remove('hidden');
+          skeleton.classList.add('flex');
+        }
+        break;
+
+      case 'error':
+        document.getElementById('btnStateError').classList.add('bg-primary-container', 'text-on-primary');
+        document.getElementById('btnStateError').classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+        if (apiError) apiError.classList.remove('hidden');
+        break;
+
+      case 'signout':
+        if (signOutModal) {
+          signOutModal.classList.remove('hidden');
+          signOutModal.classList.add('flex');
+        }
+        break;
+    }
+  }
+
+  function showToast() {
+    const toast = document.getElementById('toastNotification');
+    if (toast) {
+      toast.classList.remove('translate-y-[-100%]', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        dismissToast();
+      }, 4000);
+    }
+  }
+
+  function dismissToast() {
+    const toast = document.getElementById('toastNotification');
+    if (toast) {
+      toast.classList.add('translate-y-[-100%]', 'opacity-0', 'pointer-events-none');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }
+  }
+
+  function saveSettings() {
+    setState('saving');
+  }
+
+  function simulateDownload() {
+    const btn = document.getElementById('btnDownloadAudit');
+    if (btn) {
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Exporting Ledger...</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">done</span><span>Ledger Exported</span>`;
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+        }, 2000);
+      }, 1000);
+    }
+  }
+
+  function toggleSwitch(button) {
+    const isChecked = button.getAttribute('aria-checked') === 'true';
+    const knob = button.querySelector('div');
+    if (isChecked) {
+      button.setAttribute('aria-checked', 'false');
+      button.classList.remove('bg-secondary');
+      button.classList.add('bg-outline-variant');
+      if (knob) {
+        knob.classList.remove('translate-x-6');
+        knob.classList.add('translate-x-0');
+      }
+    } else {
+      button.setAttribute('aria-checked', 'true');
+      button.classList.remove('bg-outline-variant');
+      button.classList.add('bg-secondary');
+      if (knob) {
+        knob.classList.remove('translate-x-0');
+        knob.classList.add('translate-x-6');
+      }
+    }
+  }
+
+  function openSignOutModal(e) {
+    if (e) e.preventDefault();
+    const modal = document.getElementById('signOutModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+  }
+
+  function closeSignOutModal() {
+    const modal = document.getElementById('signOutModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+    if (activeState === 'signout') {
+      setState('normal');
+    }
+  }
+
+  function executeSignOut() {
+    closeSignOutModal();
+    // In a live routing system, triggers redirection to S1 Gateway
+    alert('Session sess_prd_0989b12a88 successfully revoked. Navigating to Juune Sign In (S1).');
+  }
+
+  function requestDirectoryReview() {
+    const modal = document.getElementById('directoryModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+  }
+
+  function closeDirectoryModal() {
+    const modal = document.getElementById('directoryModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  function confirmDirectoryRequisition() {
+    closeDirectoryModal();
+    showToast();
+  }
+</script></main></div></body></html>

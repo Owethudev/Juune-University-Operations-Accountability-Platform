@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><title>Juune University Operations</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;min-height:100vh;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "on-background": "#131d26",
+        "on-tertiary-container": "#62a3a0",
+        "tertiary-container": "#003735",
+        "on-tertiary-fixed": "#00201f",
+        "on-primary-container": "#829ab8",
+        "surface-tint": "#48607c",
+        "background": "#f7f9ff",
+        "on-tertiary-fixed-variant": "#00504d",
+        "on-surface-variant": "#43474d",
+        "outline-variant": "#c3c6ce",
+        "on-secondary-container": "#1e5882",
+        "on-surface": "#131d26",
+        "error-container": "#ffdad6",
+        "inverse-primary": "#afc9e8",
+        "secondary-fixed-dim": "#98ccfb",
+        "on-secondary-fixed-variant": "#044b73",
+        "outline": "#73777e",
+        "surface-dim": "#d1dbe8",
+        "surface-container": "#e5effc",
+        "on-primary-fixed-variant": "#304963",
+        "primary-fixed": "#d0e4ff",
+        "on-error": "#ffffff",
+        "on-primary": "#ffffff",
+        "on-tertiary": "#ffffff",
+        "secondary-fixed": "#cde5ff",
+        "tertiary": "#00201f",
+        "error": "#ba1a1a",
+        "tertiary-fixed": "#acefeb",
+        "primary": "#001d35",
+        "surface-container-lowest": "#ffffff",
+        "primary-fixed-dim": "#afc9e8",
+        "secondary-container": "#9bcefe",
+        "on-error-container": "#93000a",
+        "surface-bright": "#f7f9ff",
+        "surface-container-high": "#dfe9f6",
+        "tertiary-fixed-dim": "#90d2cf",
+        "inverse-on-surface": "#e8f2ff",
+        "surface-container-highest": "#d9e3f0",
+        "primary-container": "#18324b",
+        "inverse-surface": "#28313b",
+        "surface-variant": "#d9e3f0",
+        "secondary": "#2b638c",
+        "surface-container-low": "#edf4ff",
+        "on-primary-fixed": "#001d35",
+        "on-secondary": "#ffffff",
+        "on-secondary-fixed": "#001d32",
+        "surface": "#f7f9ff"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+      },
+      "spacing": {
+        "space-xs": "0.25rem",
+        "margin": "2rem",
+        "space-lg": "1.5rem",
+        "gutter-mobile": "1rem",
+        "space-md": "1rem",
+        "margin-mobile": "1rem",
+        "gutter": "1.5rem",
+        "space-sm": "0.5rem",
+        "space-xl": "2rem"
+      },
+      "fontFamily": {
+        "label-xs": ["Inter"],
+        "body-sm": ["Inter"],
+        "label-sm": ["Inter"],
+        "headline-xl": ["Inter"],
+        "label-md": ["Inter"],
+        "body-lg": ["Inter"],
+        "data-mono": ["JetBrains Mono"],
+        "headline-xl-mobile": ["Inter"],
+        "headline-lg": ["Inter"],
+        "headline-md": ["Inter"],
+        "headline-sm": ["Inter"],
+        "headline-lg-mobile": ["Inter"],
+        "body-md": ["Inter"]
+      },
+      "fontSize": {
+        "label-xs": ["0.6875rem", {"lineHeight": "0.875rem", "letterSpacing": "0.025em", "fontWeight": "600"}],
+        "body-sm": ["0.8125rem", {"lineHeight": "1.125rem", "fontWeight": "400"}],
+        "label-sm": ["0.75rem", {"lineHeight": "1rem", "letterSpacing": "0.01em", "fontWeight": "500"}],
+        "headline-xl": ["2.25rem", {"lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+        "label-md": ["0.875rem", {"lineHeight": "1.25rem", "fontWeight": "500"}],
+        "body-lg": ["1rem", {"lineHeight": "1.5rem", "fontWeight": "400"}],
+        "data-mono": ["0.8125rem", {"lineHeight": "1.125rem", "fontWeight": "400"}],
+        "headline-xl-mobile": ["1.75rem", {"lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+        "headline-lg": ["1.75rem", {"lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+        "headline-md": ["1.25rem", {"lineHeight": "1.625rem", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+        "headline-sm": ["1.125rem", {"lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "headline-lg-mobile": ["1.375rem", {"lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+        "body-md": ["0.875rem", {"lineHeight": "1.25rem", "fontWeight": "400"}]
+      }
+    }
+  }
+}</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col justify-between pt-safe pb-safe selection:bg-secondary-container selection:text-on-secondary-container"><main class="flex-1 flex flex-col w-full bg-surface px-gutter-mobile py-space-xl"><div class="flex flex-col w-full max-w-md mx-auto space-y-space-lg">
+<!-- Institutional Branding Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col items-center text-center space-y-space-md">
+<!-- Geometric Institutional Crest -->
+<div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-primary shadow-sm">
+<svg class="w-8 h-8" fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 4L4 12V28L20 36L36 28V12L20 4Z" stroke="#18324b" stroke-linejoin="round" stroke-width="2.5"></path>
+<path d="M20 12L28 16V24L20 28L12 24V16L20 12Z" fill="#2b638c" fill-opacity="0.15" stroke="#2b638c" stroke-width="2"></path>
+<path d="M20 16V24M16 20H24" stroke="#18324b" stroke-linecap="round" stroke-width="2"></path>
+<circle cx="20" cy="20" fill="#62a3a0" r="1.5"></circle>
+</svg>
+</div>
+<!-- Wordmark & Platform Designation -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-center space-x-1.5">
+<span class="font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary font-semibold">JUUNE</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+        University Operations &amp; Accountability Platform
+      </p>
+</div>
+<!-- Operational Pilot Badge -->
+<div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-surface-container-low text-secondary">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-xs text-label-xs tracking-normal">Staff &amp; Operational Portal (Pilot: IT • Facilities • Admin)</span>
+</div>
+</div>
+<!-- Sign In Container -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col space-y-space-lg">
+<!-- Title & Purpose -->
+<div class="space-y-space-xs text-center">
+<h1 class="font-headline-md text-headline-md text-primary">
+        Sign in to your workplace
+      </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Centralized operational requests, cross-department routing, and transparent workflow tracking for university employees.
+      </p>
+</div>
+<!-- State Switcher Playground -->
+<div class="bg-surface-container-low rounded-lg p-space-xs flex flex-col space-y-1.5">
+<div class="flex items-center justify-between px-2 pt-1">
+<span class="font-label-xs text-label-xs text-on-surface-variant font-medium">Interactive State Simulation:</span>
+<span class="font-data-mono text-data-mono text-secondary" id="activeStateLabel">IDLE</span>
+</div>
+<div class="grid grid-cols-4 gap-1">
+<button class="py-1 px-1.5 text-center rounded font-label-xs text-label-xs bg-surface-container-lowest text-primary font-semibold shadow-xs transition-all" id="btn-state-idle" onclick="setPortalState('idle')" type="button">Normal</button>
+<button class="py-1 px-1.5 text-center rounded font-label-xs text-label-xs text-on-surface-variant hover:bg-surface-container transition-all" id="btn-state-connecting" onclick="setPortalState('connecting')" type="button">Connecting</button>
+<button class="py-1 px-1.5 text-center rounded font-label-xs text-label-xs text-on-surface-variant hover:bg-surface-container transition-all" id="btn-state-error" onclick="setPortalState('error')" type="button">Error</button>
+<button class="py-1 px-1.5 text-center rounded font-label-xs text-label-xs text-on-surface-variant hover:bg-surface-container transition-all" id="btn-state-offline" onclick="setPortalState('offline')" type="button">Offline</button>
+</div>
+</div>
+<!-- Dynamic Status Banner Container -->
+<div class="hidden" id="statusAlertWrapper">
+<!-- Error Alert View -->
+<div class="hidden bg-error-container text-on-error-container rounded-lg p-3 flex items-start space-x-2.5" id="errorAlertBox">
+<span class="material-symbols-outlined text-error text-[20px] flex-shrink-0 mt-0.5">error</span>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm font-semibold text-error">Authentication Unsuccessful</p>
+<p class="font-body-sm text-body-sm mt-0.5 leading-snug">
+            We couldn’t sign you in. Check your institutional account or contact your university support team.
+          </p>
+</div>
+</div>
+<!-- Offline Alert View -->
+<div class="hidden bg-surface-container-high text-on-surface rounded-lg p-3 flex items-start space-x-2.5" id="offlineAlertBox">
+<span class="material-symbols-outlined text-outline text-[20px] flex-shrink-0 mt-0.5">wifi_off</span>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm font-semibold text-on-surface">Connection Unavailable</p>
+<p class="font-body-sm text-body-sm mt-0.5 text-on-surface-variant leading-snug">
+            You are currently offline. Check your network connection to sign in.
+          </p>
+</div>
+</div>
+</div>
+<!-- Primary Action: Institutional Single Sign-On -->
+<div class="flex flex-col space-y-space-sm">
+<button class="w-full min-h-[48px] bg-primary text-on-primary rounded-lg font-label-md text-label-md font-medium px-4 py-3 flex items-center justify-center space-x-2 shadow-sm hover:bg-primary-container active:scale-[0.99] transition-all focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2" id="signInSubmitBtn" onclick="handleAuthTrigger()" type="button">
+<span class="material-symbols-outlined text-[20px]" id="btnIcon">account_balance</span>
+<span id="btnText">Sign in with your institution</span>
+</button>
+<!-- Connecting indicator -->
+<div class="hidden flex items-center justify-center space-x-2 py-1 text-secondary" id="connectingDetails">
+<svg class="animate-spin h-4 w-4" fill="none" viewbox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 018-8v8H4z" fill="currentColor"></path>
+</svg>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Connecting to institutional identity service...</span>
+</div>
+</div>
+<!-- Institutional Routing & Security Note -->
+<div class="bg-surface-container-low rounded-lg p-3 flex items-start space-x-2.5">
+<span class="material-symbols-outlined text-secondary text-[18px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">shield</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Authenticated sessions automatically route to <span class="font-medium text-primary">S2: Home / Role Dashboard</span> according to your assigned institutional permissions.
+      </p>
+</div>
+</div>
+<!-- Operational Support Section -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="flex items-center space-x-2 text-primary font-medium">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span class="font-label-sm text-label-sm">Operational Assistance &amp; Escalation</span>
+</div>
+<div class="grid grid-cols-1 gap-2 pt-1">
+<a class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-colors" href="mailto:support@juune.ac.za?subject=Portal%20Sign-In%20Assistance">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">help_center</span>
+<span class="font-label-sm text-label-sm">Need sign-in assistance?</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px]">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-colors" href="mailto:support@juune.ac.za?subject=Institutional%20Operations%20Support">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">desk</span>
+<span class="font-label-sm text-label-sm">Contact University IT / Operations Support</span>
+</div>
+<span class="font-data-mono text-data-mono text-on-surface-variant">support@juune.ac.za</span>
+</a>
+</div>
+</div>
+<!-- Compliance & Audit Disclaimer Footer -->
+<div class="text-center px-space-sm space-y-space-xs pb-space-md">
+<div class="flex items-center justify-center space-x-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<p class="font-label-xs text-label-xs text-on-surface-variant">
+        Protected under institutional privacy policy and university access governance. Activity is audited for accountability.
+      </p>
+</div>
+<div class="flex items-center justify-center space-x-4 pt-1 font-label-xs text-label-xs text-secondary font-medium">
+<a class="hover:underline" href="javascript:void(0)" onclick="alert('Viewing University Privacy Governance')">Privacy Policy</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:underline" href="javascript:void(0)" onclick="alert('Viewing Institutional Terms of Service')">Terms of Service</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:underline" href="javascript:void(0)" onclick="alert('Viewing Access Audit Policy')">Audit Standards</a>
+</div>
+</div>
+</div>
+<script>
+  let currentAuthState = 'idle';
+
+  function setPortalState(state) {
+    currentAuthState = state;
+    const btn = document.getElementById('signInSubmitBtn');
+    const btnIcon = document.getElementById('btnIcon');
+    const btnText = document.getElementById('btnText');
+    const alertWrapper = document.getElementById('statusAlertWrapper');
+    const errorBox = document.getElementById('errorAlertBox');
+    const offlineBox = document.getElementById('offlineAlertBox');
+    const connectingDetails = document.getElementById('connectingDetails');
+    const stateLabel = document.getElementById('activeStateLabel');
+
+    // Reset button simulator styles
+    ['idle', 'connecting', 'error', 'offline'].forEach(s => {
+      const el = document.getElementById('btn-state-' + s);
+      if (el) {
+        if (s === state) {
+          el.className = 'py-1 px-1.5 text-center rounded font-label-xs text-label-xs bg-surface-container-lowest text-primary font-semibold shadow-xs transition-all';
+        } else {
+          el.className = 'py-1 px-1.5 text-center rounded font-label-xs text-label-xs text-on-surface-variant hover:bg-surface-container transition-all';
+        }
+      }
+    });
+
+    stateLabel.innerText = state.toUpperCase();
+
+    // Reset components
+    alertWrapper.classList.add('hidden');
+    errorBox.classList.add('hidden');
+    offlineBox.classList.add('hidden');
+    connectingDetails.classList.add('hidden');
+    btn.disabled = false;
+    btn.classList.remove('opacity-60', 'cursor-not-allowed', 'bg-surface-variant', 'text-on-surface-variant');
+    btn.classList.add('bg-primary', 'text-on-primary');
+
+    if (state === 'idle') {
+      btnIcon.innerText = 'account_balance';
+      btnText.innerText = 'Sign in with your institution';
+    } else if (state === 'connecting') {
+      btn.disabled = true;
+      btn.classList.add('opacity-75');
+      btnIcon.innerText = 'sync';
+      btnText.innerText = 'Connecting...';
+      connectingDetails.classList.remove('hidden');
+    } else if (state === 'error') {
+      alertWrapper.classList.remove('hidden');
+      errorBox.classList.remove('hidden');
+      btnIcon.innerText = 'refresh';
+      btnText.innerText = 'Retry institutional sign in';
+    } else if (state === 'offline') {
+      alertWrapper.classList.remove('hidden');
+      offlineBox.classList.remove('hidden');
+      btn.disabled = true;
+      btn.classList.remove('bg-primary', 'text-on-primary');
+      btn.classList.add('bg-surface-variant', 'text-on-surface-variant', 'opacity-60', 'cursor-not-allowed');
+      btnIcon.innerText = 'cloud_off';
+      btnText.innerText = 'Service Unreachable Offline';
+    }
+  }
+
+  function handleAuthTrigger() {
+    if (currentAuthState === 'idle' || currentAuthState === 'error') {
+      setPortalState('connecting');
+      setTimeout(() => {
+        // Return simulated success route notification
+        alert('Institutional Identity Provider verification triggered. Session will route to S2: Role Dashboard upon confirmation.');
+        setPortalState('idle');
+      }, 1400);
+    }
+  }
+</script></main></body></html>

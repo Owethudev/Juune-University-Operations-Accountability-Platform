@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-error":"#ffffff","on-primary-container":"#829ab8","on-tertiary-fixed-variant":"#00504d","on-surface-variant":"#43474d","surface-dim":"#d1dbe8","outline-variant":"#c3c6ce","on-tertiary-fixed":"#00201f","tertiary-container":"#003735","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#304963","error":"#ba1a1a","on-tertiary":"#ffffff","secondary-container":"#9bcefe","on-secondary-container":"#1e5882","secondary-fixed":"#cde5ff","primary-fixed":"#d0e4ff","on-secondary-fixed":"#001d32","surface-container-low":"#edf4ff","surface-bright":"#f7f9ff","on-primary-fixed":"#001d35","surface-container-highest":"#d9e3f0","on-secondary":"#ffffff","surface-variant":"#d9e3f0","on-surface":"#131d26","primary-fixed-dim":"#afc9e8","surface-container":"#e5effc","inverse-on-surface":"#e8f2ff","inverse-surface":"#28313b","on-error-container":"#93000a","tertiary-fixed-dim":"#90d2cf","on-secondary-fixed-variant":"#044b73","secondary":"#2b638c","tertiary":"#00201f","inverse-primary":"#afc9e8","surface-tint":"#48607c","primary-container":"#18324b","surface-container-high":"#dfe9f6","on-primary":"#ffffff","surface":"#f7f9ff","secondary-fixed-dim":"#98ccfb","error-container":"#ffdad6","background":"#f7f9ff","on-background":"#131d26","on-tertiary-container":"#62a3a0","primary":"#001d35","outline":"#73777e","tertiary-fixed":"#acefeb"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-lg":"1.5rem","space-md":"1rem","margin":"2rem","space-xs":"0.25rem","gutter":"1.5rem","space-xl":"2rem","space-sm":"0.5rem","margin-mobile":"1rem","gutter-mobile":"1rem"},"fontFamily":{"headline-sm":["Inter"],"headline-lg":["Inter"],"headline-md":["Inter"],"body-lg":["Inter"],"data-mono":["JetBrains Mono"],"body-md":["Inter"],"headline-lg-mobile":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"headline-xl-mobile":["Inter"],"label-xs":["Inter"],"label-md":["Inter"],"headline-xl":["Inter"]},"fontSize":{"headline-sm":["1.125rem",{"lineHeight":"1.5rem","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["1.25rem",{"lineHeight":"1.625rem","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["1rem",{"lineHeight":"1.5rem","fontWeight":"400"}],"data-mono":["0.8125rem",{"lineHeight":"1.125rem","fontWeight":"400"}],"body-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"400"}],"headline-lg-mobile":["1.375rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"body-sm":["0.8125rem",{"lineHeight":"1.125rem","fontWeight":"400"}],"label-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.01em","fontWeight":"500"}],"headline-xl-mobile":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"label-xs":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.025em","fontWeight":"600"}],"label-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"500"}],"headline-xl":["2.25rem",{"lineHeight":"2.75rem","letterSpacing":"-0.025em","fontWeight":"600"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-secondary-fixed text-[20px]">account_balance</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">JUUNE</span><span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Operations Core</span></div></div><span class="font-label-xs text-label-xs px-space-xs py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono">v4.2</span></div><div class="px-space-md py-space-xs"><div class="font-label-xs text-label-xs uppercase tracking-wider text-outline px-space-sm mb-space-xs">Workspace</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="home" href="#"><span>Home</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="my-requests" href="#"><span>My Requests</span></a><a aria-current="page" class="flex items-center justify-between px-space-sm py-2 rounded-lg transition-colors bg-primary-container text-on-primary font-label-md" data-path="announcements" href="#"><span>Announcements</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="opportunities" href="#"><span>Opportunities</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="notifications" href="#"><span>Notifications</span></a></nav></div><div class="px-space-md py-space-xs mt-space-xs"><div class="font-label-xs text-label-xs uppercase tracking-wider text-outline px-space-sm mb-space-xs">Governance &amp; Oversight</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="admin-console" href="#"><span>Admin Console</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="audit-log" href="#"><span>Audit Log</span></a></nav></div></div><div class="p-space-md bg-surface-container-lowest"><nav class="mb-space-sm" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="profile-and-settings" href="#"><span>Profile &amp; Settings</span></a></nav><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-sm text-label-sm text-on-surface truncate">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-on-surface-variant truncate">Facilities Ops Mgr</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="text-primary font-medium">Juune Central</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-on-surface-variant">Operations &amp; Accountability</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-on-surface font-medium">Announcements</span></div></div><div class="flex items-center gap-space-md"><div class="relative flex items-center w-72"><span class="material-symbols-outlined absolute left-3 text-[18px] text-outline pointer-events-none">search</span><input class="w-full h-9 pl-9 pr-space-sm bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-[0_1px_8px_rgba(0,0,0,0.04)] focus:ring-1 focus:ring-secondary placeholder:text-outline" placeholder="Search records, requests, audits..." type="search"/></div><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-center" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right"><span class="font-label-sm text-label-sm text-on-surface">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-secondary">Facilities Operations</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-margin bg-surface"><div class="flex flex-col w-full">
+<!-- Interactive Simulator Controller Bar -->
+<div class="w-full bg-primary-container text-on-primary py-2.5 px-space-md shadow-sm mb-space-md rounded-xl flex flex-wrap items-center justify-between gap-space-sm text-label-xs font-label-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1 font-semibold text-secondary-fixed">
+<span class="material-symbols-outlined text-[15px]">tune</span> Simulation State:
+      </span>
+<div class="flex items-center bg-primary rounded-lg p-0.5">
+<button class="px-2.5 py-1 rounded-DEFAULT bg-secondary text-on-primary font-medium transition-colors" id="role-dept-mgr" onclick="setRole('dept_mgr')">Dept Manager (Publisher)</button>
+<button class="px-2.5 py-1 rounded-DEFAULT text-on-primary-container hover:text-on-primary transition-colors" id="role-standard" onclick="setRole('standard')">Standard (Read-Only)</button>
+<button class="px-2.5 py-1 rounded-DEFAULT text-on-primary-container hover:text-on-primary transition-colors" id="role-admin" onclick="setRole('admin')">Admin (Auditor)</button>
+</div>
+<div class="h-4 w-px bg-outline-variant/30 hidden sm:block"></div>
+<div class="flex items-center gap-1 flex-wrap">
+<button class="px-2 py-1 rounded-DEFAULT bg-surface-container-highest/20 text-surface-bright hover:bg-surface-container-highest/40 transition" onclick="setSimState('normal')">Normal</button>
+<button class="px-2 py-1 rounded-DEFAULT bg-surface-container-highest/20 text-surface-bright hover:bg-surface-container-highest/40 transition" onclick="setSimState('detail')">Detail Active</button>
+<button class="px-2 py-1 rounded-DEFAULT bg-surface-container-highest/20 text-surface-bright hover:bg-surface-container-highest/40 transition" onclick="openPublishModal(1)">Modal Step 1</button>
+<button class="px-2 py-1 rounded-DEFAULT bg-surface-container-highest/20 text-surface-bright hover:bg-surface-container-highest/40 transition" onclick="openPublishModal(2)">Modal Step 2</button>
+<button class="px-2 py-1 rounded-DEFAULT bg-surface-container-highest/20 text-surface-bright hover:bg-surface-container-highest/40 transition" onclick="triggerToast()">Success Toast</button>
+<button class="px-2 py-1 rounded-DEFAULT bg-surface-container-highest/20 text-surface-bright hover:bg-surface-container-highest/40 transition" onclick="setSimState('empty')">Empty State</button>
+<button class="px-2 py-1 rounded-DEFAULT bg-surface-container-highest/20 text-surface-bright hover:bg-surface-container-highest/40 transition" onclick="setSimState('loading')">Loading</button>
+<button class="px-2 py-1 rounded-DEFAULT bg-surface-container-highest/20 text-surface-bright hover:bg-surface-container-highest/40 transition" onclick="setSimState('error')">Error / Offline</button>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-primary-container font-data-mono">
+<span>AUDIT_ENFORCED: YES</span>
+<span class="inline-block w-2 h-2 rounded-full bg-secondary-fixed"></span>
+</div>
+</div>
+<!-- Offline & Service Disruption Banner -->
+<div class="hidden w-full mb-space-md p-space-sm rounded-xl bg-error-container text-on-error-container items-center justify-between shadow-sm" id="sim-offline-banner">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-error">cloud_off</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold">Institutional Sync Service Offline</span>
+<span class="font-body-sm text-body-sm">Displaying locally cached bulletin snapshots (Cached: 24 Oct 2024, 08:30 GMT+2). Real-time distribution halted.</span>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-surface-container transition-colors shadow-sm" onclick="setSimState('normal')">
+      Retry Connection
+    </button>
+</div>
+<!-- Page Header & Action Bar -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-space-md pb-space-lg mb-space-md">
+<div class="flex flex-col max-w-3xl">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-container text-on-secondary-container font-label-xs text-label-xs uppercase font-semibold tracking-wider">Campus Communications Core</span>
+<span class="text-outline font-label-xs text-label-xs">•</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant font-data-mono">RETENTION_RULE_S6_ACTIVE</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Institutional Announcements &amp; Operational Bulletins</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Official notices, operational advisories, maintenance schedules, and cross-departmental policy bulletins across Juune campuses.</p>
+</div>
+<!-- Authorized Action Controls -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="h-10 px-3.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md flex items-center gap-1.5 shadow-sm" onclick="exportDigestModal()">
+<span class="material-symbols-outlined text-[18px] text-secondary">file_download</span>
+<span>Export Digest</span>
+</button>
+<button class="h-10 px-4 rounded-lg bg-primary text-on-primary hover:bg-secondary transition-colors font-label-md text-label-md flex items-center gap-1.5 shadow-sm" id="btn-create-announcement" onclick="openPublishModal(1)">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Create Announcement</span>
+</button>
+</div>
+</section>
+<!-- Filter & Audience Scoping Strip -->
+<section class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm mb-space-lg flex flex-col gap-space-md">
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+<!-- Search Input -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[19px] text-outline pointer-events-none">search</span>
+<input class="w-full h-10 pl-10 pr-space-md bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg outline-none focus:bg-surface-container-lowest focus:ring-1 focus:ring-secondary placeholder:text-outline transition-all" id="bulletin-search" oninput="handleSearch(this.value)" placeholder="Search announcements by keyword, tag, or publisher..." type="text"/>
+</div>
+<!-- Quick Urgency / Category & Expiry Selector -->
+<div class="flex items-center gap-space-sm flex-wrap shrink-0">
+<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-lg">
+<span class="font-label-xs text-label-xs text-outline uppercase">Category:</span>
+<select class="bg-transparent font-label-sm text-label-sm text-on-surface outline-none cursor-pointer" id="filter-urgency" onchange="applyFilters()">
+<option value="all">All Types</option>
+<option value="critical">Critical / Urgent</option>
+<option value="maintenance">Scheduled Maintenance</option>
+<option value="policy">Policy &amp; Procedure</option>
+<option value="service">Service Notice</option>
+</select>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-lg">
+<span class="font-label-xs text-label-xs text-outline uppercase">Scope:</span>
+<select class="bg-transparent font-label-sm text-label-sm text-on-surface outline-none cursor-pointer" id="filter-archive" onchange="applyFilters()">
+<option value="active">Active Only</option>
+<option value="scheduled">Scheduled Broadcasts</option>
+<option value="drafts">Drafts (Author Only)</option>
+<option value="archived">Expired Archive</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Segmented Audience Tabs -->
+<div class="flex items-center justify-between gap-space-md pt-space-xs flex-wrap">
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-medium transition-colors shrink-0" id="tab-all" onclick="setTab('all')">
+          All Active Announcements <span class="ml-1 opacity-80 font-data-mono">(14)</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors shrink-0" id="tab-inst" onclick="setTab('inst')">
+          Institution-Wide <span class="ml-1 opacity-80 font-data-mono">(6)</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors shrink-0" id="tab-fac" onclick="setTab('fac')">
+          Facilities &amp; Estates <span class="ml-1 opacity-80 font-data-mono">(4)</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors shrink-0" id="tab-it" onclick="setTab('it')">
+          IT &amp; Digital Services <span class="ml-1 opacity-80 font-data-mono">(3)</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors shrink-0" id="tab-admin" onclick="setTab('admin')">
+          Administrative &amp; Governance <span class="ml-1 opacity-80 font-data-mono">(1)</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-xs text-label-xs bg-surface-container px-2.5 py-1 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span>
+<span>Unpublished or expired items are strictly segregated from active campus feeds</span>
+</div>
+</div>
+</section>
+<!-- FEED & MASTER-DETAIL CONTENT AREA -->
+<div class="w-full grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start" id="sim-main-content">
+<!-- LEFT FEED COLUMN (Cards List) -->
+<div class="xl:col-span-7 flex flex-col gap-space-md" id="feed-column">
+<!-- Feed Summary Toolbar -->
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Live Operational Feed</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-data-mono text-label-xs">4 pinned/active</span>
+</div>
+<div class="flex items-center gap-2 text-label-xs font-label-xs text-on-surface-variant">
+<span>Sort:</span>
+<button class="font-semibold text-secondary hover:underline">Urgency &amp; Date ↓</button>
+</div>
+</div>
+<!-- Card 1: Urgent IT Maintenance (Selected by default) -->
+<article class="cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all relative overflow-hidden bg-gradient-to-r from-secondary/5 to-transparent" id="feed-card-1" onclick="selectAnnouncement(1)">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-error-container text-on-error-container font-label-xs text-label-xs font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">warning</span> Critical / Service Notice
+            </span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-medium">
+              IT Operations
+            </span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-medium">
+              Target: All Staff &amp; Students
+            </span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-secondary">push_pin</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight mb-2 hover:text-secondary transition-colors">
+          Campus Central Server Cluster Maintenance Scheduled for Saturday 22:00
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md line-clamp-2">
+          Critical firmware upgrades and failover tests will be conducted across the core data center virtualization cluster. Portal logins, LMS sync, and digital access card provisioning may encounter transient 15-minute blackouts.
+        </p>
+<!-- Metadata & Publisher -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-sm bg-surface-container-lowest">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-semibold text-label-xs">FC</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface">IT Operations Directorate • Farai Chidimuro (Sr Systems Lead)</span>
+<div class="flex items-center gap-2 font-label-xs text-label-xs text-outline font-data-mono">
+<span>Issued: 24 Oct 2024, 08:30</span>
+<span>•</span>
+<span class="text-error font-medium">Expires: 27 Oct 2024, 00:00</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container text-on-surface-variant font-label-xs text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">attachment</span> runbook.pdf
+            </span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">chat_bubble</span> 8 comments
+            </span>
+</div>
+</div>
+<!-- Authorized Publisher Action (Conditionally visible) -->
+<div class="mt-3 pt-2 bg-surface-container-low -mx-space-md -mb-space-md px-space-md py-2 flex items-center justify-between auth-action-row">
+<span class="font-label-xs text-label-xs text-on-surface-variant font-data-mono">BROADCAST_REACH: 14,280 SUBSCRIBERS</span>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded-DEFAULT bg-surface-container-highest text-on-surface text-label-xs font-label-xs hover:bg-surface-dim transition" onclick="event.stopPropagation(); alert('Broadcast alert queued for mobile SMS &amp; Push.')">Broadcast Update</button>
+<button class="px-2.5 py-1 rounded-DEFAULT bg-primary text-on-primary text-label-xs font-label-xs hover:bg-secondary transition" onclick="event.stopPropagation(); openPublishModal(1)">Edit Notice</button>
+</div>
+</div>
+</article>
+<!-- Card 2: Facilities Hazardous Material (Published by Current User Nomvula) -->
+<article class="cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all" id="feed-card-2" onclick="selectAnnouncement(2)">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed font-label-xs text-label-xs font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">policy</span> Policy &amp; Safety
+            </span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-medium">
+              Facilities Operations
+            </span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-container text-on-secondary-container font-label-xs text-label-xs font-medium">
+              Target: Lab Staff &amp; Facilities Ops
+            </span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary text-on-primary font-label-xs text-label-xs font-semibold">You Published This</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight mb-2 hover:text-secondary transition-colors">
+          New Facilities Hazardous Material Handling Protocol Pilot
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md line-clamp-2">
+          Updated waste containment criteria for bio-hazard Level 2 laboratories in Biological Sciences and Chemical Engineering. Mandatory color-coded secondary drums arrive Monday; training verification required before Friday.
+        </p>
+<!-- Metadata & Publisher -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-on-primary font-semibold text-label-xs">NK</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Facilities Operations • Nomvula Khumalo (You)</span>
+<div class="flex items-center gap-2 font-label-xs text-label-xs text-outline font-data-mono">
+<span>Issued: 22 Oct 2024, 14:15</span>
+<span>•</span>
+<span>Expires: 30 Nov 2024</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container text-on-surface-variant font-label-xs text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">attachment</span> hazmat_sop_v2.pdf
+            </span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-low text-on-surface-variant font-label-xs text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">chat_bubble</span> 3 inquiries
+            </span>
+</div>
+</div>
+<!-- Authorized Publisher Action -->
+<div class="mt-3 pt-2 bg-surface-container-low -mx-space-md -mb-space-md px-space-md py-2 flex items-center justify-between auth-action-row">
+<span class="font-label-xs text-label-xs text-on-surface-variant font-data-mono">AUDIT_ID: BUL-2024-FAC-092</span>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded-DEFAULT bg-surface-container-highest text-on-surface text-label-xs font-label-xs hover:bg-surface-dim transition" onclick="event.stopPropagation(); openPublishModal(1)">Edit Notice</button>
+<button class="px-2.5 py-1 rounded-DEFAULT bg-primary text-on-primary text-label-xs font-label-xs hover:bg-secondary transition" onclick="event.stopPropagation(); alert('Notice lifecycle management drawer opened.')">Manage Notice</button>
+</div>
+</div>
+</article>
+<!-- Card 3: Pretoria Campus East Gate -->
+<article class="cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all" id="feed-card-3" onclick="selectAnnouncement(3)">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-semibold">
+              Estates &amp; Access
+            </span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs font-medium">
+              Target: East Campus Staff
+            </span>
+</div>
+<span class="font-label-xs text-label-xs text-outline font-data-mono">SCHEDULED_ACTIVE</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight mb-2 hover:text-secondary transition-colors">
+          Pretoria Campus East Gate Access Turnstile Upgrades
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md line-clamp-2">
+          Turnstiles 3 &amp; 4 will be decommissioned between 06:00 and 14:00 daily for optical sensor alignment. Please utilize West Gate or Main Boulevard transit gates during heavy morning intake hours.
+        </p>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface font-semibold text-label-xs">JR</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface">Campus Security &amp; Registrar • Johan van Rensburg</span>
+<div class="flex items-center gap-2 font-label-xs text-label-xs text-outline font-data-mono">
+<span>Issued: 20 Oct 2024</span>
+<span>•</span>
+<span>Expires: 15 Nov 2024</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 text-label-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">chat_bubble</span> 0 inquiries
+          </div>
+</div>
+</article>
+<!-- Card 4: Energy Conservation Chiller Plant -->
+<article class="cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all" id="feed-card-4" onclick="selectAnnouncement(4)">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-semibold">
+              Sustainability &amp; Operations
+            </span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-medium">
+              Target: Campus-wide
+            </span>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight mb-2 hover:text-secondary transition-colors">
+          Quarterly Energy Conservation &amp; Chiller Plant Load Management
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md line-clamp-2">
+          Peak electricity tariff avoidance protocol initiates this Thursday. South and West academic blocks will cycle central air handling fans at 20-minute staggered intervals between 13:00 and 15:30.
+        </p>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface font-semibold text-label-xs">BM</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface">Engineering Services • Bongani Moyo</span>
+<div class="flex items-center gap-2 font-label-xs text-label-xs text-outline font-data-mono">
+<span>Issued: 18 Oct 2024</span>
+</div>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container text-on-surface-variant font-label-xs text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">attachment</span> chiller_cycle_map.pdf
+          </span>
+</div>
+</article>
+</div>
+<!-- RIGHT COLUMN: MASTER-DETAIL & OPERATIONAL DISCUSSION -->
+<div class="xl:col-span-5 flex flex-col gap-space-md sticky top-20" id="detail-column">
+<!-- Announcement Reader Card -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<!-- Reader Header -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-secondary font-semibold font-data-mono">BULLETIN_VIEWER // ID: BUL-2024-IT-108</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded-DEFAULT text-outline hover:text-on-surface transition" onclick="window.print()" title="Print Directive"><span class="material-symbols-outlined text-[18px]">print</span></button>
+<button class="p-1 rounded-DEFAULT text-outline hover:text-on-surface transition" onclick="copyNoticeLink()" title="Copy Link"><span class="material-symbols-outlined text-[18px]">link</span></button>
+<button class="p-1 rounded-DEFAULT text-outline hover:text-on-surface transition" title="Bookmark"><span class="material-symbols-outlined text-[18px]">bookmark_border</span></button>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight leading-snug" id="detail-title">
+            Campus Central Server Cluster Maintenance Scheduled for Saturday 22:00
+          </h2>
+<!-- Reader Meta Pill Group -->
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-error-container text-on-error-container font-label-xs text-label-xs font-semibold">Critical Maintenance</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs">Infrastructure Tier-1</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs font-data-mono">Audited Record #9021</span>
+</div>
+</div>
+<!-- Target Audience Matrix Box -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1.5 text-body-sm font-body-sm">
+<div class="flex items-center justify-between text-label-xs font-label-xs">
+<span class="font-semibold text-primary uppercase">Target Audience Scope</span>
+<span class="text-secondary font-data-mono">Scope Reach: 100% Campus Accounts</span>
+</div>
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-lowest text-on-surface text-label-xs font-label-xs">All Registered Academics</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-lowest text-on-surface text-label-xs font-label-xs">Postgraduate Researchers</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-lowest text-on-surface text-label-xs font-label-xs">Administrative Staff</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-lowest text-on-surface text-label-xs font-label-xs">Undergraduate Portal Users</span>
+</div>
+</div>
+<!-- Article Body Typography -->
+<div class="space-y-space-sm text-body-md font-body-md text-on-surface">
+<p class="leading-relaxed">
+            The IT Operations Directorate will conduct scheduled infrastructure maintenance on core hypervisor nodes servicing Juune Central databases, student enrollment portals, and academic ledger interfaces.
+          </p>
+<!-- Highlighted Policy Callout -->
+<div class="p-space-sm rounded-lg bg-secondary-container/30 border-l-4 border-secondary text-body-sm font-body-sm">
+<div class="font-semibold text-primary mb-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">info</span> Operational Guidance for Staff:
+            </div>
+<p class="text-on-surface-variant">
+              Please finalize and save all marks entry, financial requisitions, and leave applications by 21:30 Saturday evening. Active VPN sessions will be terminated automatically at 22:00.
+            </p>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary pt-1">Impact Schedule &amp; Fallback Window</h3>
+<ul class="list-disc pl-5 space-y-1 text-on-surface-variant text-body-sm font-body-sm">
+<li><strong>22:00 – 23:15:</strong> Database cluster isolated; read-only campus directory.</li>
+<li><strong>23:15 – 01:30:</strong> Storage SAN optical link replacement; intermittent portal 503 states.</li>
+<li><strong>01:30 – 03:00:</strong> Disaster recovery replication audit and system unfreeze.</li>
+</ul>
+</div>
+<!-- Directive Document Downloads -->
+<div class="pt-2">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline font-semibold mb-2 block">Attached Directives &amp; Operational Docs</span>
+<div class="flex flex-col gap-2">
+<a class="p-2.5 rounded-lg bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition group" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[20px] text-error">picture_as_pdf</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface group-hover:text-primary font-medium">maintenance_window_runbook.pdf</span>
+<span class="font-label-xs text-label-xs text-outline font-data-mono">1.8 MB • SHA-256 Verified Directive</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline group-hover:text-primary">download</span>
+</a>
+</div>
+</div>
+<!-- Moderated Discussion / Operational Inquiry Section -->
+<div class="mt-space-sm pt-space-md border-t border-surface-container-highest/60 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary">Operational Inquiries</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-data-mono text-label-xs">3 Logged</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">shield</span> Audited Thread
+            </span>
+</div>
+<!-- Existing Thread Replies -->
+<div class="space-y-space-sm max-h-72 overflow-y-auto pr-1">
+<!-- Comment 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low text-body-sm font-body-sm flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-semibold text-primary">Dr. Sithole (Chemistry Dept)</span>
+<span class="px-1.5 py-0.2 rounded-DEFAULT bg-surface-container-highest text-on-surface-variant text-label-xs font-label-xs">Academic Staff</span>
+</div>
+<span class="text-outline text-label-xs font-label-xs font-data-mono">24 Oct, 09:15</span>
+</div>
+<p class="text-on-surface-variant">
+                Will Science Lab 3 backup environmental chillers run uninterrupted during the SAN storage switchover at 23:15? We have automated reagent monitoring logs active.
+              </p>
+</div>
+<!-- Dispatch Response -->
+<div class="p-space-sm rounded-lg bg-surface-container ml-space-md text-body-sm font-body-sm flex flex-col gap-1 border-l-2 border-secondary">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-semibold text-secondary">Farai Chidimuro (IT Ops Dispatch)</span>
+<span class="px-1.5 py-0.2 rounded-DEFAULT bg-secondary-container text-on-secondary-container text-label-xs font-label-xs font-semibold">Author Verified</span>
+</div>
+<span class="text-outline text-label-xs font-label-xs font-data-mono">24 Oct, 09:42</span>
+</div>
+<p class="text-on-surface">
+                Confirmed Dr. Sithole: Building 4 generator bus ties remain energized on dedicated local relays. Environmental sensor streams will store locally and backfill once database reconnects at 01:30.
+              </p>
+</div>
+<!-- Comment 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low text-body-sm font-body-sm flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-semibold text-primary">M. Pretorius (Exam Administration)</span>
+<span class="px-1.5 py-0.2 rounded-DEFAULT bg-surface-container-highest text-on-surface-variant text-label-xs font-label-xs">Registrar Office</span>
+</div>
+<span class="text-outline text-label-xs font-label-xs font-data-mono">24 Oct, 10:04</span>
+</div>
+<p class="text-on-surface-variant">
+                Understood. We have notified distance learners writing online weekend formative tests that the portal cutoff is 21:00.
+              </p>
+</div>
+</div>
+<!-- Moderated Reply Input Box -->
+<div class="flex flex-col gap-2 pt-space-xs">
+<div class="relative">
+<textarea class="w-full p-2.5 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg outline-none focus:bg-surface-container-lowest focus:ring-1 focus:ring-secondary placeholder:text-outline transition-all" id="comment-input" placeholder="Post an operational question or verification inquiry..." rows="2"></textarea>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline">
+<span class="material-symbols-outlined text-[12px] align-middle">lock</span> Comments are logged to institutional audit record.
+              </span>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-secondary transition font-label-sm text-label-sm font-medium shadow-sm" onclick="postComment()">
+                Submit Inquiry
+              </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- SKELETON LOADING STATE VIEW -->
+<div class="hidden w-full grid-cols-1 xl:grid-cols-12 gap-space-lg" id="sim-loading-view">
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<div class="h-6 w-48 bg-surface-container-highest animate-pulse rounded-DEFAULT"></div>
+<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col gap-3 animate-pulse">
+<div class="h-4 w-1/3 bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-6 w-3/4 bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-14 w-full bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-4 w-1/2 bg-surface-container-highest rounded-DEFAULT"></div>
+</div>
+<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col gap-3 animate-pulse">
+<div class="h-4 w-1/4 bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-6 w-2/3 bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-14 w-full bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-4 w-1/3 bg-surface-container-highest rounded-DEFAULT"></div>
+</div>
+</div>
+<div class="xl:col-span-5 flex flex-col gap-space-md">
+<div class="p-space-lg bg-surface-container-lowest rounded-xl shadow-sm flex flex-col gap-4 animate-pulse">
+<div class="h-4 w-1/4 bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-8 w-full bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-20 w-full bg-surface-container-highest rounded-DEFAULT"></div>
+<div class="h-40 w-full bg-surface-container-highest rounded-DEFAULT"></div>
+</div>
+</div>
+</div>
+<!-- EMPTY FEED STATE VIEW -->
+<div class="hidden w-full py-16 flex-col items-center justify-center text-center bg-surface-container-lowest rounded-xl shadow-sm p-space-xl" id="sim-empty-view">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-outline mb-space-md">
+<span class="material-symbols-outlined text-[36px]">campaign</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">No Active Announcements in this Category</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-space-lg">
+      All previous bulletins for this scope have concluded or reached their mandatory expiration window. Unscheduled or expired items are segregated in the Institutional Compliance Ledger.
+    </p>
+<div class="flex items-center gap-space-sm">
+<button class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition" onclick="setTab('all')">
+        Reset Scope Filters
+      </button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition" onclick="openPublishModal(1)">
+        Draft New Notice
+      </button>
+</div>
+</div>
+<!-- ERROR / FAULT STATE VIEW -->
+<div class="hidden w-full py-16 flex-col items-center justify-center text-center bg-surface-container-lowest rounded-xl shadow-sm p-space-xl" id="sim-error-view">
+<div class="w-16 h-16 rounded-full bg-error-container text-on-error-container flex items-center justify-center mb-space-md">
+<span class="material-symbols-outlined text-[36px]">error_outline</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-error mb-1">Failed to Synchronize Institutional Bulletins</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-space-lg">
+      The authoritative announcement relay cluster returned a temporary authorization verification error (ERR_TOKEN_STALE_FACILITIES_502).
+    </p>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition" onclick="setSimState('normal')">
+      Re-authenticate &amp; Reload Feed
+    </button>
+</div>
+<!-- PUBLISHING MODAL / STEPPER DRAWER (Step 1 & Step 2) -->
+<div class="fixed inset-0 bg-primary/45 backdrop-blur-sm z-50 hidden flex items-center justify-center p-space-md" id="publish-modal-backdrop">
+<div class="bg-surface-container-lowest w-full max-w-3xl rounded-xl shadow-2xl flex flex-col max-h-[942px] overflow-hidden">
+<!-- Modal Header -->
+<div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary">Create Institutional Announcement</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono text-label-xs">COMPLIANCE_MODE</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Authorized publishing unit: Facilities Operations &amp; Campus Estates</span>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-on-surface hover:bg-surface-container transition" onclick="closePublishModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Stepper Indicator Strip -->
+<div class="px-space-lg py-2.5 bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-on-primary bg-primary px-2.5 py-1 rounded-full font-semibold" id="step-pill-1">
+<span>1</span>
+<span>Compose Notice</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px]">chevron_right</span>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-outline px-2.5 py-1 rounded-full" id="step-pill-2">
+<span>2</span>
+<span>Preview &amp; Audience Verification</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px]">chevron_right</span>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-outline px-2.5 py-1 rounded-full">
+<span>3</span>
+<span>Publish &amp; Broadcast</span>
+</div>
+</div>
+<span class="font-label-xs text-label-xs text-outline font-data-mono hidden sm:inline">STEP_ID: S6_DRAFT_STAGE</span>
+</div>
+<!-- STEP 1: COMPOSE NOTICE FORM -->
+<div class="p-space-lg overflow-y-auto space-y-space-md" id="modal-step-1">
+<!-- Title Input -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-semibold text-primary">Announcement Title *</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm outline-none focus:ring-1 focus:ring-secondary" id="input-title" placeholder="Enter clear descriptive announcement headline..." type="text" value="Main Academic Library Ventilation System Maintenance"/>
+</div>
+<!-- Publishing Unit & Category Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-semibold text-primary">Publishing Unit / Department</label>
+<div class="flex items-center gap-2 h-10 px-3 rounded-lg bg-surface-container text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">verified</span>
+<span>Facilities Operations &amp; Maintenance (Author Locked)</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-semibold text-primary">Notice Category *</label>
+<select class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm outline-none focus:ring-1 focus:ring-secondary cursor-pointer" id="input-category">
+<option value="Operational Advisory">Operational Advisory</option>
+<option selected="" value="Scheduled Maintenance">Scheduled Maintenance</option>
+<option value="Critical Alert">Critical Alert / Urgent Notice</option>
+<option value="Policy &amp; Procedure">Policy &amp; Procedure Bulletin</option>
+</select>
+</div>
+</div>
+<!-- Target Audience Multi-Select Chips -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm font-semibold text-primary">Select Target Audiences *</label>
+<div class="flex flex-wrap gap-2">
+<label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition text-body-sm font-body-sm">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-0" type="checkbox"/>
+<span>All University Staff</span>
+</label>
+<label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition text-body-sm font-body-sm">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-0" type="checkbox"/>
+<span>All Faculty &amp; Academics</span>
+</label>
+<label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition text-body-sm font-body-sm">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-0" type="checkbox"/>
+<span>Facilities Technicians</span>
+</label>
+<label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition text-body-sm font-body-sm">
+<input class="w-4 h-4 rounded text-primary focus:ring-0" type="checkbox"/>
+<span>Lab Safety Officers</span>
+</label>
+<label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition text-body-sm font-body-sm">
+<input class="w-4 h-4 rounded text-primary focus:ring-0" type="checkbox"/>
+<span>Contractors &amp; Vendors</span>
+</label>
+</div>
+</div>
+<!-- Rich Text Body Composer -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm font-semibold text-primary">Directive Body &amp; Notice Details *</label>
+<span class="font-label-xs text-label-xs text-outline">Markdown &amp; Rich Formatting Enabled</span>
+</div>
+<!-- Composer Toolbar -->
+<div class="flex items-center gap-1 bg-surface-container px-2 py-1 rounded-t-lg">
+<button class="p-1 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition"><span class="material-symbols-outlined text-[17px]">format_bold</span></button>
+<button class="p-1 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition"><span class="material-symbols-outlined text-[17px]">format_italic</span></button>
+<button class="p-1 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition"><span class="material-symbols-outlined text-[17px]">format_list_bulleted</span></button>
+<button class="p-1 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition"><span class="material-symbols-outlined text-[17px]">link</span></button>
+<button class="p-1 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition"><span class="material-symbols-outlined text-[17px]">warning</span></button>
+</div>
+<textarea class="w-full p-3 rounded-b-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm outline-none focus:ring-1 focus:ring-secondary" id="input-body" placeholder="Draft official communication details, procedural steps, and operational workarounds..." rows="4">Air handling unit AHU-02 servicing floors 2 and 3 of the Main Academic Library will undergo scheduled bearing overhaul this Sunday between 07:00 and 15:00. Quiet study rooms on Floor 3 will be ventilated via passive damper relays; temperature variances of ±2°C are anticipated.</textarea>
+</div>
+<!-- Schedule, Expiry & Archiving Rules -->
+<div class="p-space-md rounded-lg bg-surface-container-low space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-primary">Publication Schedule &amp; Expiry Rule</span>
+<span class="font-label-xs text-label-xs text-secondary font-data-mono">STRICT_ARCHIVAL_ENFORCED</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div>
+<label class="font-label-xs text-label-xs uppercase text-outline">Publication State</label>
+<div class="flex items-center gap-2 mt-1">
+<label class="inline-flex items-center gap-1.5 text-body-sm font-body-sm">
+<input checked="" class="text-primary" name="pub_sched" type="radio"/>
+<span>Publish Immediately</span>
+</label>
+<label class="inline-flex items-center gap-1.5 text-body-sm font-body-sm">
+<input class="text-primary" name="pub_sched" type="radio"/>
+<span>Schedule Future Date</span>
+</label>
+</div>
+</div>
+<div>
+<label class="font-label-xs text-label-xs uppercase text-outline">Auto-Expire Notice After *</label>
+<select class="w-full h-9 mt-1 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm outline-none">
+<option>3 Days</option>
+<option selected="">7 Days (Standard)</option>
+<option>14 Days</option>
+<option>30 Days</option>
+<option>Custom Date...</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<input checked="" class="w-4 h-4 rounded text-primary" id="discussion-permit" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface cursor-pointer" for="discussion-permit">
+              Allow verified staff discussion &amp; operational inquiries
+            </label>
+</div>
+<p class="font-label-xs text-label-xs text-outline">
+            * Unpublished or expired announcements are automatically removed from current feeds and archived to the institutional compliance ledger.
+          </p>
+</div>
+<!-- Attachments Dropzone -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-semibold text-primary">Directive Documents &amp; Floor Plans (PDF up to 10MB)</label>
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container transition">
+<span class="material-symbols-outlined text-[28px] text-secondary mb-1">upload_file</span>
+<span class="font-label-sm text-label-sm font-medium text-on-surface">Click to upload directive PDF or drag into this zone</span>
+<span class="font-label-xs text-label-xs text-outline font-data-mono">Accepted: PDF, PNG, CSV (Max 10MB)</span>
+</div>
+</div>
+</div>
+<!-- STEP 2: PREVIEW & AUDIENCE VERIFICATION -->
+<div class="hidden p-space-lg overflow-y-auto space-y-space-md" id="modal-step-2">
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">visibility</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">Pre-Publication Fidelity Verification</span>
+</div>
+<span class="font-data-mono text-label-xs text-secondary font-semibold">ESTIMATED_REACH: ~1,420 ACCOUNTS</span>
+</div>
+<!-- Preview Mockup Card -->
+<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-md border-l-4 border-secondary space-y-3">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface font-label-xs text-label-xs font-semibold">Scheduled Maintenance</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-container text-on-secondary-container font-label-xs text-label-xs font-medium">Facilities Operations</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-medium">Target: Staff &amp; Faculty</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary" id="preview-heading">
+            Main Academic Library Ventilation System Maintenance
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant" id="preview-body-text">
+            Air handling unit AHU-02 servicing floors 2 and 3 of the Main Academic Library will undergo scheduled bearing overhaul this Sunday between 07:00 and 15:00. Quiet study rooms on Floor 3 will be ventilated via passive damper relays; temperature variances of ±2°C are anticipated.
+          </p>
+<div class="pt-2 flex items-center justify-between text-label-xs font-label-xs text-outline font-data-mono">
+<span>Publisher: Nomvula Khumalo (Facilities Ops Mgr)</span>
+<span>Auto-Archive: Active + 7 Days</span>
+</div>
+</div>
+<!-- Audience Impact Ledger Confirmation -->
+<div class="p-space-md rounded-lg bg-surface-container-low space-y-2">
+<span class="font-label-sm text-label-sm font-semibold text-primary block">Broadcast Impact &amp; Notification Summary</span>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+<div class="p-2 rounded-DEFAULT bg-surface-container-lowest">
+<span class="font-headline-sm text-headline-sm text-primary block">840</span>
+<span class="font-label-xs text-label-xs text-outline">University Staff</span>
+</div>
+<div class="p-2 rounded-DEFAULT bg-surface-container-lowest">
+<span class="font-headline-sm text-headline-sm text-primary block">580</span>
+<span class="font-label-xs text-label-xs text-outline">Academic Faculty</span>
+</div>
+<div class="p-2 rounded-DEFAULT bg-surface-container-lowest">
+<span class="font-headline-sm text-headline-sm text-primary block">38</span>
+<span class="font-label-xs text-label-xs text-outline">Facilities Techs</span>
+</div>
+<div class="p-2 rounded-DEFAULT bg-surface-container-lowest">
+<span class="font-headline-sm text-headline-sm text-secondary block">100%</span>
+<span class="font-label-xs text-label-xs text-outline">Audit Logging</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-between">
+<button class="px-4 py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition font-label-md text-label-md" onclick="closePublishModal()">
+          Cancel
+        </button>
+<div class="flex items-center gap-space-sm">
+<button class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition font-label-md text-label-md" id="modal-btn-draft" onclick="saveDraft()">
+            Save as Draft
+          </button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-secondary transition font-label-md text-label-md flex items-center gap-1" id="modal-btn-step1" onclick="openPublishModal(2)">
+<span>Continue to Preview</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="hidden px-5 py-2 rounded-lg bg-primary text-on-primary hover:bg-secondary transition font-label-md text-label-md flex items-center gap-1.5 shadow-md" id="modal-btn-step2" onclick="confirmPublish()">
+<span class="material-symbols-outlined text-[18px]">publish</span>
+<span>Confirm &amp; Publish Announcement</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- PUBLISH SUCCESS TOAST -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-surface-container-lowest p-space-md rounded-xl shadow-xl flex items-center gap-space-md max-w-md border-l-4 border-secondary" id="sim-toast">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="font-label-sm text-label-sm font-semibold text-primary">Announcement Broadcast Queued</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Notice published to 1,420 accounts. Audited in compliance ledger S6-BUL-2024-FAC.</span>
+</div>
+<button class="text-outline hover:text-on-surface" onclick="dismissToast()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- EXPORT DIGEST DIALOG -->
+<div class="fixed inset-0 bg-primary/45 backdrop-blur-sm z-50 hidden flex items-center justify-center p-space-md" id="export-modal">
+<div class="bg-surface-container-lowest w-full max-w-md rounded-xl shadow-xl p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-primary">Export Bulletin Digest</h3>
+<button class="text-outline hover:text-on-surface" onclick="document.getElementById('export-modal').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Generate a cryptographically signed operational digest of all current campus bulletins for departmental morning shift standups or archival compliance.
+      </p>
+<div class="space-y-2">
+<label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+<input checked="" class="text-primary" name="digest_fmt" type="radio"/>
+<span class="font-label-sm text-label-sm text-on-surface">Consolidated Operational PDF (Weekly Standup)</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+<input class="text-primary" name="digest_fmt" type="radio"/>
+<span class="font-label-sm text-label-sm text-on-surface">Structured CSV / JSON Ledger Feed</span>
+</label>
+</div>
+<div class="flex items-center justify-end gap-2 pt-2">
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md" onclick="document.getElementById('export-modal').classList.add('hidden')">Cancel</button>
+<button class="px-4 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition" onclick="document.getElementById('export-modal').classList.add('hidden'); alert('Generating institutional digest package... Download initiated.');">Download Digest</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Logic for Multi-State Simulation & Micro-interactions -->
+<script>
+  let currentRole = 'dept_mgr';
+  let currentSimState = 'normal';
+
+  function setRole(role) {
+    currentRole = role;
+    const btnMgr = document.getElementById('role-dept-mgr');
+    const btnStd = document.getElementById('role-standard');
+    const btnAdm = document.getElementById('role-admin');
+    const createBtn = document.getElementById('btn-create-announcement');
+    const authActionRows = document.querySelectorAll('.auth-action-row');
+
+    btnMgr.className = 'px-2.5 py-1 rounded-DEFAULT transition-colors ' + (role === 'dept_mgr' ? 'bg-secondary text-on-primary font-medium' : 'text-on-primary-container hover:text-on-primary');
+    btnStd.className = 'px-2.5 py-1 rounded-DEFAULT transition-colors ' + (role === 'standard' ? 'bg-secondary text-on-primary font-medium' : 'text-on-primary-container hover:text-on-primary');
+    btnAdm.className = 'px-2.5 py-1 rounded-DEFAULT transition-colors ' + (role === 'admin' ? 'bg-secondary text-on-primary font-medium' : 'text-on-primary-container hover:text-on-primary');
+
+    if (role === 'standard') {
+      createBtn.classList.add('hidden');
+      authActionRows.forEach(el => el.classList.add('hidden'));
+    } else {
+      createBtn.classList.remove('hidden');
+      authActionRows.forEach(el => el.classList.remove('hidden'));
+    }
+  }
+
+  function setSimState(state) {
+    currentSimState = state;
+    const mainContent = document.getElementById('sim-main-content');
+    const loadingView = document.getElementById('sim-loading-view');
+    const emptyView = document.getElementById('sim-empty-view');
+    const errorView = document.getElementById('sim-error-view');
+    const offlineBanner = document.getElementById('sim-offline-banner');
+
+    // Hide all
+    mainContent.classList.remove('hidden', 'grid');
+    loadingView.classList.add('hidden');
+    loadingView.classList.remove('grid');
+    emptyView.classList.add('hidden');
+    emptyView.classList.remove('flex');
+    errorView.classList.add('hidden');
+    errorView.classList.remove('flex');
+    offlineBanner.classList.add('hidden');
+    offlineBanner.classList.remove('flex');
+
+    if (state === 'normal' || state === 'detail') {
+      mainContent.classList.add('grid');
+      if (state === 'detail') {
+        selectAnnouncement(1);
+      }
+    } else if (state === 'loading') {
+      mainContent.classList.add('hidden');
+      loadingView.classList.remove('hidden');
+      loadingView.classList.add('grid');
+    } else if (state === 'empty') {
+      mainContent.classList.add('hidden');
+      emptyView.classList.remove('hidden');
+      emptyView.classList.add('flex');
+    } else if (state === 'error') {
+      mainContent.classList.add('hidden');
+      errorView.classList.remove('hidden');
+      errorView.classList.add('flex');
+      offlineBanner.classList.remove('hidden');
+      offlineBanner.classList.add('flex');
+    }
+  }
+
+  function setTab(tab) {
+    ['all', 'inst', 'fac', 'it', 'admin'].forEach(t => {
+      const el = document.getElementById('tab-' + t);
+      if (t === tab) {
+        el.className = 'px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-medium transition-colors shrink-0';
+      } else {
+        el.className = 'px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors shrink-0';
+      }
+    });
+
+    if (tab === 'admin') {
+      // simulate filtered empty for demonstration
+      setSimState('normal');
+    } else {
+      setSimState('normal');
+    }
+  }
+
+  function applyFilters() {
+    const val = document.getElementById('filter-archive').value;
+    if (val === 'archived' || val === 'drafts') {
+      setSimState('empty');
+    } else {
+      setSimState('normal');
+    }
+  }
+
+  function handleSearch(query) {
+    if (query.trim().toLowerCase() === 'none') {
+      setSimState('empty');
+    } else if (currentSimState === 'empty') {
+      setSimState('normal');
+    }
+  }
+
+  function selectAnnouncement(id) {
+    const cards = [1, 2, 3, 4];
+    cards.forEach(c => {
+      const el = document.getElementById('feed-card-' + c);
+      if (el) {
+        if (c === id) {
+          el.classList.add('ring-2', 'ring-secondary', 'bg-surface-container-low');
+        } else {
+          el.classList.remove('ring-2', 'ring-secondary', 'bg-surface-container-low');
+        }
+      }
+    });
+
+    const titleEl = document.getElementById('detail-title');
+    if (id === 1) {
+      titleEl.innerText = "Campus Central Server Cluster Maintenance Scheduled for Saturday 22:00";
+    } else if (id === 2) {
+      titleEl.innerText = "New Facilities Hazardous Material Handling Protocol Pilot";
+    } else if (id === 3) {
+      titleEl.innerText = "Pretoria Campus East Gate Access Turnstile Upgrades";
+    } else if (id === 4) {
+      titleEl.innerText = "Quarterly Energy Conservation & Chiller Plant Load Management";
+    }
+  }
+
+  function openPublishModal(step) {
+    const modal = document.getElementById('publish-modal-backdrop');
+    const step1 = document.getElementById('modal-step-1');
+    const step2 = document.getElementById('modal-step-2');
+    const pill1 = document.getElementById('step-pill-1');
+    const pill2 = document.getElementById('step-pill-2');
+    const btnStep1 = document.getElementById('modal-btn-step1');
+    const btnStep2 = document.getElementById('modal-btn-step2');
+    const btnDraft = document.getElementById('modal-btn-draft');
+
+    modal.classList.remove('hidden');
+
+    if (step === 1) {
+      step1.classList.remove('hidden');
+      step2.classList.add('hidden');
+      pill1.className = 'flex items-center gap-1.5 text-label-sm font-label-sm text-on-primary bg-primary px-2.5 py-1 rounded-full font-semibold';
+      pill2.className = 'flex items-center gap-1.5 text-label-sm font-label-sm text-outline px-2.5 py-1 rounded-full';
+      btnStep1.classList.remove('hidden');
+      btnStep2.classList.add('hidden');
+      btnDraft.classList.remove('hidden');
+    } else if (step === 2) {
+      step1.classList.add('hidden');
+      step2.classList.remove('hidden');
+      pill1.className = 'flex items-center gap-1.5 text-label-sm font-label-sm text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-full';
+      pill2.className = 'flex items-center gap-1.5 text-label-sm font-label-sm text-on-primary bg-secondary px-2.5 py-1 rounded-full font-semibold';
+      btnStep1.classList.add('hidden');
+      btnStep2.classList.remove('hidden');
+      btnDraft.classList.add('hidden');
+
+      // Populate preview values
+      const titleVal = document.getElementById('input-title').value;
+      const bodyVal = document.getElementById('input-body').value;
+      document.getElementById('preview-heading').innerText = titleVal || "Notice Title";
+      document.getElementById('preview-body-text').innerText = bodyVal || "Notice details...";
+    }
+  }
+
+  function closePublishModal() {
+    document.getElementById('publish-modal-backdrop').classList.add('hidden');
+  }
+
+  function confirmPublish() {
+    closePublishModal();
+    triggerToast();
+  }
+
+  function saveDraft() {
+    closePublishModal();
+    alert('Notice saved as author draft #DRF-2024-FAC. Hidden from public campus feed.');
+  }
+
+  function triggerToast() {
+    const toast = document.getElementById('sim-toast');
+    toast.classList.remove('translate-y-24', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    setTimeout(() => {
+      dismissToast();
+    }, 4500);
+  }
+
+  function dismissToast() {
+    const toast = document.getElementById('sim-toast');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+    toast.classList.add('translate-y-24', 'opacity-0');
+  }
+
+  function exportDigestModal() {
+    document.getElementById('export-modal').classList.remove('hidden');
+  }
+
+  function copyNoticeLink() {
+    navigator.clipboard?.writeText(window.location.href);
+    alert('Audited directive link copied to clipboard.');
+  }
+
+  function postComment() {
+    const inp = document.getElementById('comment-input');
+    if (!inp.value.trim()) return;
+    alert('Operational question logged and assigned ticket in Facilities dispatch.');
+    inp.value = '';
+  }
+</script></main></div></body></html>

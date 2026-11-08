@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface":"#f7f9ff","error":"#ba1a1a","tertiary-fixed":"#acefeb","on-error-container":"#93000a","on-background":"#131d26","secondary-container":"#9bcefe","tertiary-fixed-dim":"#90d2cf","inverse-on-surface":"#e8f2ff","surface-container-low":"#edf4ff","surface-container-highest":"#d9e3f0","surface-tint":"#48607c","on-tertiary":"#ffffff","on-secondary-fixed":"#001d32","secondary":"#2b638c","secondary-fixed":"#cde5ff","surface-dim":"#d1dbe8","primary":"#001d35","surface-container-high":"#dfe9f6","on-tertiary-fixed":"#00201f","on-primary":"#ffffff","secondary-fixed-dim":"#98ccfb","surface-variant":"#d9e3f0","inverse-surface":"#28313b","outline":"#73777e","surface-bright":"#f7f9ff","on-secondary-container":"#1e5882","primary-container":"#18324b","on-surface":"#131d26","on-primary-fixed":"#001d35","primary-fixed-dim":"#afc9e8","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#00504d","background":"#f7f9ff","on-primary-fixed-variant":"#304963","on-primary-container":"#829ab8","tertiary":"#00201f","on-secondary-fixed-variant":"#044b73","on-surface-variant":"#43474d","primary-fixed":"#d0e4ff","on-error":"#ffffff","tertiary-container":"#003735","on-tertiary-container":"#62a3a0","outline-variant":"#c3c6ce","surface-container-lowest":"#ffffff","surface-container":"#e5effc","error-container":"#ffdad6","inverse-primary":"#afc9e8"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin-mobile":"1rem","space-xs":"0.25rem","gutter-mobile":"1rem","margin":"2rem","space-lg":"1.5rem","space-md":"1rem","gutter":"1.5rem","space-xl":"2rem","space-sm":"0.5rem"},"fontFamily":{"label-sm":["Inter"],"label-md":["Inter"],"label-xs":["Inter"],"headline-xl":["Inter"],"body-md":["Inter"],"headline-lg":["Inter"],"headline-md":["Inter"],"headline-xl-mobile":["Inter"],"body-sm":["Inter"],"headline-sm":["Inter"],"body-lg":["Inter"],"headline-lg-mobile":["Inter"],"data-mono":["JetBrains Mono"]},"fontSize":{"label-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.01em","fontWeight":"500"}],"label-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"500"}],"label-xs":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.025em","fontWeight":"600"}],"headline-xl":["2.25rem",{"lineHeight":"2.75rem","letterSpacing":"-0.025em","fontWeight":"600"}],"body-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"400"}],"headline-lg":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["1.25rem",{"lineHeight":"1.625rem","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["0.8125rem",{"lineHeight":"1.125rem","fontWeight":"400"}],"headline-sm":["1.125rem",{"lineHeight":"1.5rem","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["1rem",{"lineHeight":"1.5rem","fontWeight":"400"}],"headline-lg-mobile":["1.375rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"data-mono":["0.8125rem",{"lineHeight":"1.125rem","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-secondary-fixed text-[20px]">account_balance</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">JUUNE</span><span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Operations Core</span></div></div><span class="font-label-xs text-label-xs px-space-xs py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono">v4.2</span></div><div class="px-space-md py-space-xs"><div class="font-label-xs text-label-xs uppercase tracking-wider text-outline px-space-sm mb-space-xs">Workspace</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="home" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Home</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="my-requests" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">assignment</span><span>My Requests</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="announcements" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">campaign</span><span>Announcements</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="opportunities" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">radar</span><span>Opportunities</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="notifications" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">notifications</span><span>Notifications</span></div><span class="px-1.5 py-0.5 rounded-full font-label-xs text-label-xs bg-error-container text-on-error-container font-medium">5</span></a></nav></div><div class="px-space-md py-space-xs mt-space-xs"><div class="font-label-xs text-label-xs uppercase tracking-wider text-outline px-space-sm mb-space-xs">Governance &amp; Oversight</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="admin-console" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span>Admin Console</span></div><span class="font-label-xs text-label-xs px-1.5 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono">ADMIN</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="audit-log" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Audit Log</span></div><span class="font-label-xs text-label-xs px-1.5 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono">SEC</span></a></nav></div></div><div class="p-space-md bg-surface-container-lowest"><nav class="mb-space-sm" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="profile-and-settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Profile &amp; Settings</span></a></nav><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-sm text-label-sm text-on-surface truncate">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-on-surface-variant truncate">Facilities Ops Mgr</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="text-primary font-medium">Juune Central</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-on-surface font-medium">Operations &amp; Accountability</span></div></div><div class="flex items-center gap-space-md"><div class="relative flex items-center w-72"><span class="material-symbols-outlined absolute left-3 text-[18px] text-outline pointer-events-none">search</span><input class="w-full h-9 pl-9 pr-space-sm bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-[0_1px_8px_rgba(0,0,0,0.04)] focus:ring-1 focus:ring-secondary placeholder:text-outline" placeholder="Search records, requests, audits..." type="search"/></div><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-center" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right"><span class="font-label-sm text-label-sm text-on-surface">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-secondary">Facilities Operations</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-margin bg-surface"><div class="flex flex-col w-full">
+<!-- Simulation & Environmental State Bar -->
+<div class="w-full bg-surface-container-low px-space-md py-space-sm rounded-lg mb-space-lg shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">tune</span>
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-data-mono">Environment State Simulator</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-primary font-label-xs text-label-xs">Ops Sandbox v4.2</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5" id="sim-controls">
+<button class="sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-primary text-on-primary transition-all" data-state="drafting" onclick="setSimState('drafting')" type="button">Normal (Drafting)</button>
+<button class="sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-all" data-state="validation_errors" onclick="setSimState('validation_errors')" type="button">Validation Errors</button>
+<button class="sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-all" data-state="submitting" onclick="setSimState('submitting')" type="button">Submitting...</button>
+<button class="sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-all" data-state="upload_rejected" onclick="setSimState('upload_rejected')" type="button">Upload Rejected</button>
+<button class="sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-all" data-state="api_error" onclick="setSimState('api_error')" type="button">API Error</button>
+<button class="sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-all" data-state="offline" onclick="setSimState('offline')" type="button">Offline Mode</button>
+<button class="sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-all" data-state="success" onclick="setSimState('success')" type="button">Success (Submitted)</button>
+</div>
+</div>
+</div>
+<!-- Operational Alert Banners (Toggled via simulator) -->
+<div class="space-y-space-sm mb-space-lg" id="alert-banner-container">
+<!-- Offline Mode Banner -->
+<div class="hidden flex items-center justify-between p-space-md bg-surface-container-high text-on-surface rounded-lg shadow-sm" id="banner-offline">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">wifi_off</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary">Working Offline</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Campus network intermittent. Your request draft is cached locally in IndexedDB and will auto-sync upon reconnection.</span>
+</div>
+</div>
+<span class="font-data-mono font-label-xs text-label-xs px-2 py-0.5 rounded-DEFAULT bg-surface-container-highest text-on-surface-variant">OFFLINE_CACHE_ACTIVE</span>
+</div>
+<!-- API Error Banner -->
+<div class="hidden flex items-center justify-between p-space-md bg-error-container text-on-error-container rounded-lg shadow-sm" id="banner-api-error">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-error text-[22px]">cloud_off</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-error-container">Unable to reach routing service</span>
+<span class="font-body-sm text-body-sm text-on-error-container/90">Institutional gateway timeout [HTTP 503 Service Unavailable]. Your draft and file manifests have been preserved locally.</span>
+</div>
+</div>
+<button class="font-label-xs text-label-xs px-3 py-1.5 rounded-DEFAULT bg-error text-on-error hover:bg-error/90 transition-colors" onclick="setSimState('drafting')" type="button">Retry Connection</button>
+</div>
+<!-- Upload Rejected Banner -->
+<div class="hidden flex items-center justify-between p-space-md bg-error-container text-on-error-container rounded-lg shadow-sm" id="banner-upload-rejected">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-error text-[22px]">error</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-error-container">Attachment Upload Rejected</span>
+<span class="font-body-sm text-body-sm text-on-error-container/90">File exceeds 15MB limit or unpermitted format (.exe, .zip). Accepted: PDF, PNG, JPG up to 15MB.</span>
+</div>
+</div>
+<button class="p-1 rounded-DEFAULT hover:bg-black/5 text-on-error-container" onclick="document.getElementById('banner-upload-rejected').classList.add('hidden')" type="button"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+</div>
+<!-- Page Header Subtitle & Context Matrix -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md pb-space-lg mb-space-lg bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="space-y-1">
+<div class="flex items-center gap-2 font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">
+<span>Juune Central</span>
+<span>/</span>
+<span>Operations &amp; Accountability</span>
+<span>/</span>
+<span>My Requests</span>
+<span>/</span>
+<span class="text-primary font-bold">New Request</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">S5: New Operational Request</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Submit an operational request for campus IT, Facilities, or Administrative support. Submissions route to duty managers via verifiable SLAs.</p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified_user</span>
+<span>Requester: N. Khumalo (Staff #80922)</span>
+</div>
+</div>
+</div>
+<!-- Two-Column Primary Workspace Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start pb-space-xl">
+<!-- Main Form Column (8 of 12 cols) -->
+<div class="lg:col-span-8 space-y-space-xl">
+<form class="space-y-space-xl" id="operational-request-form" novalidate="" onsubmit="handleFormSubmit(event)">
+<!-- SECTION 1: REQUEST CLASSIFICATION -->
+<section class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-lg">
+<div class="flex items-center justify-between pb-space-sm bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg py-space-md rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<span class="w-6 h-6 rounded-DEFAULT bg-primary-container text-on-primary flex items-center justify-center font-data-mono font-label-xs text-label-xs">01</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Request Classification</h2>
+</div>
+<span class="font-label-xs text-label-xs uppercase px-2 py-0.5 rounded-DEFAULT bg-surface-container-highest text-on-surface-variant">Step 1 of 3</span>
+</div>
+<!-- Category Selection -->
+<div class="space-y-space-xs">
+<label class="flex items-center justify-between font-label-md text-label-md text-primary" for="request-category">
+<span class="flex items-center gap-1.5">Operational Service Category <span class="text-error font-bold">*</span></span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Pilot Scope: 3 Campus Wings</span>
+</label>
+<div class="relative">
+<select class="w-full h-11 px-3.5 bg-surface-container-low text-on-surface font-body-md text-body-md rounded-lg outline-none appearance-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary transition-all" id="request-category" onchange="updateAdvisoryRouting(this.value)">
+<option disabled="" selected="" value="">Select service category...</option>
+<optgroup label="Facilities &amp; Campus Maintenance">
+<option selected="" value="fac_hvac">HVAC &amp; Climate Control (Chillers, VAV units, Thermostats)</option>
+<option value="fac_elec">Electrical &amp; Lighting (Fixtures, Circuit Breakers, Outlets)</option>
+<option value="fac_plumb">Plumbing &amp; Water (Restrooms, Eye-wash stations, Backflow)</option>
+<option value="fac_struct">Structural &amp; Furniture (Doors, Windows, Ergonomic units)</option>
+<option value="fac_grounds">Cleaning &amp; Grounds (Biohazard spill, Waste audit, Exterior)</option>
+</optgroup>
+<optgroup label="IT Operations &amp; Academic Systems">
+<option value="it_hardware">Hardware &amp; Peripherals (Workstations, Lab Rigs, Monitors)</option>
+<option value="it_av">Classroom &amp; AV Tech (Projectors, Acoustic Panels, Mics)</option>
+<option value="it_soft">Software &amp; Access (VPN, Departmental ERP, SSO Roles)</option>
+<option value="it_net">Network &amp; WiFi (Subnet Drops, High-Density Access Points)</option>
+</optgroup>
+<optgroup label="Institutional Administration">
+<option value="adm_access">Logistics &amp; Access Badges (NFC Keycards, Keypad Codes)</option>
+<option value="adm_archive">Records &amp; Document Archiving (Physical Vault, Digitization)</option>
+<option value="adm_rooms">Room Scheduling &amp; Courier (Auditorium Holds, Specimen Transit)</option>
+</optgroup>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[20px] text-outline pointer-events-none">unfold_more</span>
+</div>
+<!-- Category validation error message -->
+<p class="hidden font-body-sm text-body-sm text-error flex items-center gap-1 pt-1" id="err-category">
+<span class="material-symbols-outlined text-[16px]">error</span> Choose a category.
+            </p>
+</div>
+<!-- Smart Department Routing Advisor Box -->
+<div class="p-space-md rounded-xl bg-surface-container-low space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">hub</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">Advisory Routing Matrix</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs tracking-wide" id="advisory-badge">Facilities / Maintenance</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<div class="md:col-span-8 text-on-surface-variant font-body-sm text-body-sm space-y-1">
+<p>Routing is an advisory recommendation based on institutional policy. You can manually reassign or override the destination department before submitting if your request requires cross-functional attention.</p>
+<div class="flex items-center gap-space-xs text-secondary font-label-xs text-label-xs font-data-mono">
+<span class="material-symbols-outlined text-[14px]">policy</span>
+<span id="routing-rule-label">RULE-FAC-014: Mechanical climate assets route to North Precinct Facilities Dispatch.</span>
+</div>
+</div>
+<!-- Destination Department Selector -->
+<div class="md:col-span-4 space-y-1">
+<label class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface font-semibold flex items-center justify-between" for="destination-dept">
+<span>Destination Department <span class="text-error">*</span></span>
+</label>
+<div class="relative">
+<select class="w-full h-10 px-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md rounded-lg outline-none appearance-none focus:ring-2 focus:ring-secondary transition-all" id="destination-dept">
+<option selected="" value="facilities">Facilities / Maintenance</option>
+<option value="it_ops">IT Operations</option>
+<option value="administration">Administration</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-[18px] text-outline pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Destination department validation error message -->
+<p class="hidden font-body-sm text-body-sm text-error flex items-center gap-1" id="err-dept">
+<span class="material-symbols-outlined text-[16px]">error</span> Choose a destination department.
+            </p>
+</div>
+</section>
+<!-- SECTION 2: REQUEST DETAILS -->
+<section class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-lg">
+<div class="flex items-center justify-between pb-space-sm bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg py-space-md rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<span class="w-6 h-6 rounded-DEFAULT bg-primary-container text-on-primary flex items-center justify-center font-data-mono font-label-xs text-label-xs">02</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Request Details &amp; Operational Scope</h2>
+</div>
+<span class="font-label-xs text-label-xs uppercase px-2 py-0.5 rounded-DEFAULT bg-surface-container-highest text-on-surface-variant">Step 2 of 3</span>
+</div>
+<!-- Short Summary -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-primary flex items-center gap-1" for="req-summary">
+                Summary <span class="text-error font-bold">*</span>
+</label>
+<div class="flex items-center gap-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Proposed limit: 5–120 characters</span>
+<span class="font-data-mono font-label-xs text-label-xs px-1.5 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface" id="summary-counter">62 / 120 chars</span>
+</div>
+</div>
+<input class="w-full h-11 px-3.5 bg-surface-container-low text-on-surface font-body-md text-body-md rounded-lg outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary transition-all" id="req-summary" maxlength="120" oninput="updateSummaryCount(this)" placeholder="e.g., Science Lab 3 Chilled Water AC Unit Emitting Rapid Clicking" type="text" value="Science Lab 3 Chilled Water AC Unit Emitting Rapid Clicking"/>
+<!-- Summary validation error message -->
+<p class="hidden font-body-sm text-body-sm text-error flex items-center gap-1 pt-1" id="err-summary">
+<span class="material-symbols-outlined text-[16px]">error</span> Summary must be between 5 and 120 characters.
+            </p>
+</div>
+<!-- Detailed Description & Impact -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-primary flex items-center gap-1" for="req-desc">
+                Detailed Description &amp; Impact <span class="text-error font-bold">*</span>
+</label>
+<div class="flex items-center gap-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Proposed limit: 10–5,000 characters</span>
+<span class="font-data-mono font-label-xs text-label-xs px-1.5 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface" id="desc-counter">348 / 5,000 chars</span>
+</div>
+</div>
+<!-- Rich Text Format Bar -->
+<div class="flex items-center gap-1 px-2 py-1.5 bg-surface-container-high rounded-t-lg text-on-surface-variant font-label-xs text-label-xs">
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface transition-colors" title="Bold" type="button"><span class="material-symbols-outlined text-[18px]">format_bold</span></button>
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface transition-colors" title="Italic" type="button"><span class="material-symbols-outlined text-[18px]">format_italic</span></button>
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface transition-colors" title="Bullet List" type="button"><span class="material-symbols-outlined text-[18px]">format_list_bulleted</span></button>
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface transition-colors" title="Numbered List" type="button"><span class="material-symbols-outlined text-[18px]">format_list_numbered</span></button>
+<span class="w-px h-4 bg-outline-variant mx-1"></span>
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface transition-colors" title="Code Asset ID" type="button"><span class="material-symbols-outlined text-[18px]">terminal</span></button>
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface transition-colors" title="Attach Citation" type="button"><span class="material-symbols-outlined text-[18px]">attach_file</span></button>
+<span class="ml-auto font-data-mono text-[11px] text-outline">Markdown Supported</span>
+</div>
+<textarea class="w-full p-3.5 bg-surface-container-low text-on-surface font-body-md text-body-md rounded-b-lg outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary transition-all resize-y" id="req-desc" maxlength="5000" oninput="updateDescCount(this)" placeholder="Provide specific location details (building, room, floor), asset tag numbers if visible, ambient symptoms, and operational impact on teaching, laboratory research, or staff safety..." rows="6">Asset Tag: HVAC-SL3-0941. The primary condenser blower in Natural Sciences Hall, Room 304 (Spectrometry Core) is producing a rhythmic mechanical clatter that exceeds 72 dBA during morning cooling cycles. 
+
+Room temperature has deviated +3.8°C above optimal research calibration parameters. Immediate preventative assessment requested to avoid specimen preservation compromise.</textarea>
+<!-- Description validation error message -->
+<p class="hidden font-body-sm text-body-sm text-error flex items-center gap-1 pt-1" id="err-desc">
+<span class="material-symbols-outlined text-[16px]">error</span> Description must be between 10 and 5,000 characters.
+            </p>
+</div>
+<!-- Micro Location Meta Flags -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs">
+<div class="p-space-sm rounded-lg bg-surface-container-low">
+<span class="font-label-xs text-label-xs text-on-surface-variant block uppercase">Building / Precinct</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Natural Sciences Hall (NSH)</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low">
+<span class="font-label-xs text-label-xs text-on-surface-variant block uppercase">Floor &amp; Room Specifier</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Level 3, Rm 304 (Lab Wing)</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low">
+<span class="font-label-xs text-label-xs text-on-surface-variant block uppercase">Priority Self-Assessment</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Standard Priority (4h SLA)</span>
+</div>
+</div>
+</section>
+<!-- SECTION 3: EVIDENCE & ATTACHMENTS -->
+<section class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center justify-between pb-space-sm bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg py-space-md rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<span class="w-6 h-6 rounded-DEFAULT bg-primary-container text-on-primary flex items-center justify-center font-data-mono font-label-xs text-label-xs">03</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Evidence &amp; Attachments</h2>
+</div>
+<span class="font-label-xs text-label-xs uppercase px-2 py-0.5 rounded-DEFAULT bg-surface-container-highest text-on-surface-variant">Optional</span>
+</div>
+<!-- Drag & Drop Zone -->
+<div class="cursor-pointer group flex flex-col items-center justify-center p-space-lg rounded-xl bg-surface-container-low hover:bg-surface-container transition-all text-center" id="dropzone" onclick="triggerFileInput()">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest group-hover:bg-secondary-fixed flex items-center justify-center text-primary group-hover:text-on-secondary-fixed transition-colors mb-space-sm">
+<span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-medium">Click to upload diagnostic files or drag and drop</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">PDF, PNG, JPG up to 15MB. Maximum 3 files.</span>
+<input accept=".pdf,.png,.jpg,.jpeg" class="hidden" id="file-input" onchange="handleFileSelect(this)" type="file"/>
+</div>
+<!-- Uploaded File Item Chip -->
+<div class="space-y-space-xs" id="file-chip-container">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high text-on-surface shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">description</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-primary truncate font-medium">air_handler_noise_diagnostic.pdf</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant">2.4 MB • SHA256: 7f8a...c930 • Ready</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs">Scanned</span>
+<button class="p-1 rounded-DEFAULT text-on-surface-variant hover:text-error hover:bg-surface-container-highest transition-colors" onclick="this.parentElement.parentElement.remove()" title="Remove attachment" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Institutional Privacy Disclaimer Callout -->
+<div class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">shield</span>
+<p>
+<strong class="text-primary font-medium">Institutional Compliance:</strong> Do not upload sensitive personal identification, credentials, unredacted student records, or confidential institutional passwords. Attachments are logged in the tamper-evident audit ledger.
+            </p>
+</div>
+</section>
+<!-- SECTION 4: ACTION BAR -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-md pt-space-xs">
+<button class="w-full sm:w-auto h-11 px-5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center justify-center gap-2" onclick="window.history.back()" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>Cancel / Discard Draft</span>
+</button>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="flex-1 sm:flex-none h-11 px-5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface transition-colors font-label-md text-label-md flex items-center justify-center gap-2" onclick="simulateSaveDraft()" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Save Draft</span>
+</button>
+<button class="flex-1 sm:flex-none h-11 px-6 rounded-lg bg-primary hover:bg-secondary text-on-primary transition-all shadow-md font-label-md text-label-md flex items-center justify-center gap-2" id="submit-btn" type="submit">
+<span class="material-symbols-outlined text-[18px]" id="submit-btn-icon">send</span>
+<span class="hidden material-symbols-outlined text-[18px] animate-spin" id="submit-btn-spinner">progress_activity</span>
+<span id="submit-btn-text">Submit Request</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+<!-- Right Sidebar Column: Governance & Guidance Cards (4 of 12 cols) -->
+<div class="lg:col-span-4 space-y-space-lg">
+<!-- Card 1: Institutional Routing Standards -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center gap-space-sm text-primary">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Routing Standards</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Campus duty officers process operational intake across three primary service corridors under published service agreements:
+        </p>
+<div class="space-y-space-sm pt-space-xs font-body-sm text-body-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">handyman</span>
+<div>
+<span class="font-label-sm text-label-sm text-primary block">Facilities / Maintenance</span>
+<span class="text-on-surface-variant">4-hour triage window. High-impact climate &amp; water escalations route to North Precinct team.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">memory</span>
+<div>
+<span class="font-label-sm text-label-sm text-primary block">IT Operations</span>
+<span class="text-on-surface-variant">Direct queue allocation to academic support staff with network diagnostic checks.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">badge</span>
+<div>
+<span class="font-label-sm text-label-sm text-primary block">Administration &amp; Badges</span>
+<span class="text-on-surface-variant">Physical security credential requests checked against campus registrar rosters.</span>
+</div>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between font-data-mono text-label-xs text-on-surface-variant">
+<span>Target Triage: &lt; 4 Hours</span>
+<span class="text-secondary font-semibold">Standard SLA 99.4%</span>
+</div>
+</div>
+<!-- Card 2: Assistance Protocol Preview -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center gap-space-sm text-primary">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">flag</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Assistance Protocol</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Once submitted, requests are monitored continuously by Juune's operational health ledger.
+        </p>
+<div class="p-space-md rounded-lg bg-surface-container-low space-y-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-secondary text-[18px]">help_center</span>
+<span>Non-Accusatory Flagging</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            If a request remains stalled or unaddressed past SLA windows, staff may trigger a "Re-allocate Support" notification without penalizing assigned dispatch technicians.
+          </p>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+<span>Peer assistance flags can be raised directly from screen S4.</span>
+</div>
+</div>
+<!-- Card 3: Privacy & Least-Privilege Commitment -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center gap-space-sm text-primary">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Access &amp; Confidentiality</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Per University Least-Privilege Governance, visibility for this ticket is restricted to:
+        </p>
+<ul class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span>Nomvula Khumalo (Originator)</span>
+</li>
+<li class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span>Destination Duty Dispatcher</span>
+</li>
+<li class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span>Assigned Field Technician</span>
+</li>
+<li class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span>Precinct Operations Oversight</span>
+</li>
+</ul>
+<div class="pt-space-xs p-2.5 rounded bg-surface-container-low font-data-mono text-[11px] text-on-surface-variant flex items-center justify-between">
+<span>AUDIT_ENCRYPTION</span>
+<span class="text-secondary">AES-256 / SHA-256</span>
+</div>
+</div>
+<!-- Live Department Status Telemetry Mini-Card -->
+<div class="bg-surface-container-low p-space-md rounded-xl space-y-space-sm">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline block">Queue Health Status</span>
+<div class="space-y-2">
+<div class="flex items-center justify-between font-label-xs text-label-xs">
+<span class="text-on-surface">Facilities Ops Queue</span>
+<span class="text-secondary font-data-mono">14 Pending • Normal</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 38%"></div>
+</div>
+<div class="flex items-center justify-between font-label-xs text-label-xs">
+<span class="text-on-surface">IT Helpdesk Hub</span>
+<span class="text-secondary font-data-mono">9 Pending • Fast</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 22%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SUCCESS MODAL (Triggered upon submission or via simulator) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-space-md bg-black/45 backdrop-blur-sm" id="success-modal">
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<!-- Modal Header -->
+<div class="bg-primary p-space-lg text-on-primary flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">task_alt</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm">Request Submitted</h3>
+<span class="font-label-xs text-label-xs text-secondary-fixed font-data-mono">ENTRY_LOGGED_IN_AUDIT_LEDGER</span>
+</div>
+</div>
+<button class="text-on-primary/80 hover:text-on-primary p-1 rounded-DEFAULT" onclick="closeSuccessModal()" type="button"><span class="material-symbols-outlined">close</span></button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-lg space-y-space-md bg-surface-container-lowest">
+<div class="p-space-md rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Unique Request Reference</span>
+<span class="font-headline-sm text-headline-sm text-primary font-data-mono" id="modal-req-id">REQ-2024-0914</span>
+</div>
+<button class="px-2.5 py-1 rounded bg-surface-container-highest hover:bg-surface-container text-on-surface font-label-xs text-label-xs flex items-center gap-1 transition-colors" onclick="navigator.clipboard.writeText('REQ-2024-0914')" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copy</span>
+</button>
+</div>
+<div class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex justify-between py-1 bg-surface-container-low px-space-sm rounded">
+<span>Destination Dispatch:</span>
+<strong class="text-primary" id="modal-destination">Facilities / Maintenance</strong>
+</div>
+<div class="flex justify-between py-1 px-space-sm">
+<span>Logged Timestamp:</span>
+<span class="font-data-mono text-primary" id="modal-timestamp">2024-10-24 14:32:08 UTC</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-container-low px-space-sm rounded">
+<span>Primary SLA Commitment:</span>
+<span class="text-secondary font-medium">4 Hours (Triage by 18:30)</span>
+</div>
+<div class="flex justify-between py-1 px-space-sm">
+<span>Requester Confirmation:</span>
+<span class="text-primary">Nomvula Khumalo (Staff #80922)</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low text-on-surface-variant font-body-sm text-body-sm flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">notifications_active</span>
+<span>A confirmation dispatch notification has been dispatched to your portal alerts. You may view telemetry updates in screen S4.</span>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-space-lg bg-surface-container-low flex flex-col sm:flex-row items-center justify-end gap-space-sm">
+<button class="w-full sm:w-auto h-11 px-5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md transition-colors" onclick="resetToNewRequest()" type="button">
+          Submit Another Request
+        </button>
+<button class="w-full sm:w-auto h-11 px-6 rounded-lg bg-primary hover:bg-secondary text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 transition-colors shadow-sm" onclick="navigateToDetail()" type="button">
+<span>View in S4: Request Detail</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Dynamic Routing Policy Configuration
+  const categoryRoutingMatrix = {
+    'fac_hvac': {
+      dept: 'facilities',
+      badge: 'Facilities / Maintenance',
+      rule: 'RULE-FAC-014: Mechanical climate assets route to North Precinct Facilities Dispatch.'
+    },
+    'fac_elec': {
+      dept: 'facilities',
+      badge: 'Facilities / Maintenance',
+      rule: 'RULE-FAC-008: Electrical & fixture repairs route to High-Voltage Maintenance Queue.'
+    },
+    'fac_plumb': {
+      dept: 'facilities',
+      badge: 'Facilities / Maintenance',
+      rule: 'RULE-FAC-021: Water pressure and plumbing systems route to Municipal Utility Dispatch.'
+    },
+    'fac_struct': {
+      dept: 'facilities',
+      badge: 'Facilities / Maintenance',
+      rule: 'RULE-FAC-003: Physical plant, locksets, and carpentry triage.'
+    },
+    'fac_grounds': {
+      dept: 'facilities',
+      badge: 'Facilities / Maintenance',
+      rule: 'RULE-FAC-011: Groundskeeping and hazardous waste sanitation team.'
+    },
+    'it_hardware': {
+      dept: 'it_ops',
+      badge: 'IT Operations',
+      rule: 'RULE-IT-001: Desktop client endpoints & lab rigs route to Academic Hardware Team.'
+    },
+    'it_av': {
+      dept: 'it_ops',
+      badge: 'IT Operations',
+      rule: 'RULE-IT-004: Classroom projection and auditorium soundboards triage.'
+    },
+    'it_soft': {
+      dept: 'it_ops',
+      badge: 'IT Operations',
+      rule: 'RULE-IT-019: Single Sign-On and enterprise platform access permissions.'
+    },
+    'it_net': {
+      dept: 'it_ops',
+      badge: 'IT Operations',
+      rule: 'RULE-IT-032: High-density campus WiFi access points and switchport diagnostics.'
+    },
+    'adm_access': {
+      dept: 'administration',
+      badge: 'Administration',
+      rule: 'RULE-ADM-005: NFC physical access cards routed to Campus Security Operations.'
+    },
+    'adm_archive': {
+      dept: 'administration',
+      badge: 'Administration',
+      rule: 'RULE-ADM-012: Records archiving vault & document retention protocols.'
+    },
+    'adm_rooms': {
+      dept: 'administration',
+      badge: 'Administration',
+      rule: 'RULE-ADM-018: Central campus scheduling ledger and specimen courier transit.'
+    }
+  };
+
+  function updateAdvisoryRouting(categoryKey) {
+    const config = categoryRoutingMatrix[categoryKey];
+    if (!config) return;
+
+    const deptSelect = document.getElementById('destination-dept');
+    const badge = document.getElementById('advisory-badge');
+    const ruleLabel = document.getElementById('routing-rule-label');
+
+    deptSelect.value = config.dept;
+    badge.textContent = config.badge;
+    ruleLabel.textContent = config.rule;
+
+    // Reset error state on category change
+    document.getElementById('err-category').classList.add('hidden');
+    document.getElementById('request-category').classList.remove('ring-2', 'ring-error');
+  }
+
+  function updateSummaryCount(input) {
+    const len = input.value.length;
+    const counter = document.getElementById('summary-counter');
+    counter.textContent = `${len} / 120 chars`;
+    if (len >= 5 && len <= 120) {
+      document.getElementById('err-summary').classList.add('hidden');
+      input.classList.remove('ring-2', 'ring-error');
+    }
+  }
+
+  function updateDescCount(textarea) {
+    const len = textarea.value.length;
+    const counter = document.getElementById('desc-counter');
+    counter.textContent = `${len} / 5,000 chars`;
+    if (len >= 10 && len <= 5000) {
+      document.getElementById('err-desc').classList.add('hidden');
+      textarea.classList.remove('ring-2', 'ring-error');
+    }
+  }
+
+  function triggerFileInput() {
+    document.getElementById('file-input').click();
+  }
+
+  function handleFileSelect(input) {
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      if (file.size > 15 * 1024 * 1024) {
+        setSimState('upload_rejected');
+        return;
+      }
+      const container = document.getElementById('file-chip-container');
+      const mbSize = (file.size / (1024 * 1024)).toFixed(1);
+      
+      const chip = document.createElement('div');
+      chip.className = 'flex items-center justify-between p-3 rounded-lg bg-surface-container-high text-on-surface shadow-sm animate-in fade-in';
+      chip.innerHTML = `
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[18px]">attachment</span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-sm text-label-sm text-primary truncate font-medium">${file.name}</span>
+            <span class="font-data-mono text-[11px] text-on-surface-variant">${mbSize} MB • Uploaded • Ready</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-space-sm shrink-0">
+          <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs">Verified</span>
+          <button type="button" onclick="this.parentElement.parentElement.remove()" class="p-1 rounded-DEFAULT text-on-surface-variant hover:text-error hover:bg-surface-container-highest transition-colors">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        </div>
+      `;
+      container.appendChild(chip);
+    }
+  }
+
+  function simulateSaveDraft() {
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Saving...</span>`;
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">check</span><span>Draft Saved</span>`;
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+      }, 2000);
+    }, 600);
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const category = document.getElementById('request-category').value;
+    const dept = document.getElementById('destination-dept').value;
+    const summary = document.getElementById('req-summary').value.trim();
+    const desc = document.getElementById('req-desc').value.trim();
+
+    let hasErrors = false;
+
+    if (!category) {
+      document.getElementById('err-category').classList.remove('hidden');
+      document.getElementById('request-category').classList.add('ring-2', 'ring-error');
+      hasErrors = true;
+    }
+    if (!dept) {
+      document.getElementById('err-dept').classList.remove('hidden');
+      document.getElementById('destination-dept').classList.add('ring-2', 'ring-error');
+      hasErrors = true;
+    }
+    if (summary.length < 5 || summary.length > 120) {
+      document.getElementById('err-summary').classList.remove('hidden');
+      document.getElementById('req-summary').classList.add('ring-2', 'ring-error');
+      hasErrors = true;
+    }
+    if (desc.length < 10 || desc.length > 5000) {
+      document.getElementById('err-desc').classList.remove('hidden');
+      document.getElementById('req-desc').classList.add('ring-2', 'ring-error');
+      hasErrors = true;
+    }
+
+    if (hasErrors) {
+      return;
+    }
+
+    setSimState('submitting');
+    setTimeout(() => {
+      setSimState('success');
+    }, 1200);
+  }
+
+  function setSimState(state) {
+    // Update State simulator buttons UI
+    document.querySelectorAll('.sim-btn').forEach(btn => {
+      if (btn.getAttribute('data-state') === state) {
+        btn.className = 'sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-primary text-on-primary transition-all';
+      } else {
+        btn.className = 'sim-btn px-2.5 py-1 rounded-DEFAULT font-label-xs text-label-xs bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-all';
+      }
+    });
+
+    // Reset banners
+    document.getElementById('banner-offline').classList.add('hidden');
+    document.getElementById('banner-api-error').classList.add('hidden');
+    document.getElementById('banner-upload-rejected').classList.add('hidden');
+
+    // Reset inline validations
+    const validationFields = [
+      { id: 'err-category', input: 'request-category' },
+      { id: 'err-dept', input: 'destination-dept' },
+      { id: 'err-summary', input: 'req-summary' },
+      { id: 'err-desc', input: 'req-desc' }
+    ];
+
+    validationFields.forEach(f => {
+      document.getElementById(f.id).classList.add('hidden');
+      document.getElementById(f.input).classList.remove('ring-2', 'ring-error');
+    });
+
+    // Reset Submit Button State
+    const submitBtn = document.getElementById('submit-btn');
+    const submitIcon = document.getElementById('submit-btn-icon');
+    const submitSpinner = document.getElementById('submit-btn-spinner');
+    const submitText = document.getElementById('submit-btn-text');
+
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+    submitIcon.classList.remove('hidden');
+    submitSpinner.classList.add('hidden');
+    submitText.textContent = 'Submit Request';
+
+    // Reset Modal
+    document.getElementById('success-modal').classList.add('hidden');
+
+    // Apply Specific Simulated State
+    if (state === 'validation_errors') {
+      document.getElementById('request-category').value = '';
+      document.getElementById('destination-dept').value = '';
+      document.getElementById('req-summary').value = 'Lab';
+      document.getElementById('req-desc').value = 'Too short';
+
+      document.getElementById('err-category').classList.remove('hidden');
+      document.getElementById('request-category').classList.add('ring-2', 'ring-error');
+      
+      document.getElementById('err-dept').classList.remove('hidden');
+      document.getElementById('destination-dept').classList.add('ring-2', 'ring-error');
+
+      document.getElementById('err-summary').classList.remove('hidden');
+      document.getElementById('req-summary').classList.add('ring-2', 'ring-error');
+
+      document.getElementById('err-desc').classList.remove('hidden');
+      document.getElementById('req-desc').classList.add('ring-2', 'ring-error');
+
+      updateSummaryCount(document.getElementById('req-summary'));
+      updateDescCount(document.getElementById('req-desc'));
+    } 
+    else if (state === 'submitting') {
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+      submitIcon.classList.add('hidden');
+      submitSpinner.classList.remove('hidden');
+      submitText.textContent = 'Routing Request...';
+    } 
+    else if (state === 'upload_rejected') {
+      document.getElementById('banner-upload-rejected').classList.remove('hidden');
+    } 
+    else if (state === 'api_error') {
+      document.getElementById('banner-api-error').classList.remove('hidden');
+    } 
+    else if (state === 'offline') {
+      document.getElementById('banner-offline').classList.remove('hidden');
+    } 
+    else if (state === 'success') {
+      const now = new Date();
+      const dateString = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+      document.getElementById('modal-timestamp').textContent = dateString;
+      
+      const deptVal = document.getElementById('destination-dept').value;
+      const deptName = deptVal === 'facilities' ? 'Facilities / Maintenance' : (deptVal === 'it_ops' ? 'IT Operations' : 'Administration');
+      document.getElementById('modal-destination').textContent = deptName;
+
+      document.getElementById('success-modal').classList.remove('hidden');
+    }
+  }
+
+  function closeSuccessModal() {
+    document.getElementById('success-modal').classList.add('hidden');
+    setSimState('drafting');
+  }
+
+  function resetToNewRequest() {
+    document.getElementById('operational-request-form').reset();
+    updateAdvisoryRouting('fac_hvac');
+    updateSummaryCount(document.getElementById('req-summary'));
+    updateDescCount(document.getElementById('req-desc'));
+    closeSuccessModal();
+  }
+
+  function navigateToDetail() {
+    // In live system, transitions to S4 Request Detail view with REQ-2024-0914 payload
+    window.location.hash = '#/my-requests/REQ-2024-0914';
+    closeSuccessModal();
+  }
+</script></main></div></body></html>

@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-secondary-container":"#1e5882","on-error":"#ffffff","on-background":"#131d26","background":"#f7f9ff","surface-container":"#e5effc","primary-fixed":"#d0e4ff","on-primary-fixed":"#001d35","on-primary-fixed-variant":"#304963","on-primary":"#ffffff","primary-container":"#18324b","primary-fixed-dim":"#afc9e8","on-secondary-fixed-variant":"#044b73","surface-bright":"#f7f9ff","on-tertiary-fixed":"#00201f","surface-container-high":"#dfe9f6","surface":"#f7f9ff","inverse-on-surface":"#e8f2ff","inverse-primary":"#afc9e8","on-tertiary-fixed-variant":"#00504d","primary":"#001d35","outline":"#73777e","error":"#ba1a1a","secondary":"#2b638c","surface-tint":"#48607c","secondary-fixed-dim":"#98ccfb","error-container":"#ffdad6","on-secondary-fixed":"#001d32","surface-dim":"#d1dbe8","tertiary-fixed-dim":"#90d2cf","outline-variant":"#c3c6ce","surface-container-low":"#edf4ff","on-tertiary-container":"#62a3a0","secondary-container":"#9bcefe","surface-container-highest":"#d9e3f0","tertiary":"#00201f","on-secondary":"#ffffff","secondary-fixed":"#cde5ff","on-error-container":"#93000a","tertiary-container":"#003735","tertiary-fixed":"#acefeb","surface-variant":"#d9e3f0","on-surface-variant":"#43474d","on-primary-container":"#829ab8","inverse-surface":"#28313b","on-surface":"#131d26"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"gutter-mobile":"1rem",gutter:"1.5rem","space-xs":"0.25rem","space-sm":"0.5rem","space-md":"1rem",margin:"2rem","space-lg":"1.5rem","space-xl":"2rem","margin-mobile":"1rem"},fontFamily:{"data-mono":["JetBrains Mono"],"headline-xl-mobile":["Inter"],"body-lg":["Inter"],"label-sm":["Inter"],"body-sm":["Inter"],"headline-xl":["Inter"],"label-xs":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"label-md":["Inter"],"headline-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-md":["Inter"]},fontSize:{"data-mono":["0.8125rem",{lineHeight:"1.125rem",fontWeight:"400"}],"headline-xl-mobile":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-lg":["1rem",{lineHeight:"1.5rem",fontWeight:"400"}],"label-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.01em",fontWeight:"500"}],"body-sm":["0.8125rem",{lineHeight:"1.125rem",fontWeight:"400"}],"headline-xl":["2.25rem",{lineHeight:"2.75rem",letterSpacing:"-0.025em",fontWeight:"600"}],"label-xs":["0.6875rem",{lineHeight:"0.875rem",letterSpacing:"0.025em",fontWeight:"600"}],"headline-lg":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["0.875rem",{lineHeight:"1.25rem",fontWeight:"400"}],"label-md":["0.875rem",{lineHeight:"1.25rem",fontWeight:"500"}],"headline-sm":["1.125rem",{lineHeight:"1.5rem",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-lg-mobile":["1.375rem",{lineHeight:"1.75rem",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-md":["1.25rem",{lineHeight:"1.625rem",letterSpacing:"-0.015em",fontWeight:"600"}]}}}};</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-xl bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[20px]">account_balance</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Juune Core</span><span class="font-data-mono text-label-xs text-on-surface-variant">v4.2-STABLE</span></div></div><span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface font-label-xs text-label-xs font-semibold">OPS</span></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Workspace</div><nav class="mt-space-xs flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-xl"><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="home" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">home</span><span class="font-label-md text-label-md">Home</span></div></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="my-requests" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">assignment_late</span><span class="font-label-md text-label-md">My Requests</span></div></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="announcements" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">campaign</span><span class="font-label-md text-label-md">Announcements</span></div></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="opportunities" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">explore</span><span class="font-label-md text-label-md">Opportunities</span></div></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="notifications" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="font-label-md text-label-md">Notifications</span></div><span class="px-1.5 py-0.5 rounded-full bg-secondary text-on-secondary font-label-xs text-label-xs">5</span></a></nav></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Governance &amp; Oversight</div><nav class="mt-space-xs flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-xl"><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-console" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">admin_panel_settings</span><span class="font-label-md text-label-md">Admin Console</span></div><span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-semibold">ADMIN</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="audit-log" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">history_edu</span><span class="font-label-md text-label-md">Audit Log</span></div><span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-semibold">SEC</span></a></nav></div></div><div class="p-space-md bg-surface-container-low mx-space-md mb-space-md rounded-xl"><div class="flex items-center justify-between mb-space-xs"><span class="font-label-xs text-label-xs text-on-surface-variant uppercase font-semibold">Platform Clearance</span><span class="font-label-xs text-label-xs text-secondary font-semibold">Tier 4</span></div><div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden"><div class="bg-secondary h-full w-full"></div></div><div class="mt-space-xs font-data-mono text-label-xs text-on-surface-variant">SLA Health: 99.98% OK</div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm"><span class="hover:text-on-surface cursor-pointer font-medium">Juune Central</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="hover:text-on-surface cursor-pointer font-medium">Operations Core</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-primary font-semibold">Console</span></div></div><div class="flex items-center gap-space-lg"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[18px]">search</span><input class="w-72 h-9 pl-9 pr-space-md rounded-xl bg-surface-container-lowest font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/60 shadow-[0_1px_4px_rgba(0,0,0,0.03)] focus:outline-none focus:ring-2 focus:ring-secondary/40" placeholder="Search requests, audit logs, facilities..." type="text"/></div><div class="flex items-center gap-space-sm"><button aria-label="Notifications" class="relative w-9 h-9 flex items-center justify-center rounded-xl bg-surface-container-lowest hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.03)]"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button><button aria-label="Help and Documentation" class="w-9 h-9 flex items-center justify-center rounded-xl bg-surface-container-lowest hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.03)]"><span class="material-symbols-outlined text-[20px]">help_outline</span></button></div><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col items-end"><span class="font-label-md text-label-md text-on-surface font-semibold">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-on-surface-variant">Super Admin · Facilities Ops Mgr</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-space-xl bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Simulation Mode Switcher Bar -->
+<div class="bg-primary-container text-on-primary px-space-md py-2 flex flex-wrap items-center justify-between gap-space-sm rounded-xl mb-space-md shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed">tune</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-surface-container-highest font-semibold">Security Reviewer Simulation Modes:</span>
+</div>
+<div class="flex items-center gap-1.5 flex-wrap">
+<button class="px-2.5 py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-primary shadow-sm transition-all" id="btn-sim-normal" onclick="setSimState('normal')">Normal (Active)</button>
+<button class="px-2.5 py-1 rounded text-label-xs font-label-xs font-semibold bg-primary text-surface-container-highest hover:text-white transition-all" id="btn-sim-export-restricted" onclick="setSimState('export-restricted')">Export Dual-Auth Pending</button>
+<button class="px-2.5 py-1 rounded text-label-xs font-label-xs font-semibold bg-primary text-surface-container-highest hover:text-white transition-all" id="btn-sim-loading" onclick="setSimState('loading')">Ledger Sync (Loading)</button>
+<button class="px-2.5 py-1 rounded text-label-xs font-label-xs font-semibold bg-primary text-surface-container-highest hover:text-white transition-all" id="btn-sim-empty" onclick="setSimState('empty')">Empty Filter Set</button>
+<button class="px-2.5 py-1 rounded text-label-xs font-label-xs font-semibold bg-primary text-surface-container-highest hover:text-white transition-all" id="btn-sim-degraded" onclick="setSimState('degraded')">Network Degradation</button>
+<button class="px-2.5 py-1 rounded text-label-xs font-label-xs font-semibold bg-error text-on-error shadow-sm transition-all" id="btn-sim-unauthorized" onclick="setSimState('unauthorized')">Tier-4 Required (403)</button>
+</div>
+</div>
+<!-- Dual-Auth Export Notice Banner (Conditional Simulation) -->
+<div class="hidden mb-space-md p-space-md bg-surface-container-high rounded-xl flex items-start justify-between gap-space-md" id="banner-export-pending">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px] mt-0.5">verified_user</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Dual-Custody Export Requirement Active</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Exporting immutable manifests exceeding 5,000 cryptographic records mandates countersignature from Deputy Registrar (Office of Governance). Clearance token: <code class="font-data-mono text-label-xs bg-surface-container-lowest px-1 py-0.5 rounded text-primary">EXP-PEND-7749-AUTH</code></span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-sm text-label-sm hover:bg-surface-container-low transition-colors shadow-sm">Review Pending Requests (1)</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface" onclick="dismissExportNotice()"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+</div>
+<!-- Network Degradation Alert (Conditional Simulation) -->
+<div class="hidden mb-space-md p-space-md bg-error-container text-on-error-container rounded-xl flex items-center justify-between gap-space-md" id="banner-degraded">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-error">cloud_sync</span>
+<span class="font-body-sm text-body-sm font-medium">Cryptographic Ledger Sync Latency Elevated (+480ms). Showing cached verification proofs anchored at Block #942. Local SHA validation operational.</span>
+</div>
+<button class="px-3 py-1 bg-surface-container-lowest text-on-surface font-label-xs text-label-xs rounded-lg shadow-sm" onclick="setSimState('normal')">Dismiss</button>
+</div>
+<!-- Unauthorized View (Conditional Simulation) -->
+<div class="hidden py-16 px-space-xl text-center bg-surface-container-lowest rounded-xl shadow-sm mb-space-xl flex flex-col items-center" id="view-unauthorized">
+<div class="w-16 h-16 rounded-full bg-error-container flex items-center justify-center mb-space-md">
+<span class="material-symbols-outlined text-error text-[36px]">gpp_bad</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Clearance Clearance Revoked or Insufficient</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mb-space-lg">
+      Access to the Juune Core Immutable Audit Ledger requires verified Security Clearance Tier-4 (Institutional Auditor &amp; Forensics). Your current role token lacks cryptographic read authorization for append-only logs under Policy GOV-SEC-2024.
+    </p>
+<div class="flex gap-space-md">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-label-md text-label-md shadow-sm" onclick="setSimState('normal')">Re-verify Tier-4 Credentials</button>
+<button class="px-4 py-2 bg-surface-container text-on-surface rounded-xl font-label-md text-label-md">Return to Operations Console</button>
+</div>
+</div>
+<!-- Main View Container -->
+<div class="flex flex-col w-full" id="view-main">
+<!-- Header Section with Security Status & Action Controls -->
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md pb-space-lg">
+<div class="flex flex-col gap-1 max-w-3xl">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-xs text-label-xs font-semibold tracking-wide">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+            IMMUTABLE AUDIT LEDGER • SHA-256 APPEND-ONLY CHAIN ACTIVE
+          </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-data-mono text-label-xs">
+            EPOCH: 2024.Q4
+          </span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary font-semibold tracking-tight mt-1">Institutional Audit Log &amp; Event Ledger</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Cryptographically verified, append-only operational event trail across university triage queues, routing rules, administrative mutations, and least-privilege authentication scopes.
+        </p>
+</div>
+<!-- Export Controls / Verification Utilities -->
+<div class="flex items-center gap-space-sm shrink-0 flex-wrap">
+<div class="relative group">
+<button class="h-10 px-4 rounded-xl bg-primary text-on-primary font-label-md text-label-md flex items-center gap-2 hover:bg-secondary transition-all shadow-sm" id="btn-export-manifest" onclick="handleExportClick()">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span>Export Audit Manifest</span>
+<span class="px-1.5 py-0.5 bg-tertiary-container text-tertiary-fixed rounded font-label-xs text-label-xs" id="badge-export-status">Approved</span>
+</button>
+</div>
+<button class="h-10 px-4 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-low transition-all shadow-sm" onclick="generateDigestModal()">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Tamper Digest</span>
+</button>
+</div>
+</div>
+<!-- Integrity & Cryptographic Metrics Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">
+<!-- Card 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Total Verified Events</span>
+<span class="font-headline-lg text-headline-lg text-primary mt-1 font-semibold">24,891</span>
+</div>
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-1.5 text-label-xs font-label-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-tertiary-container">check_circle</span>
+<span class="font-semibold text-tertiary-container">Tamper Check: 100% Passed</span>
+<span class="text-on-surface-variant/60">• 12m ago</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Active Ledger Block</span>
+<span class="font-headline-lg text-headline-lg text-primary mt-1 font-semibold">#942-SEC</span>
+</div>
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">token</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-1 font-data-mono text-label-xs text-on-surface-variant truncate" title="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855">
+<span class="text-on-surface-variant/70">Hash:</span> e3b0c44298fc...fb924
+        </div>
+</div>
+<!-- Card 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Retention Policy</span>
+<span class="font-headline-lg text-headline-lg text-primary mt-1 font-semibold">7 Years</span>
+</div>
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">history</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs text-label-xs font-label-xs text-on-surface-variant">
+          Statutory Academic &amp; Facilities Audit
+        </div>
+</div>
+<!-- Card 4 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Security Posture</span>
+<span class="font-headline-lg text-headline-lg text-primary mt-1 font-semibold">Strict Write</span>
+</div>
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">shield_lock</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs text-label-xs font-label-xs text-on-surface-variant">
+          Append-Only (Zero In-Place Mutations)
+        </div>
+</div>
+</div>
+<!-- Filtering & Search Console Toolbar -->
+<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm mb-space-md flex flex-col gap-space-sm">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-space-sm">
+<!-- Date Range -->
+<div class="xl:col-span-3 flex flex-col gap-1">
+<label class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Date Range</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-on-surface-variant text-[18px]">calendar_month</span>
+<select class="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-container-low text-body-sm font-body-sm text-on-surface appearance-none focus:outline-none focus:bg-surface-container-lowest shadow-sm cursor-pointer">
+<option selected="">Last 30 Days: 25 Sep – 24 Oct 2024</option>
+<option>Today (24 Oct 2024)</option>
+<option>Last 7 Days</option>
+<option>Fiscal Quarter (2024-Q4)</option>
+<option>Custom Date Window...</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<!-- Actor Filter -->
+<div class="xl:col-span-3 flex flex-col gap-1">
+<label class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Actor / Initiator</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-on-surface-variant text-[18px]">person_search</span>
+<select class="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-container-low text-body-sm font-body-sm text-on-surface appearance-none focus:outline-none focus:bg-surface-container-lowest shadow-sm cursor-pointer">
+<option selected="">All Actors (Personnel &amp; System)</option>
+<option>N. Khumalo (#80922, Super Admin)</option>
+<option>T. Dlamini (#44102, IT Operations)</option>
+<option>S. Pillay (#19830, Compliance)</option>
+<option>J. van Rensburg (#30192, Registrar)</option>
+<option>System Automated Dispatcher</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<!-- Action Classification Filter -->
+<div class="xl:col-span-2 flex flex-col gap-1">
+<label class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Action Type</label>
+<div class="relative flex items-center">
+<select class="w-full h-9 px-3 rounded-lg bg-surface-container-low text-body-sm font-body-sm text-on-surface appearance-none focus:outline-none focus:bg-surface-container-lowest shadow-sm cursor-pointer">
+<option selected="">All Action Types</option>
+<option>Auth / Scope Elevated</option>
+<option>Routing Rule Modified</option>
+<option>Ticket Triage Re-allocation</option>
+<option>Department Reconfiguration</option>
+<option>Export Requested</option>
+<option>Guardrail Intervention</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<!-- Outcome Filter -->
+<div class="xl:col-span-2 flex flex-col gap-1">
+<label class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Outcome</label>
+<div class="relative flex items-center">
+<select class="w-full h-9 px-3 rounded-lg bg-surface-container-low text-body-sm font-body-sm text-on-surface appearance-none focus:outline-none focus:bg-surface-container-lowest shadow-sm cursor-pointer">
+<option selected="">All Outcomes</option>
+<option>Success [200/OK]</option>
+<option>Blocked by Guardrail [403]</option>
+<option>Validation Failure [422]</option>
+<option>Authentication Challenge [401]</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<!-- Reference Search -->
+<div class="xl:col-span-2 flex flex-col gap-1">
+<label class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Reference ID</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-container-low text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:bg-surface-container-lowest shadow-sm" placeholder="REQ-0891, RULE-14..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Active Filter Chips & Clear Action -->
+<div class="flex items-center justify-between pt-1 flex-wrap gap-2">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-label-xs text-label-xs text-on-surface-variant font-semibold">Filter Matrix:</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-xs text-label-xs">
+<span>Range: Last 30 Days</span>
+<button class="hover:text-error"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-xs text-label-xs">
+<span>Clearance: Super Admin / Sec Ops</span>
+<button class="hover:text-error"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-xs text-label-xs">
+<span>Cryptographic State: Validated</span>
+<button class="hover:text-error"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+</div>
+<button class="text-secondary hover:text-primary font-label-xs text-label-xs font-semibold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+          Reset All Filters
+        </button>
+</div>
+</div>
+<!-- Main Workspace: Event Ledger Table + Event Inspector Drawer -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- Primary Table Container (8 Cols when inspector is open, 12 when closed) -->
+<div class="lg:col-span-8 flex flex-col transition-all duration-200" id="table-container">
+<!-- Table Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-space-md py-space-sm bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm font-semibold text-primary">Ledger Stream</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high font-data-mono text-label-xs text-on-surface font-medium">Block #942.24891</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" onclick="toggleAllInspector()" title="Toggle Side Inspector">
+<span class="material-symbols-outlined text-[18px]">view_sidebar</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Refresh Feed">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+</div>
+</div>
+<!-- Responsive Data Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">
+<th class="py-3 px-space-md font-semibold">Timestamp &amp; Seq</th>
+<th class="py-3 px-space-md font-semibold">Actor &amp; Origin</th>
+<th class="py-3 px-space-md font-semibold">Classification &amp; Action</th>
+<th class="py-3 px-space-md font-semibold">Target Ref</th>
+<th class="py-3 px-space-md font-semibold">Outcome</th>
+<th class="py-3 px-space-md font-semibold">SHA-256 Digest</th>
+<th class="py-3 px-space-md text-right font-semibold">Inspect</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm" id="audit-table-body">
+<!-- Row 1: Selected / Inspected -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer group" id="row-evt-1" onclick="selectEventRow(1)">
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">24 Oct 2024 14:22:05</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">SAST • Seq #88491</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">N. Khumalo (#80922)</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">10.14.88.*** (VPN-T4)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-1.5 py-0.5 rounded bg-primary-container text-on-primary font-label-xs text-label-xs font-semibold">CONFIG_UPDATE</span>
+<span class="text-on-surface">Routing Rule Revised</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-data-mono text-label-xs font-medium">RULE-FAC-014</span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                      Success (200)
+                    </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap font-data-mono text-label-xs text-on-surface-variant">
+                    7f8ac930...c930
+                  </td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px] text-secondary group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" id="row-evt-2" onclick="selectEventRow(2)">
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">24 Oct 2024 13:52:19</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">SAST • Seq #88490</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">System Auto-Dispatcher</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">Daemon: crond-triage</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-label-xs text-label-xs font-semibold">TICKET_TRIAGE</span>
+<span class="text-on-surface">SLA Assistance Flag Registered</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-data-mono text-label-xs font-medium">REQ-2024-0891</span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                      Success (200)
+                    </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap font-data-mono text-label-xs text-on-surface-variant">
+                    1e3cb291...d110
+                  </td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-secondary transition-colors">arrow_forward</span>
+</td>
+</tr>
+<!-- Row 3: Guardrail Blocked -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" id="row-evt-3" onclick="selectEventRow(3)">
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">24 Oct 2024 11:15:40</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">SAST • Seq #88489</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-error">Gateway Proxy (Anon)</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">196.24.44.12 [DMZ]</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-label-xs text-label-xs font-semibold">GUARDRAIL_TRIGGER</span>
+<span class="text-on-surface">Elevation Attempt Thwarted</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-data-mono text-label-xs font-medium">USER-EXT-991</span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-xs text-label-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                      Blocked (403)
+                    </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap font-data-mono text-label-xs text-on-surface-variant">
+                    9a01ee42...a901
+                  </td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-secondary transition-colors">arrow_forward</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" id="row-evt-4" onclick="selectEventRow(4)">
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">23 Oct 2024 16:40:12</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">SAST • Seq #88488</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">T. Dlamini (#44102)</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">10.14.12.*** (IT Subnet)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-xs text-label-xs font-semibold">MAINT_WINDOW</span>
+<span class="text-on-surface">Maintenance Schedule Applied</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-data-mono text-label-xs font-medium">BUL-2024-IT-108</span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                      Success (200)
+                    </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap font-data-mono text-label-xs text-on-surface-variant">
+                    4f12890a...27ff
+                  </td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-secondary transition-colors">arrow_forward</span>
+</td>
+</tr>
+<!-- Row 5: Export Generated -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" id="row-evt-5" onclick="selectEventRow(5)">
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">23 Oct 2024 09:04:33</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">SAST • Seq #88487</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">S. Pillay (#19830)</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">10.14.90.*** (Compliance)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-xs text-label-xs font-semibold">DIGEST_EXPORT</span>
+<span class="text-on-surface">Weekly Digest Exported</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-data-mono text-label-xs font-medium">AUDIT-SEC-W43</span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                      Success (200)
+                    </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap font-data-mono text-label-xs text-on-surface-variant">
+                    8b31cc17...b439
+                  </td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-secondary transition-colors">arrow_forward</span>
+</td>
+</tr>
+<!-- Row 6: Restricted Case Access -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" id="row-evt-6" onclick="selectEventRow(6)">
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">22 Oct 2024 17:11:58</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">SAST • Seq #88486</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">J. van Rensburg (#30192)</span>
+<span class="font-data-mono text-label-xs text-on-surface-variant">10.14.04.*** (Registrar)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-label-xs text-label-xs font-semibold">CONFIDENTIAL_CASE</span>
+<span class="text-on-surface">Student File Transfer Redacted</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-data-mono text-label-xs font-medium">REQ-2024-0712</span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                      Scope Guard (200)
+                    </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap font-data-mono text-label-xs text-on-surface-variant">
+                    5c22ef89...3188
+                  </td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-secondary transition-colors">arrow_forward</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Bar -->
+<div class="px-space-md py-space-sm bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md text-label-xs font-label-xs text-on-surface-variant">
+<span>Showing <strong class="text-on-surface">1–10</strong> of <strong class="text-on-surface">24,891</strong> events</span>
+<div class="flex items-center gap-1">
+<span>Per Page:</span>
+<select class="h-7 px-2 bg-surface-container-lowest rounded text-on-surface text-label-xs font-label-xs focus:outline-none">
+<option selected="">10</option>
+<option>25</option>
+<option>50</option>
+<option>100</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface font-label-xs text-label-xs hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled="">First</button>
+<button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface font-label-xs text-label-xs hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled="">Previous</button>
+<button class="w-7 h-7 rounded bg-primary text-on-primary font-label-xs text-label-xs font-semibold">1</button>
+<button class="w-7 h-7 rounded bg-surface-container-lowest text-on-surface font-label-xs text-label-xs hover:bg-surface-container-high transition-colors">2</button>
+<button class="w-7 h-7 rounded bg-surface-container-lowest text-on-surface font-label-xs text-label-xs hover:bg-surface-container-high transition-colors">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface font-label-xs text-label-xs hover:bg-surface-container-high transition-colors">2,490</button>
+<button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface font-label-xs text-label-xs hover:bg-surface-container-high transition-colors">Next</button>
+<button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface font-label-xs text-label-xs hover:bg-surface-container-high transition-colors">Last</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Inspector Side Panel / Drawer (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md" id="inspector-drawer">
+<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col">
+<!-- Inspector Header -->
+<div class="flex items-start justify-between pb-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary font-semibold">Event Inspector</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-data-mono text-label-xs font-semibold">VERIFIED</span>
+</div>
+<span class="font-data-mono text-label-xs text-on-surface-variant mt-0.5" id="inspect-evt-id">EVT-2024-1024-88491</span>
+</div>
+<button class="p-1 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" onclick="closeInspector()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Metadata Properties Card -->
+<div class="p-space-sm bg-surface-container-low rounded-lg mb-space-sm flex flex-col gap-2">
+<div class="flex items-center justify-between text-label-xs font-label-xs">
+<span class="text-on-surface-variant font-medium">Chain Block</span>
+<span class="font-data-mono text-on-surface font-semibold">Block #942 [Offset +104]</span>
+</div>
+<div class="flex items-center justify-between text-label-xs font-label-xs">
+<span class="text-on-surface-variant font-medium">Actor Identity</span>
+<span class="text-primary font-semibold">Nomvula Khumalo (Super Admin)</span>
+</div>
+<div class="flex items-center justify-between text-label-xs font-label-xs">
+<span class="text-on-surface-variant font-medium">Network Subnet</span>
+<span class="font-data-mono text-on-surface">Campus Core Intranet (10.14.88.***)</span>
+</div>
+<div class="flex items-center justify-between text-label-xs font-label-xs">
+<span class="text-on-surface-variant font-medium">Token Session</span>
+<span class="font-data-mono text-on-surface-variant">sess_***9b12 (mTLS Verified)</span>
+</div>
+<div class="flex items-center justify-between text-label-xs font-label-xs">
+<span class="text-on-surface-variant font-medium">Event Class</span>
+<span class="font-semibold text-secondary">Operational Routing Configuration</span>
+</div>
+</div>
+<!-- Sanitized Payload Diff View -->
+<div class="flex flex-col gap-1 mb-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Sanitized State Mutation (Diff)</span>
+<span class="font-label-xs text-label-xs text-tertiary-container font-semibold">Zero-PII Filtered</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg font-data-mono text-label-xs text-on-surface overflow-x-auto">
+<pre class="leading-relaxed"><span class="text-on-surface-variant">// Target: RULE-FAC-014 (Corridor Maintenance)</span>
+{
+  <span class="text-secondary">"rule_id"</span>: <span class="text-primary">"RULE-FAC-014"</span>,
+  <span class="text-secondary">"scope_department"</span>: <span class="text-primary">"Facilities &amp; Maintenance"</span>,
+  <span class="text-secondary">"mutations"</span>: {
+    <span class="text-secondary">"sla_escalation_window"</span>: {
+      <span class="text-error bg-error-container/30 px-1 rounded">- "old_value": "6 hours"</span>,
+      <span class="text-tertiary-container bg-tertiary-fixed/30 px-1 rounded">+ "new_value": "4 hours"</span>
+    },
+    <span class="text-secondary">"auto_reroute_unresponsive"</span>: {
+      <span class="text-error bg-error-container/30 px-1 rounded">- "old_value": false</span>,
+      <span class="text-tertiary-container bg-tertiary-fixed/30 px-1 rounded">+ "new_value": true</span>
+    }
+  }
+}</pre>
+</div>
+</div>
+<!-- Strict Least-Privilege Security Notice -->
+<div class="p-space-sm bg-surface-container-high rounded-lg mb-space-sm flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">policy</span>
+<p class="font-label-xs text-label-xs text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface font-semibold">Zero-Knowledge Log Enforcement:</strong> Passwords, session bearer tokens, and student academic identities are omitted from payload ingestion per Least-Privilege Directive LP-2024.
+            </p>
+</div>
+<!-- Cryptographic Verification Block -->
+<div class="p-space-sm bg-surface-container-low rounded-lg mb-space-md flex flex-col gap-2">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-semibold">Cryptographic Anchor (SHA-256)</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Block Entry Hash:</span>
+<div class="p-1.5 bg-surface-container-lowest rounded font-data-mono text-label-xs text-primary break-all select-all">
+                7f8ac930d89e1a8bb37a6b7d1e85f09916ab4022a188dc25442ceb768a41c930
+              </div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Previous Block Anchor:</span>
+<div class="p-1.5 bg-surface-container-lowest rounded font-data-mono text-label-xs text-on-surface-variant break-all select-all">
+                e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+              </div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Merkle Tree Proof</span>
+<span class="inline-flex items-center gap-1 font-label-xs text-label-xs text-tertiary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                Valid Root Chain
+              </span>
+</div>
+</div>
+<!-- Inspector Action Buttons -->
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 h-9 bg-primary text-on-primary rounded-lg font-label-xs text-label-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-secondary transition-colors shadow-sm" onclick="copyHashToClipboard()">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span id="copy-btn-text">Copy Verification Hash</span>
+</button>
+<button class="h-9 px-3 bg-surface-container text-on-surface rounded-lg font-label-xs text-label-xs font-medium hover:bg-surface-container-high transition-colors" onclick="downloadEventProof()" title="Export Proof JSON">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Container (Simulation) -->
+<div class="hidden py-16 px-space-md text-center bg-surface-container-lowest rounded-xl shadow-sm mb-space-md flex flex-col items-center" id="state-empty">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mb-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[28px]">search_off</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">No Audit Events Match the Specified Filters</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md mb-space-md">
+        Zero operational occurrences recorded matching the active date window, actor restriction, or record identifier. Modify your filter parameters or clear filters.
+      </p>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-xl font-label-sm text-label-sm shadow-sm hover:bg-secondary transition-colors" onclick="setSimState('normal')">Clear Ledger Filters</button>
+</div>
+<!-- Loading Skeleton Container (Simulation) -->
+<div class="hidden flex-col gap-space-sm mb-space-md" id="state-loading">
+<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col gap-space-sm animate-pulse">
+<div class="h-6 bg-surface-container-high rounded w-1/3"></div>
+<div class="h-10 bg-surface-container-low rounded w-full"></div>
+<div class="h-10 bg-surface-container-low rounded w-full"></div>
+<div class="h-10 bg-surface-container-low rounded w-full"></div>
+<div class="h-10 bg-surface-container-low rounded w-full"></div>
+</div>
+</div>
+</div>
+<!-- Tamper Proof Digest Modal Dialog -->
+<div class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden flex items-center justify-center p-space-md" id="modal-tamper-digest">
+<div class="w-full max-w-xl bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden flex flex-col">
+<div class="px-space-lg py-space-md bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">verified</span>
+<span class="font-headline-sm text-headline-sm text-primary font-semibold">Institutional Ledger Digest</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="closeDigestModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md text-on-surface">Cryptographic Proof-of-State Verification</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Generated under Institutional Security Directive 2024.4 for Independent Statutory External Audit.</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-2 font-data-mono text-label-xs">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Digest Timestamp:</span>
+<span class="text-on-surface">2024-10-24T14:30:00Z (UTC)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Auditor Signoff:</span>
+<span class="text-on-surface">N. Khumalo (SEC-T4-80922)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Cumulative Blocks:</span>
+<span class="text-on-surface">942 [24,891 Total Entries]</span>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<span class="text-on-surface-variant">Global Merkle Root Hash:</span>
+<span class="text-primary break-all bg-surface-container-lowest p-2 rounded">
+              3a598c1102ec4fa6b51b72e50cf6dc32cb717df3027b40763ecaa82d56a73c11
+            </span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container text-on-surface rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">verified_user</span>
+<span class="font-label-xs text-label-xs">Ledger integrity validated through hardware security module (HSM-Cluster-02). Zero tamper discrepancies detected.</span>
+</div>
+</div>
+<div class="px-space-lg py-space-md bg-surface-container-low flex items-center justify-end gap-space-sm">
+<button class="px-4 py-2 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" onclick="closeDigestModal()">Close</button>
+<button class="px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition-colors shadow-sm flex items-center gap-2" onclick="downloadDigestCertificate()">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Download Signed Certificate</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive Logic -->
+<script>
+    // Ensure Sidebar SEC / Audit Log is visually marked as active
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelectorAll('aside nav a');
+      navLinks.forEach(link => {
+        if (link.getAttribute('data-path') === 'audit-log') {
+          link.classList.remove('text-on-surface-variant');
+          link.classList.add('bg-primary-container', 'text-on-primary', 'font-semibold', 'rounded-xl');
+          const badge = link.querySelector('span:last-child');
+          if (badge) {
+            badge.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+            badge.classList.add('bg-tertiary-fixed', 'text-on-tertiary-fixed');
+          }
+        }
+      });
+    });
+
+    const mockEventDetails = {
+      1: {
+        id: "EVT-2024-1024-88491",
+        block: "Block #942 [Offset +104]",
+        actor: "Nomvula Khumalo (Super Admin)",
+        ip: "Campus Core Intranet (10.14.88.***)",
+        session: "sess_***9b12 (mTLS Verified)",
+        classification: "Operational Routing Configuration",
+        rule: "RULE-FAC-014",
+        json: `// Target: RULE-FAC-014 (Corridor Maintenance)\n{\n  "rule_id": "RULE-FAC-014",\n  "scope_department": "Facilities & Maintenance",\n  "mutations": {\n    "sla_escalation_window": {\n      - "old_value": "6 hours",\n      + "new_value": "4 hours"\n    },\n    "auto_reroute_unresponsive": {\n      - "old_value": false,\n      + "new_value": true\n    }\n  }\n}`,
+        hash: "7f8ac930d89e1a8bb37a6b7d1e85f09916ab4022a188dc25442ceb768a41c930",
+        prevHash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      2: {
+        id: "EVT-2024-1024-88490",
+        block: "Block #942 [Offset +103]",
+        actor: "System Auto-Dispatcher",
+        ip: "Internal Daemon (crond-triage)",
+        session: "sys_daemon_queue_dispatch",
+        classification: "Ticket Queue Triage Alert",
+        rule: "REQ-2024-0891",
+        json: `// Target: REQ-2024-0891 (HVAC Emergency Science Bldg)\n{\n  "ticket_id": "REQ-2024-0891",\n  "action": "FLAG_SLA_BREACH_PROXIMITY",\n  "parameters": {\n    "time_to_breach_minutes": 25,\n    "automated_dispatch_notice": "SENT_TO_SHIFT_LEAD"\n  }\n}`,
+        hash: "1e3cb291f94a4c8033230a109866e4a2bc0d8291c9001b92019ffbc8294dd110",
+        prevHash: "7f8ac930d89e1a8bb37a6b7d1e85f09916ab4022a188dc25442ceb768a41c930"
+      },
+      3: {
+        id: "EVT-2024-1024-88489",
+        block: "Block #942 [Offset +102]",
+        actor: "Gateway Proxy (Anon)",
+        ip: "196.24.44.12 [DMZ / Untrusted Source]",
+        session: "unauthenticated_handshake",
+        classification: "Security Guardrail Violation",
+        rule: "USER-EXT-991",
+        json: `// Target: USER-EXT-991 (Administrative Role Elevation)\n{\n  "origin_ip": "196.24.44.12",\n  "target_account": "admin_nomvula_backup",\n  "guardrail_code": "GOV-ENF-704",\n  "action_enforced": "CHALLENGE_BLOCKED_IMMEDIATE_REVOCATION"\n}`,
+        hash: "9a01ee42bc6101908aa39f214890cdba19409ef10023a9b19904ee2981cca901",
+        prevHash: "1e3cb291f94a4c8033230a109866e4a2bc0d8291c9001b92019ffbc8294dd110"
+      },
+      4: {
+        id: "EVT-2024-1023-88488",
+        block: "Block #941 [Offset +99]",
+        actor: "T. Dlamini (#44102, IT Admin)",
+        ip: "IT Infrastructure Subnet (10.14.12.***)",
+        session: "sess_***4410 (mTLS Verified)",
+        classification: "Maintenance Window Scheduling",
+        rule: "BUL-2024-IT-108",
+        json: `// Target: BUL-2024-IT-108 (Campus Wi-Fi Patching)\n{\n  "window_id": "BUL-2024-IT-108",\n  "start_utc": "2024-10-27T02:00:00Z",\n  "duration_hours": 3,\n  "affected_nodes": ["LIB-WIFI-AP01", "LIB-WIFI-AP02"]\n}`,
+        hash: "4f12890a59910d9ca821034f8902ee19842a194939b49102488a0110398227ff",
+        prevHash: "9a01ee42bc6101908aa39f214890cdba19409ef10023a9b19904ee2981cca901"
+      },
+      5: {
+        id: "EVT-2024-1023-88487",
+        block: "Block #941 [Offset +98]",
+        actor: "S. Pillay (#19830, Compliance)",
+        ip: "Auditor Workstation (10.14.90.***)",
+        session: "sess_***8821 (Tier-4 Dual Signed)",
+        classification: "Audit Digest Generation",
+        rule: "AUDIT-SEC-W43",
+        json: `// Target: AUDIT-SEC-W43 (Statutory Ledger Digest)\n{\n  "digest_scope": "WEEK_43_ACADEMIC_TERM_2",\n  "record_count": 4982,\n  "checksum_verified": true,\n  "export_destination": "REGISTRAR_SECURE_VAULT"\n}`,
+        hash: "8b31cc170298ea19800a294819280a910839eefb0981920391aa8910491cb439",
+        prevHash: "4f12890a59910d9ca821034f8902ee19842a194939b49102488a0110398227ff"
+      },
+      6: {
+        id: "EVT-2024-1022-88486",
+        block: "Block #941 [Offset +97]",
+        actor: "J. van Rensburg (#30192, Registrar)",
+        ip: "Academic Registry Subnet (10.14.04.***)",
+        session: "sess_***3019 (Role Restricted)",
+        classification: "Confidential Student Case Redaction",
+        rule: "REQ-2024-0712",
+        json: `// Target: REQ-2024-0712 (Academic Dispute)\n{\n  "case_ref": "REQ-2024-0712",\n  "masking_applied": "FULL_ANONYMIZATION_LP2024",\n  "student_identifier": "[REDACTED_BY_POLICY]",\n  "routing": "FACULTY_DEAN_CHAMBERS"\n}`,
+        hash: "5c22ef891902830aa1893902819038471928019aa19283019804820194823188",
+        prevHash: "8b31cc170298ea19800a294819280a910839eefb0981920391aa8910491cb439"
+      }
+    };
+
+    let activeEventId = 1;
+
+    function selectEventRow(id) {
+      activeEventId = id;
+      // Clear row highlight
+      for (let i = 1; i <= 6; i++) {
+        const r = document.getElementById(`row-evt-${i}`);
+        if (r) {
+          r.classList.remove('bg-surface-container-low');
+        }
+      }
+      const selected = document.getElementById(`row-evt-${id}`);
+      if (selected) {
+        selected.classList.add('bg-surface-container-low');
+      }
+
+      // Update Inspector panel data
+      const data = mockEventDetails[id];
+      if (data) {
+        const inspectId = document.getElementById('inspect-evt-id');
+        if (inspectId) inspectId.innerText = data.id;
+        
+        const drawer = document.getElementById('inspector-drawer');
+        if (drawer.classList.contains('hidden')) {
+          toggleAllInspector();
+        }
+      }
+    }
+
+    function toggleAllInspector() {
+      const drawer = document.getElementById('inspector-drawer');
+      const tableCol = document.getElementById('table-container');
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        tableCol.classList.remove('lg:col-span-12');
+        tableCol.classList.add('lg:col-span-8');
+      } else {
+        drawer.classList.add('hidden');
+        tableCol.classList.remove('lg:col-span-8');
+        tableCol.classList.add('lg:col-span-12');
+      }
+    }
+
+    function closeInspector() {
+      toggleAllInspector();
+    }
+
+    function setSimState(state) {
+      const simButtons = ['btn-sim-normal', 'btn-sim-export-restricted', 'btn-sim-loading', 'btn-sim-empty', 'btn-sim-degraded', 'btn-sim-unauthorized'];
+      simButtons.forEach(btnId => {
+        const el = document.getElementById(btnId);
+        if (el) {
+          el.className = "px-2.5 py-1 rounded text-label-xs font-label-xs font-semibold bg-primary text-surface-container-highest hover:text-white transition-all";
+        }
+      });
+
+      const currentBtn = document.getElementById(`btn-sim-${state}`);
+      if (currentBtn) {
+        currentBtn.className = "px-2.5 py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-primary shadow-sm transition-all";
+      }
+
+      // Reset all views
+      document.getElementById('view-main').classList.remove('hidden');
+      document.getElementById('view-unauthorized').classList.add('hidden');
+      document.getElementById('banner-export-pending').classList.add('hidden');
+      document.getElementById('banner-degraded').classList.add('hidden');
+      document.getElementById('state-empty').classList.add('hidden');
+      document.getElementById('state-loading').classList.add('hidden');
+      document.getElementById('table-container').classList.remove('hidden');
+
+      // Update export button badge default
+      const expBadge = document.getElementById('badge-export-status');
+      if (expBadge) {
+        expBadge.innerText = 'Approved';
+        expBadge.className = 'px-1.5 py-0.5 bg-tertiary-container text-tertiary-fixed rounded font-label-xs text-label-xs';
+      }
+
+      if (state === 'export-restricted') {
+        document.getElementById('banner-export-pending').classList.remove('hidden');
+        if (expBadge) {
+          expBadge.innerText = 'Dual-Sign Required';
+          expBadge.className = 'px-1.5 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-xs text-label-xs font-semibold';
+        }
+      } else if (state === 'loading') {
+        document.getElementById('table-container').classList.add('hidden');
+        document.getElementById('state-loading').classList.remove('hidden');
+        document.getElementById('state-loading').classList.add('flex');
+      } else if (state === 'empty') {
+        document.getElementById('table-container').classList.add('hidden');
+        document.getElementById('state-empty').classList.remove('hidden');
+      } else if (state === 'degraded') {
+        document.getElementById('banner-degraded').classList.remove('hidden');
+      } else if (state === 'unauthorized') {
+        document.getElementById('view-main').classList.add('hidden');
+        document.getElementById('view-unauthorized').classList.remove('hidden');
+      }
+    }
+
+    function dismissExportNotice() {
+      document.getElementById('banner-export-pending').classList.add('hidden');
+    }
+
+    function handleExportClick() {
+      const expBadge = document.getElementById('badge-export-status');
+      if (expBadge && expBadge.innerText.includes('Required')) {
+        alert("Dual-signoff notice: Permission requires deputy registrar countersignature before package generation.");
+      } else {
+        alert("Audit Manifest exported successfully. SHA-256 package signed with Nomvula Khumalo's Tier-4 auditor credential.");
+      }
+    }
+
+    function generateDigestModal() {
+      document.getElementById('modal-tamper-digest').classList.remove('hidden');
+    }
+
+    function closeDigestModal() {
+      document.getElementById('modal-tamper-digest').classList.add('hidden');
+    }
+
+    function copyHashToClipboard() {
+      const hash = "7f8ac930d89e1a8bb37a6b7d1e85f09916ab4022a188dc25442ceb768a41c930";
+      navigator.clipboard.writeText(hash).then(() => {
+        const btnText = document.getElementById('copy-btn-text');
+        if (btnText) {
+          const orig = btnText.innerText;
+          btnText.innerText = "Hash Copied!";
+          setTimeout(() => {
+            btnText.innerText = orig;
+          }, 2000);
+        }
+      });
+    }
+
+    function downloadEventProof() {
+      alert("Proof package downloaded: EVT-2024-1024-88491.proof.json (Merkle inclusion proof verified).");
+    }
+
+    function downloadDigestCertificate() {
+      alert("Institutional signed certificate generated: JUUNE-SEC-DIGEST-2024Q4.pdf");
+      closeDigestModal();
+    }
+  </script>
+</div></main></div></body></html>

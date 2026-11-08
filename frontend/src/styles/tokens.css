@@ -1,0 +1,45 @@
+:root {
+  color-scheme: light;
+  font-family: system-ui, sans-serif;
+
+  --color-primary-navy: #18324b;
+  --color-primary-blue: #2f6690;
+  --color-accent-teal: #3a7d7a;
+  --color-background: #f7f9fb;
+  --color-surface: #ffffff;
+  --color-border: #d8e0e7;
+  --color-text: #17212b;
+  --color-muted-text: #5b6570;
+  --color-error: #9b2c2c;
+  --color-error-surface: color-mix(
+    in srgb,
+    var(--color-error) 8%,
+    var(--color-surface)
+  );
+  --color-primary-overlay: rgb(24 50 75 / 14%);
+  --focus-ring: var(--color-primary-blue);
+
+  --font-size-h1: 1.75rem;
+  --font-size-h1-mobile: 1.5rem;
+  --font-size-h2: 1.25rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.75rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+
+  --radius-card: 0.5rem;
+  --radius-modal: 0.75rem;
+  --radius-pill: 999px;
+
+  --size-content-max: 75rem;
+  --size-reading-max: 47.5rem;
+  --size-control-min-height: 2.75rem;
+  --size-touch-min: 2.75rem;
+}

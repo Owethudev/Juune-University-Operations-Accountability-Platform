@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface":"#f7f9ff","error":"#ba1a1a","tertiary-fixed":"#acefeb","on-error-container":"#93000a","on-background":"#131d26","secondary-container":"#9bcefe","tertiary-fixed-dim":"#90d2cf","inverse-on-surface":"#e8f2ff","surface-container-low":"#edf4ff","surface-container-highest":"#d9e3f0","surface-tint":"#48607c","on-tertiary":"#ffffff","on-secondary-fixed":"#001d32","secondary":"#2b638c","secondary-fixed":"#cde5ff","surface-dim":"#d1dbe8","primary":"#001d35","surface-container-high":"#dfe9f6","on-tertiary-fixed":"#00201f","on-primary":"#ffffff","secondary-fixed-dim":"#98ccfb","surface-variant":"#d9e3f0","inverse-surface":"#28313b","outline":"#73777e","surface-bright":"#f7f9ff","on-secondary-container":"#1e5882","primary-container":"#18324b","on-surface":"#131d26","on-primary-fixed":"#001d35","primary-fixed-dim":"#afc9e8","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#00504d","background":"#f7f9ff","on-primary-fixed-variant":"#304963","on-primary-container":"#829ab8","tertiary":"#00201f","on-secondary-fixed-variant":"#044b73","on-surface-variant":"#43474d","primary-fixed":"#d0e4ff","on-error":"#ffffff","tertiary-container":"#003735","on-tertiary-container":"#62a3a0","outline-variant":"#c3c6ce","surface-container-lowest":"#ffffff","surface-container":"#e5effc","error-container":"#ffdad6","inverse-primary":"#afc9e8"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin-mobile":"1rem","space-xs":"0.25rem","gutter-mobile":"1rem","margin":"2rem","space-lg":"1.5rem","space-md":"1rem","gutter":"1.5rem","space-xl":"2rem","space-sm":"0.5rem"},"fontFamily":{"label-sm":["Inter"],"label-md":["Inter"],"label-xs":["Inter"],"headline-xl":["Inter"],"body-md":["Inter"],"headline-lg":["Inter"],"headline-md":["Inter"],"headline-xl-mobile":["Inter"],"body-sm":["Inter"],"headline-sm":["Inter"],"body-lg":["Inter"],"headline-lg-mobile":["Inter"],"data-mono":["JetBrains Mono"]},"fontSize":{"label-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.01em","fontWeight":"500"}],"label-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"500"}],"label-xs":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.025em","fontWeight":"600"}],"headline-xl":["2.25rem",{"lineHeight":"2.75rem","letterSpacing":"-0.025em","fontWeight":"600"}],"body-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"400"}],"headline-lg":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["1.25rem",{"lineHeight":"1.625rem","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["0.8125rem",{"lineHeight":"1.125rem","fontWeight":"400"}],"headline-sm":["1.125rem",{"lineHeight":"1.5rem","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["1rem",{"lineHeight":"1.5rem","fontWeight":"400"}],"headline-lg-mobile":["1.375rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"data-mono":["0.8125rem",{"lineHeight":"1.125rem","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-secondary-fixed text-[20px]">account_balance</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">JUUNE</span><span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Operations Core</span></div></div><span class="font-label-xs text-label-xs px-space-xs py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono">v4.2</span></div><div class="px-space-md py-space-xs"><div class="font-label-xs text-label-xs uppercase tracking-wider text-outline px-space-sm mb-space-xs">Workspace</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="home" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Home</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="my-requests" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">assignment</span><span>My Requests</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="announcements" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">campaign</span><span>Announcements</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="opportunities" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">radar</span><span>Opportunities</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="notifications" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">notifications</span><span>Notifications</span></div><span class="px-1.5 py-0.5 rounded-full font-label-xs text-label-xs bg-error-container text-on-error-container font-medium">5</span></a></nav></div><div class="px-space-md py-space-xs mt-space-xs"><div class="font-label-xs text-label-xs uppercase tracking-wider text-outline px-space-sm mb-space-xs">Governance &amp; Oversight</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="admin-console" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span>Admin Console</span></div><span class="font-label-xs text-label-xs px-1.5 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono">ADMIN</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="audit-log" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Audit Log</span></div><span class="font-label-xs text-label-xs px-1.5 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono">SEC</span></a></nav></div></div><div class="p-space-md bg-surface-container-lowest"><nav class="mb-space-sm" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="profile-and-settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Profile &amp; Settings</span></a></nav><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-sm text-label-sm text-on-surface truncate">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-on-surface-variant truncate">Facilities Ops Mgr</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="text-primary font-medium">Juune Central</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-on-surface font-medium">Operations &amp; Accountability</span></div></div><div class="flex items-center gap-space-md"><div class="relative flex items-center w-72"><span class="material-symbols-outlined absolute left-3 text-[18px] text-outline pointer-events-none">search</span><input class="w-full h-9 pl-9 pr-space-sm bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-[0_1px_8px_rgba(0,0,0,0.04)] focus:ring-1 focus:ring-secondary placeholder:text-outline" placeholder="Search records, requests, audits..." type="search"/></div><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-center" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right"><span class="font-label-sm text-label-sm text-on-surface">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-secondary">Facilities Operations</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-margin bg-surface"><div class="flex flex-col w-full">
+<!-- Simulation State Banner & Mode Controller -->
+<section class="mb-space-lg">
+<div class="bg-surface-container-high rounded-lg p-space-sm shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">tune</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold uppercase tracking-wider">Role &amp; State Simulation:</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5" id="sim-controls">
+<button class="px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-primary text-on-primary transition-all" id="btn-state-normal" onclick="setSimState('normal')">Normal (Dept Mgr)</button>
+<button class="px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" id="btn-state-requester" onclick="setSimState('requester')">Employee (Requester)</button>
+<button class="px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" id="btn-state-senior" onclick="setSimState('senior')">Senior Leadership</button>
+<button class="px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" onclick="openFlagModal()">Flag Modal Open</button>
+<button class="px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" id="btn-state-loading" onclick="setSimState('loading')">Loading State</button>
+<button class="px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" id="btn-state-offline" onclick="toggleOffline()">Offline Mode</button>
+<button class="px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" id="btn-state-denied" onclick="setSimState('denied')">Access Denied</button>
+</div>
+</div>
+<!-- Offline Notification Banner -->
+<div class="hidden mt-space-xs bg-surface-container-highest text-on-surface px-space-md py-space-xs rounded-lg flex items-center justify-between text-body-sm" id="offline-banner">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-outline">wifi_off</span>
+<span><strong>Operating in Cached Read-Only Mode.</strong> Institutional data synced 8m ago. Network status is currently being resolved.</span>
+</div>
+<button class="text-label-xs font-label-xs uppercase font-semibold text-secondary hover:underline" onclick="toggleOffline()">Dismiss</button>
+</div>
+</section>
+<!-- Access Denied State View -->
+<div class="hidden bg-surface-container-lowest rounded-xl p-12 text-center shadow-sm flex flex-col items-center justify-center my-space-lg" id="view-denied">
+<div class="w-16 h-16 rounded-full bg-error-container flex items-center justify-center mb-space-md">
+<span class="material-symbols-outlined text-error text-[32px]">shield_person</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-space-xs">Institutional Access Boundary Notice</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg mb-space-lg">
+      Access to operational request <strong>REQ-2024-0891</strong> is limited to designated Facilities maintenance personnel, authorized department chairs, and the ticket submitter under least-privilege administrative standards.
+    </p>
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-space-md rounded bg-primary text-on-primary font-label-md text-label-md flex items-center gap-space-xs" onclick="setSimState('normal')">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+<span>Re-verify Clearance</span>
+</button>
+<button class="h-9 px-space-md rounded bg-surface-container-high text-on-surface font-label-md text-label-md" onclick="setSimState('normal')">Return to Central Dashboard</button>
+</div>
+</div>
+<!-- Loading Skeleton State View -->
+<div class="hidden flex-col gap-space-lg animate-pulse my-space-md" id="view-loading">
+<div class="h-10 bg-surface-container-highest rounded-lg w-2/3"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<div class="h-44 bg-surface-container-lowest rounded-xl p-space-md flex flex-col gap-3">
+<div class="h-5 bg-surface-container rounded w-1/4"></div>
+<div class="h-4 bg-surface-container rounded w-3/4"></div>
+<div class="h-12 bg-surface-container rounded w-full"></div>
+</div>
+<div class="h-64 bg-surface-container-lowest rounded-xl p-space-md"></div>
+<div class="h-80 bg-surface-container-lowest rounded-xl p-space-md"></div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<div class="h-44 bg-surface-container-lowest rounded-xl"></div>
+<div class="h-56 bg-surface-container-lowest rounded-xl"></div>
+</div>
+</div>
+</div>
+<!-- Main Active Content Area -->
+<div class="flex flex-col w-full" id="view-main">
+<!-- Header Block & Actions -->
+<header class="flex flex-col gap-space-sm mb-space-lg">
+<!-- Breadcrumb navigation -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
+<span class="hover:text-primary cursor-pointer">Juune Central</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-primary cursor-pointer">Operations &amp; Accountability</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-primary cursor-pointer">My Requests</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-data-mono font-medium text-secondary">REQ-2024-0891</span>
+</nav>
+<!-- Main Title and Controls Row -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mt-space-xs">
+<div class="flex flex-col gap-1">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="font-data-mono text-label-xs px-2 py-0.5 rounded bg-primary-container text-on-primary uppercase font-medium">Facilities Maintenance</span>
+<span class="text-label-xs font-label-xs px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+<span>In Progress</span>
+</span>
+<span class="text-label-xs font-label-xs px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">priority_high</span>
+<span>Tier 1 Priority</span>
+</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">
+            Science Lab 3 Air Conditioning Unit Failure
+          </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-data-mono">
+            Ticket ID: REQ-2024-0891 • Registered 24 Oct 2024 08:15 by Prof. Kabelo Sithole
+          </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="h-9 px-space-md rounded bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-colors flex items-center gap-space-xs" onclick="exportAuditPacket()">
+<span class="material-symbols-outlined text-[18px] text-secondary">print</span>
+<span>Export Audit Packet</span>
+</button>
+<div id="role-primary-action">
+<button class="h-9 px-space-md rounded bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-secondary transition-colors flex items-center gap-space-xs" onclick="openFlagModal()">
+<span class="material-symbols-outlined text-[18px]">support</span>
+<span>Request Assistance Review</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Assistance Flag Operational Indicator (Non-punitive mechanism) -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm mt-space-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-start md:items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[22px]">flag</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-md text-label-md font-semibold text-on-surface">2 Flags Registered (Staff Support Notice)</span>
+<span class="px-2 py-0.5 rounded text-label-xs font-label-xs font-semibold bg-surface-container text-on-surface-variant">Step 2 of 3</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Juune Assistance Protocol: Triggered at 3rd flag for supportive manager review &amp; workload reallocation. <em>Non-disciplinary, non-accusatory operational safety standard.</em>
+</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end">
+<div class="flex items-center gap-1.5 bg-surface-container-lowest px-3 py-1.5 rounded-lg shadow-sm">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<div class="w-3 h-3 rounded-full bg-surface-container"></div>
+<span class="font-data-mono text-label-xs text-on-surface-variant pl-1">2/3 Registered</span>
+</div>
+<button class="h-8 px-space-sm rounded bg-surface-container-highest text-on-surface font-label-sm text-label-sm hover:bg-surface-container transition-colors" onclick="openFlagModal()">
+            Review Context
+          </button>
+</div>
+</div>
+</header>
+<!-- Two-Column Master Grid (65% / 35%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN (~65%) -->
+<section class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Card: Request Summary & Core Parameters -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">assignment_turned_in</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Request Parameters &amp; Details</h2>
+</div>
+<span class="font-data-mono text-label-xs text-on-surface-variant">Last Synchronized: 18m ago</span>
+</div>
+<!-- Metadata Matrix Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md p-space-md bg-surface-container-low rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Category</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface mt-0.5">Facilities / HVAC Climate</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Location Reference</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface mt-0.5">Lab 304, 2nd Fl, North Wing</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Receiving Unit</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface mt-0.5">Facilities Ops (Maintenance)</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Requester / Submitter</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Prof. K. Sithole</span>
+<span class="text-label-xs font-label-xs px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant">Chemistry</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Assigned Specialist</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Bongani Moyo</span>
+<span class="text-label-xs font-label-xs px-1.5 py-0.2 rounded bg-secondary-fixed text-on-secondary-fixed">Sr Technician</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Current Ambient Metric</span>
+<span class="font-label-md text-label-md font-semibold text-error mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">thermostat</span>
+<span>28.5°C (Exceeds SLA threshold)</span>
+</span>
+</div>
+</div>
+<!-- Problem Description -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-on-surface-variant">Problem Description &amp; Institutional Impact</span>
+<div class="p-space-md rounded-lg bg-surface-container-lowest shadow-sm text-body-md text-on-surface leading-relaxed">
+              "Primary chilled water ceiling cassette unit (AC-Unit-NW2-3) emitting rapid clicking sound followed by total compressor shutdown during morning chemistry lab session. Room temperature currently exceeding 28.5°C, risking sensitive temperature-regulated reagent storage in Cabinet 4."
+            </div>
+</div>
+<!-- Operational Timestamps Rail -->
+<div class="flex flex-wrap items-center justify-between text-body-sm text-on-surface-variant pt-space-xs font-data-mono text-label-xs gap-2">
+<span>Submitted: 24 Oct 08:15</span>
+<span>•</span>
+<span>Acknowledged: 24 Oct 08:42</span>
+<span>•</span>
+<span>Assigned: 24 Oct 09:10</span>
+<span>•</span>
+<span class="text-secondary font-medium">Last Diagnostic: 18m ago</span>
+</div>
+</article>
+<!-- Card: Authorised Status & Workflow Controls -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md" id="panel-workflow-controls">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">published_with_changes</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Authorised Operational Actions</h2>
+</div>
+<span class="text-label-xs font-label-xs px-2 py-0.5 rounded bg-primary-container text-on-primary">Role: Facilities Ops Mgr</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Workflow modifications automatically append timestamped cryptographic receipts to the immutable university audit ledger.
+          </p>
+<div class="flex flex-wrap items-center gap-space-sm pt-space-xs">
+<div class="relative">
+<select class="h-9 pl-3 pr-8 rounded bg-surface-container-low text-on-surface font-label-md text-label-md shadow-sm appearance-none cursor-pointer focus:ring-2 focus:ring-secondary focus:outline-none">
+<option selected="">Status: In Progress</option>
+<option>Transition to: Waiting for Requester</option>
+<option>Transition to: On Hold (External Parts)</option>
+<option>Transition to: Mark Resolved</option>
+<option>Transition to: Reopen Investigation</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-[18px] text-outline pointer-events-none">expand_more</span>
+</div>
+<button class="h-9 px-space-md rounded bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center gap-space-xs" onclick="reassignTechPrompt()">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span>Reassign Specialist</span>
+</button>
+<button class="h-9 px-space-md rounded bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center gap-space-xs" onclick="alert('Priority elevated to Emergency Dispatch Tier.')">
+<span class="material-symbols-outlined text-[18px]">notification_important</span>
+<span>Dispatch Backup Technician</span>
+</button>
+</div>
+</article>
+<!-- Card: Lack of Assistance Flag Protocol Banner (Calm & Non-accusatory) -->
+<article class="bg-surface-container-low rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]">flag_circle</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Assistance Support Protocol</h3>
+<span class="font-label-xs text-label-xs text-on-surface-variant font-data-mono">JUUNE-SLA-ESCALATION-P9</span>
+</div>
+</div>
+<button class="h-9 px-space-md rounded bg-secondary text-on-secondary font-label-md text-label-md shadow-sm hover:bg-primary-container transition-colors flex items-center gap-space-xs" onclick="openFlagModal()">
+<span class="material-symbols-outlined text-[18px]">add_moderator</span>
+<span>Flag Lack of Assistance</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+            A requester or collaborating staff member can flag when a ticket is stalled or unassisted. At <strong>3 flags</strong>, the request enters supportive operational escalation for managerial workload reallocation. This is an assistance protocol designed to clear bottlenecks, not an accusation or penalty.
+          </p>
+<div class="p-space-md bg-surface-container-lowest rounded-lg shadow-sm flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline font-semibold uppercase">Current Progression</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-data-mono">2 of 3 Registered</span>
+</div>
+<div class="h-8 w-px bg-surface-container"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+                Next flag automatically routes request to Campus Operations Review board.
+              </span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-xs font-label-xs px-2.5 py-1 rounded bg-surface-container text-on-surface font-semibold">Flag 1: 09:15</span>
+<span class="text-label-xs font-label-xs px-2.5 py-1 rounded bg-surface-container text-on-surface font-semibold">Flag 2: 12:20</span>
+<span class="text-label-xs font-label-xs px-2.5 py-1 rounded bg-surface-container-high text-outline">Flag 3: Pending</span>
+</div>
+</div>
+</article>
+<!-- Card: Chronological Activity Timeline & Immutable Audit Trail -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">history_edu</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Chronological Activity Log &amp; Audit Trail</h2>
+</div>
+<span class="font-data-mono text-label-xs px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">6 Logged Events</span>
+</div>
+<!-- Timeline Container -->
+<div class="relative pl-6 flex flex-col gap-space-lg">
+<!-- Timeline vertical spine line via pure background container styling -->
+<div class="absolute left-2.5 top-3 bottom-3 w-0.5 bg-surface-container-high pointer-events-none"></div>
+<!-- Event 1: Diagnostic Complete -->
+<div class="relative flex items-start gap-space-md">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-on-secondary text-[12px]">build</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-space-md flex flex-col gap-1.5">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Bongani Moyo</span>
+<span class="text-label-xs font-label-xs px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed">Technician Update</span>
+</div>
+<span class="font-data-mono text-label-xs text-on-surface-variant">18m ago (14:12)</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                  "Diagnostic complete. Compressor capacitor replaced, refrigerant pressure tested. Monitoring cycle for 30 minutes before closing ticket."
+                </p>
+<div class="flex items-center gap-space-sm text-label-xs text-on-surface-variant font-data-mono pt-1">
+<span class="material-symbols-outlined text-[14px]">attachment</span>
+<span>diagnostic_readout_ac304.pdf (1.2 MB) attached</span>
+</div>
+</div>
+</div>
+<!-- Event 2: Assistance Flag 2 -->
+<div class="relative flex items-start gap-space-md">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-surface-container-high flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[12px]">flag</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-1.5">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Prof. Kabelo Sithole</span>
+<span class="text-label-xs font-label-xs px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">2nd Assistance Flag</span>
+</div>
+<span class="font-data-mono text-label-xs text-on-surface-variant">2h ago (12:20)</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                  "Temperature reached 29°C; reagent cabinet warning buzzer activated. Requesting technician update."
+                </p>
+<div class="text-label-xs text-on-surface-variant font-data-mono">
+                  Operational Context: Threshold warning sent to maintenance dispatch.
+                </div>
+</div>
+</div>
+<!-- Event 3: Internal Note (Restricted to Dept Staff) -->
+<div class="relative flex items-start gap-space-md" id="timeline-internal-event">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-on-primary text-[12px]">lock</span>
+</div>
+<div class="flex-1 bg-surface-container rounded-lg p-space-md flex flex-col gap-1.5">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Nomvula Khumalo</span>
+<span class="text-label-xs font-label-xs px-1.5 py-0.5 rounded bg-primary-container text-on-primary font-data-mono">INTERNAL NOTE ONLY</span>
+</div>
+<span class="font-data-mono text-label-xs text-on-surface-variant">4h ago (10:15)</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                  "Bongani dispatched from Central Plant after completing priority cooling repair on REQ-2024-0887. Replaced switchgear components en route."
+                </p>
+<span class="font-label-xs text-label-xs text-outline">Visible strictly to Facilities Ops Staff &amp; Leadership</span>
+</div>
+</div>
+<!-- Event 4: Assistance Flag 1 -->
+<div class="relative flex items-start gap-space-md">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-surface-container-high flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[12px]">flag</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-1.5">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Prof. Kabelo Sithole</span>
+<span class="text-label-xs font-label-xs px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">1st Assistance Flag</span>
+</div>
+<span class="font-data-mono text-label-xs text-on-surface-variant">5h ago (09:15)</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                  "Followed up via internal intercom; lab smells faintly of electrical heat. Requesting arrival confirmation."
+                </p>
+</div>
+</div>
+<!-- Event 5: Acknowledgment & Assignment -->
+<div class="relative flex items-start gap-space-md">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-surface-tint flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-on-primary text-[12px]">how_to_reg</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-space-md flex flex-col gap-1.5">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Nomvula Khumalo</span>
+<span class="text-label-xs font-label-xs px-1.5 py-0.5 rounded bg-secondary text-on-secondary">Dispatch Mgr</span>
+</div>
+<span class="font-data-mono text-label-xs text-on-surface-variant">6h ago (08:42)</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                  "Request acknowledged within 27m SLA window. Assigned directly to Bongani Moyo (HVAC Specialist on duty)."
+                </p>
+</div>
+</div>
+<!-- Event 6: Initial Ticket Submission -->
+<div class="relative flex items-start gap-space-md">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-on-primary text-[12px]">add_circle</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-1.5">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Prof. Kabelo Sithole</span>
+<span class="text-label-xs font-label-xs px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">Submission</span>
+</div>
+<span class="font-data-mono text-label-xs text-on-surface-variant">7h ago (08:15)</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                  "Initial ticket created via University Central Portal. Priority assessed as Tier 1 by submission rules engine."
+                </p>
+</div>
+</div>
+</div>
+</article>
+<!-- Card: Authorised Response Composition -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Post Administrative Response / Update</h2>
+<span class="text-label-xs font-label-xs text-on-surface-variant font-data-mono">Audit Record: AUTH-UPDATE-S4</span>
+</div>
+<!-- Composition Mode Tabs -->
+<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-lg">
+<button class="flex-1 py-2 px-space-md rounded text-label-md font-label-md font-semibold bg-surface-container-lowest text-primary shadow-sm transition-all flex items-center justify-center gap-1.5" id="tab-public" onclick="switchResponseTab('public')">
+<span class="material-symbols-outlined text-[18px]">public</span>
+<span>Public Response to Requester</span>
+</button>
+<button class="flex-1 py-2 px-space-md rounded text-label-md font-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center justify-center gap-1.5" id="tab-internal" onclick="switchResponseTab('internal')">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span>Internal Department Note (Confidential)</span>
+</button>
+</div>
+<!-- Editor Toolbar -->
+<div class="flex flex-wrap items-center gap-1.5 bg-surface-container-low p-1.5 rounded-lg">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant" title="Bold"><span class="material-symbols-outlined text-[18px]">format_bold</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant" title="Italic"><span class="material-symbols-outlined text-[18px]">format_italic</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant" title="Bullet List"><span class="material-symbols-outlined text-[18px]">format_list_bulleted</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant" title="Numbered List"><span class="material-symbols-outlined text-[18px]">format_list_numbered</span></button>
+<div class="h-4 w-px bg-surface-container"></div>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant" title="Insert Code"><span class="material-symbols-outlined text-[18px]">code</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant" title="Insert Template"><span class="material-symbols-outlined text-[18px]">post_add</span></button>
+</div>
+<!-- Textarea Input Area -->
+<div class="relative">
+<textarea class="w-full p-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md outline-none focus:ring-2 focus:ring-secondary transition-all resize-y" id="comment-box" placeholder="Type operational response or diagnostic update for ticket log..." rows="4"></textarea>
+</div>
+<!-- Visibility Notice -->
+<div class="p-space-sm rounded-lg bg-surface-container-low text-body-sm text-on-surface-variant flex items-center gap-space-sm" id="visibility-callout">
+<span class="material-symbols-outlined text-secondary text-[18px]">visibility</span>
+<span>Public responses are visible to Prof. Sithole, Chemistry staff, and facilities personnel.</span>
+</div>
+<!-- Action and File Attachment Controls -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-space-md rounded bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">attach_file</span>
+<span>Add Attachment (Max 15MB)</span>
+</button>
+<span class="font-data-mono text-label-xs text-outline">PDF, PNG, JPG</span>
+</div>
+<button class="h-9 px-space-lg rounded bg-secondary text-on-secondary font-label-md text-label-md shadow-sm hover:bg-primary transition-colors flex items-center justify-center gap-space-xs" onclick="postUpdateAction()">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Post Update</span>
+</button>
+</div>
+</article>
+</section>
+<!-- RIGHT COLUMN (~35%) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Card: Resolution Estimate (Category Metrics) -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">timer</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Resolution Estimate</h2>
+</div>
+<span class="font-data-mono text-label-xs px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">HVAC-EST</span>
+</div>
+<!-- Estimate Metric Display -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Typical Turnaround</span>
+<span class="font-headline-md text-headline-md text-primary font-data-mono font-bold">4 to 8 hours</span>
+</div>
+<!-- Linear Progress SVG Indicator -->
+<div class="w-full bg-surface-container-high rounded-full h-2.5 overflow-hidden">
+<div class="bg-secondary h-2.5 rounded-full" style="width: 72%;"></div>
+</div>
+<div class="flex items-center justify-between text-label-xs font-data-mono text-on-surface-variant">
+<span>SLA Target: 12h</span>
+<span class="text-secondary font-semibold">Elapsed: 6h 30m</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Based on historical data from <strong>42 recent HVAC electrical and compressor faults</strong> logged across campus facilities.
+          </p>
+<!-- System Transparency Callout -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-start gap-space-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-outline shrink-0 mt-0.5">info</span>
+<span><strong>System Standard:</strong> In categories where sufficient historical data is unavailable, Juune explicitly displays: <em>"A reliable resolution estimate isn’t available for this category yet."</em></span>
+</div>
+</article>
+<!-- Card: Permitted Evidence & Attachments -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">folder_open</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Evidence &amp; Artifacts</h2>
+</div>
+<span class="font-data-mono text-label-xs px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">2 Files</span>
+</div>
+<!-- Attachment Items -->
+<div class="flex flex-col gap-space-sm">
+<!-- File 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-secondary text-[22px] shrink-0">picture_as_pdf</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate font-data-mono">diagnostic_readout_ac304.pdf</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">1.2 MB • By Bongani Moyo</span>
+</div>
+</div>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" title="Download Record">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+<!-- File 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-secondary text-[22px] shrink-0">image</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate font-data-mono">reagent_cabinet_temp_log.png</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">840 KB • By Prof. K. Sithole</span>
+</div>
+</div>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" title="Download Record">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low text-label-xs font-label-xs text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline">verified_user</span>
+<span>Sensitive access codes and credential badges are redacted per Institutional Privacy Policy.</span>
+</div>
+</article>
+<!-- Card: Governance & Operational Escalation Path -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">account_tree</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Escalation Governance</h2>
+</div>
+<span class="text-label-xs font-label-xs px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold">Tier 1</span>
+</div>
+<!-- Tier Targets -->
+<div class="flex flex-col gap-2 p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant">Acknowledgment SLA:</span>
+<span class="font-data-mono font-semibold text-on-surface">Under 4 Hours</span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant">Active Mitigation SLA:</span>
+<span class="font-data-mono font-semibold text-on-surface">12 Hours</span>
+</div>
+</div>
+<!-- Tier Escalation Sequence -->
+<div class="flex flex-col gap-2 pt-1">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Designated Assistance Path:</span>
+<div class="flex items-center gap-space-sm p-2 rounded bg-surface-container-low">
+<div class="w-6 h-6 rounded-full bg-secondary text-on-secondary font-label-xs flex items-center justify-center font-bold">1</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Facilities Dispatch Supervisor</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Initial operational assignment</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm p-2 rounded bg-surface-container-low">
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary font-label-xs flex items-center justify-center font-bold">2</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Ops Manager (Nomvula Khumalo)</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Assistance review queue &amp; workload balance</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm p-2 rounded bg-surface-container-low">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface font-label-xs flex items-center justify-center font-bold">3</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Campus Registrar &amp; Division Dean</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Institutional infrastructure oversight</span>
+</div>
+</div>
+</div>
+<!-- Non-accusatory Disclaimer -->
+<div class="p-space-sm rounded-lg bg-surface-container text-body-sm text-on-surface-variant leading-relaxed">
+<strong>Juune Institutional Standard:</strong> Requests are tracked to safeguard academic safety and operational reliability. Performance indicators reflect aggregate system support rather than individual punitive measures.
+          </div>
+</article>
+</aside>
+</div>
+</div>
+<!-- Non-Accusatory Flag Modal Overlay -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-inverse-surface/40 backdrop-blur-sm" id="flag-modal">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-lg shadow-xl flex flex-col gap-space-md animate-in fade-in zoom-in duration-150">
+<!-- Modal Header -->
+<div class="flex items-start justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[22px]">support_agent</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Request Assistance Review</h3>
+<span class="font-label-xs text-label-xs text-on-surface-variant font-data-mono">Ticket: REQ-2024-0891</span>
+</div>
+</div>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant" onclick="closeFlagModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Explanatory Principle -->
+<div class="p-space-sm rounded-lg bg-surface-container-low text-body-sm text-on-surface">
+<p>
+          Juune assistance flags are <strong>non-punitive operational signals</strong>. They alert department management to provide backup staff, expediting equipment parts or resolving scheduling roadblocks.
+        </p>
+</div>
+<!-- Reason Selection Form -->
+<div class="flex flex-col gap-space-sm">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface">Select Operational Bottleneck</label>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 text-secondary focus:ring-secondary" name="flag-reason" type="radio" value="sla"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">No technician response within designated SLA</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Expected response window lapsed without diagnostic notes</span>
+</div>
+</label>
+<label class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-secondary focus:ring-secondary" name="flag-reason" type="radio" value="parts"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Parts or external tooling pending with no ETA</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Requires procurement escalation or alternative unit requisition</span>
+</div>
+</label>
+<label class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-secondary focus:ring-secondary" name="flag-reason" type="radio" value="other"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Lab safety hazard / Critical environmental risk</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Reagents, specimen preservation, or equipment overheating</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Additional Details -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface">Additional Support Context (Optional)</label>
+<textarea class="w-full p-2.5 rounded bg-surface-container-low text-on-surface font-body-sm text-body-sm outline-none focus:ring-2 focus:ring-secondary" placeholder="Provide factual context to assist supervisor triage..." rows="3"></textarea>
+</div>
+<!-- Modal Footer -->
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-data-mono text-label-xs text-on-surface-variant">Status after submit: 3 of 3 (Threshold met)</span>
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-space-md rounded bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" onclick="closeFlagModal()">
+            Cancel
+          </button>
+<button class="h-9 px-space-md rounded bg-secondary text-on-secondary font-label-md text-label-md shadow-sm hover:bg-primary transition-colors flex items-center gap-1" onclick="confirmFlagSubmission()">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Register Flag for Review</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let currentSimState = 'normal';
+  let isOffline = false;
+
+  function setSimState(state) {
+    currentSimState = state;
+    
+    // Reset buttons appearance
+    const buttons = ['normal', 'requester', 'senior', 'loading', 'denied'];
+    buttons.forEach(id => {
+      const btn = document.getElementById(`btn-state-${id}`);
+      if (btn) {
+        btn.className = "px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all";
+      }
+    });
+
+    const activeBtn = document.getElementById(`btn-state-${state}`);
+    if (activeBtn) {
+      activeBtn.className = "px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-primary text-on-primary transition-all";
+    }
+
+    const mainView = document.getElementById('view-main');
+    const deniedView = document.getElementById('view-denied');
+    const loadingView = document.getElementById('view-loading');
+    const workflowPanel = document.getElementById('panel-workflow-controls');
+    const internalTimelineEvent = document.getElementById('timeline-internal-event');
+    const tabInternal = document.getElementById('tab-internal');
+
+    // Display transitions
+    if (state === 'denied') {
+      mainView.classList.add('hidden');
+      loadingView.classList.add('hidden');
+      deniedView.classList.remove('hidden');
+      return;
+    } else if (state === 'loading') {
+      mainView.classList.add('hidden');
+      deniedView.classList.add('hidden');
+      loadingView.classList.remove('hidden');
+      loadingView.classList.add('flex');
+      return;
+    } else {
+      mainView.classList.remove('hidden');
+      deniedView.classList.add('hidden');
+      loadingView.classList.add('hidden');
+      loadingView.classList.remove('flex');
+    }
+
+    // Role-specific adaptations
+    if (state === 'requester') {
+      // Employee / Requester has read-only controls on status and cannot see internal dept notes
+      if (workflowPanel) workflowPanel.classList.add('hidden');
+      if (internalTimelineEvent) internalTimelineEvent.classList.add('hidden');
+      if (tabInternal) tabInternal.classList.add('hidden');
+      switchResponseTab('public');
+    } else if (state === 'senior') {
+      // Senior Leadership sees read-only summary, high level audit, no technician status reassignment
+      if (workflowPanel) workflowPanel.classList.add('hidden');
+      if (internalTimelineEvent) internalTimelineEvent.classList.remove('hidden');
+      if (tabInternal) tabInternal.classList.remove('hidden');
+    } else {
+      // Normal Department Manager view
+      if (workflowPanel) workflowPanel.classList.remove('hidden');
+      if (internalTimelineEvent) internalTimelineEvent.classList.remove('hidden');
+      if (tabInternal) tabInternal.classList.remove('hidden');
+    }
+  }
+
+  function toggleOffline() {
+    isOffline = !isOffline;
+    const banner = document.getElementById('offline-banner');
+    const btn = document.getElementById('btn-state-offline');
+    if (isOffline) {
+      banner.classList.remove('hidden');
+      btn.className = "px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-error text-on-error transition-all";
+    } else {
+      banner.classList.add('hidden');
+      btn.className = "px-space-sm py-1 rounded text-label-xs font-label-xs font-semibold bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all";
+    }
+  }
+
+  function openFlagModal() {
+    document.getElementById('flag-modal').classList.remove('hidden');
+  }
+
+  function closeFlagModal() {
+    document.getElementById('flag-modal').classList.add('hidden');
+  }
+
+  function confirmFlagSubmission() {
+    closeFlagModal();
+    alert('Supportive Assistance Flag registered. Facilities Operations Manager notified for workload balance.');
+  }
+
+  function switchResponseTab(tab) {
+    const tabPub = document.getElementById('tab-public');
+    const tabInt = document.getElementById('tab-internal');
+    const notice = document.getElementById('visibility-callout');
+
+    if (tab === 'public') {
+      tabPub.className = "flex-1 py-2 px-space-md rounded text-label-md font-label-md font-semibold bg-surface-container-lowest text-primary shadow-sm transition-all flex items-center justify-center gap-1.5";
+      tabInt.className = "flex-1 py-2 px-space-md rounded text-label-md font-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
+      notice.innerHTML = '<span class="material-symbols-outlined text-secondary text-[18px]">visibility</span><span>Public responses are visible to Prof. Sithole, Chemistry staff, and facilities personnel.</span>';
+    } else {
+      tabInt.className = "flex-1 py-2 px-space-md rounded text-label-md font-label-md font-semibold bg-surface-container-lowest text-primary shadow-sm transition-all flex items-center justify-center gap-1.5";
+      tabPub.className = "flex-1 py-2 px-space-md rounded text-label-md font-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
+      notice.innerHTML = '<span class="material-symbols-outlined text-outline text-[18px]">lock</span><span>Internal notes are restricted to Facilities Operations and designated administrators.</span>';
+    }
+  }
+
+  function exportAuditPacket() {
+    alert('Generating signed institutional PDF packet for REQ-2024-0891 with SHA-256 validation timestamps.');
+  }
+
+  function reassignTechPrompt() {
+    alert('Technician Reassignment Protocol: Dispatches updated duty roster to Central Facilities Board.');
+  }
+
+  function postUpdateAction() {
+    const box = document.getElementById('comment-box');
+    if (!box.value.trim()) {
+      alert('Please enter response notes prior to submitting.');
+      return;
+    }
+    alert('Operational record saved to central institutional audit log.');
+    box.value = '';
+  }
+</script></main></div></body></html>

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface":"#f7f9ff","error":"#ba1a1a","tertiary-fixed":"#acefeb","on-error-container":"#93000a","on-background":"#131d26","secondary-container":"#9bcefe","tertiary-fixed-dim":"#90d2cf","inverse-on-surface":"#e8f2ff","surface-container-low":"#edf4ff","surface-container-highest":"#d9e3f0","surface-tint":"#48607c","on-tertiary":"#ffffff","on-secondary-fixed":"#001d32","secondary":"#2b638c","secondary-fixed":"#cde5ff","surface-dim":"#d1dbe8","primary":"#001d35","surface-container-high":"#dfe9f6","on-tertiary-fixed":"#00201f","on-primary":"#ffffff","secondary-fixed-dim":"#98ccfb","surface-variant":"#d9e3f0","inverse-surface":"#28313b","outline":"#73777e","surface-bright":"#f7f9ff","on-secondary-container":"#1e5882","primary-container":"#18324b","on-surface":"#131d26","on-primary-fixed":"#001d35","primary-fixed-dim":"#afc9e8","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#00504d","background":"#f7f9ff","on-primary-fixed-variant":"#304963","on-primary-container":"#829ab8","tertiary":"#00201f","on-secondary-fixed-variant":"#044b73","on-surface-variant":"#43474d","primary-fixed":"#d0e4ff","on-error":"#ffffff","tertiary-container":"#003735","on-tertiary-container":"#62a3a0","outline-variant":"#c3c6ce","surface-container-lowest":"#ffffff","surface-container":"#e5effc","error-container":"#ffdad6","inverse-primary":"#afc9e8"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin-mobile":"1rem","space-xs":"0.25rem","gutter-mobile":"1rem","margin":"2rem","space-lg":"1.5rem","space-md":"1rem","gutter":"1.5rem","space-xl":"2rem","space-sm":"0.5rem"},"fontFamily":{"label-sm":["Inter"],"label-md":["Inter"],"label-xs":["Inter"],"headline-xl":["Inter"],"body-md":["Inter"],"headline-lg":["Inter"],"headline-md":["Inter"],"headline-xl-mobile":["Inter"],"body-sm":["Inter"],"headline-sm":["Inter"],"body-lg":["Inter"],"headline-lg-mobile":["Inter"],"data-mono":["JetBrains Mono"]},"fontSize":{"label-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.01em","fontWeight":"500"}],"label-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"500"}],"label-xs":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.025em","fontWeight":"600"}],"headline-xl":["2.25rem",{"lineHeight":"2.75rem","letterSpacing":"-0.025em","fontWeight":"600"}],"body-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"400"}],"headline-lg":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["1.25rem",{"lineHeight":"1.625rem","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["0.8125rem",{"lineHeight":"1.125rem","fontWeight":"400"}],"headline-sm":["1.125rem",{"lineHeight":"1.5rem","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["1rem",{"lineHeight":"1.5rem","fontWeight":"400"}],"headline-lg-mobile":["1.375rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"data-mono":["0.8125rem",{"lineHeight":"1.125rem","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-secondary-fixed text-[20px]">account_balance</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">JUUNE</span><span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Operations Core</span></div></div><span class="font-label-xs text-label-xs px-space-xs py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono">v4.2</span></div><div class="px-space-md py-space-xs"><div class="font-label-xs text-label-xs uppercase tracking-wider text-outline px-space-sm mb-space-xs">Workspace</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="s2-home-role-dashboard" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Home</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="s3-my-requests-request-queue" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">assignment</span><span>My Requests</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="s6-announcements" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">campaign</span><span>Announcements</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="s7-opportunities" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">radar</span><span>Opportunities</span></div></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="notifications" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">notifications</span><span>Notifications</span></div><span class="px-1.5 py-0.5 rounded-full font-label-xs text-label-xs bg-error-container text-on-error-container font-medium">5</span></a></nav></div><div class="px-space-md py-space-xs mt-space-xs"><div class="font-label-xs text-label-xs uppercase tracking-wider text-outline px-space-sm mb-space-xs">Governance &amp; Oversight</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="admin-console" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span>Admin Console</span></div><span class="font-label-xs text-label-xs px-1.5 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono">ADMIN</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="audit-log" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Audit Log</span></div><span class="font-label-xs text-label-xs px-1.5 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono">SEC</span></a></nav></div></div><div class="p-space-md bg-surface-container-lowest"><nav class="mb-space-sm" data-active-classes="bg-primary-container text-on-primary font-label-md"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="profile-and-settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Profile &amp; Settings</span></a></nav><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-sm text-label-sm text-on-surface truncate">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-on-surface-variant truncate">Facilities Ops Mgr</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="text-primary font-medium">Juune Central</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-on-surface-variant font-medium">Operations &amp; Accountability</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-on-surface font-semibold">Opportunities</span></div></div><div class="flex items-center gap-space-md"><div class="relative flex items-center w-72"><span class="material-symbols-outlined absolute left-3 text-[18px] text-outline pointer-events-none">search</span><input class="w-full h-9 pl-9 pr-space-sm bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-[0_1px_8px_rgba(0,0,0,0.04)] focus:ring-1 focus:ring-secondary placeholder:text-outline" placeholder="Search records, requests, audits..." type="search"/></div><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-center" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right"><span class="font-label-sm text-label-sm text-on-surface">Nomvula Khumalo</span><span class="font-label-xs text-label-xs text-secondary">Facilities Operations</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-margin bg-surface"><div class="flex flex-col w-full">
+<!-- Simulation State / Governance Bar -->
+<aside aria-label="System simulation controls" class="w-full bg-surface-container-high/60 backdrop-blur-sm px-space-md py-space-xs mb-space-md rounded-xl flex flex-wrap items-center justify-between gap-space-sm shadow-sm">
+<div class="flex items-center flex-wrap gap-space-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-xs uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px] text-secondary">tune</span>
+<span>Simulation Audience:</span>
+</div>
+<div class="inline-flex rounded-lg bg-surface-container p-0.5" id="audience-toggles" role="group">
+<button class="sim-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-primary bg-primary-container shadow-xs transition-colors" data-audience="all" type="button">All Staff (Active)</button>
+<button class="sim-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors" data-audience="academic" type="button">Academic &amp; Research</button>
+<button class="sim-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors" data-audience="tech" type="button">Technical &amp; Facilities</button>
+<button class="sim-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors" data-audience="admin" type="button">Administrative</button>
+<button class="sim-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors" data-audience="ineligible" type="button">Ineligible View</button>
+</div>
+<div class="h-4 w-px bg-outline-variant/60 mx-1"></div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-xs uppercase tracking-wider">
+<span>State:</span>
+</div>
+<div class="inline-flex rounded-lg bg-surface-container p-0.5" id="state-toggles" role="group">
+<button class="state-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-primary bg-primary-container shadow-xs transition-colors" data-state="normal" type="button">Normal (List &amp; Detail)</button>
+<button class="state-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors" data-state="empty" type="button">Empty State</button>
+<button class="state-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors" data-state="loading" type="button">Loading State</button>
+<button class="state-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors" data-state="error" type="button">Error / Offline</button>
+</div>
+</div>
+<div class="flex items-center gap-2 font-data-mono text-label-xs text-on-surface-variant">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+<span class="tracking-wide">INTERNAL TALENT MOBILITY &amp; CPD • POLICY_OPP_V4</span>
+</div>
+</aside>
+<!-- Error / Offline State Alert (Shown when state = error) -->
+<section aria-label="System connectivity warning" class="hidden mb-space-md p-space-md rounded-xl bg-error-container text-on-error-container flex flex-wrap items-center justify-between gap-space-sm shadow-sm" id="view-error">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[24px] text-error">cloud_off</span>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-error-container leading-none">Unable to Connect to Institutional Talent Ledger • Offline Mode Active (Cached data from 24 Oct 2024 displayed)</p>
+<p class="font-body-sm text-body-sm text-on-error-container/80 mt-1">Application submissions and real-time ledger validations will queue locally until secure TLS tunnel to Juune Core HR is re-established.</p>
+</div>
+</div>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-error font-label-sm text-label-sm font-semibold hover:bg-surface-container-low transition-colors shadow-xs" onclick="resetToNormalState()" type="button">
+      Retry Connection
+    </button>
+</section>
+<!-- Page Header -->
+<div class="flex flex-col gap-space-xs mb-space-lg">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-space-md">
+<div class="max-w-3xl">
+<div class="flex items-center gap-space-xs text-label-xs font-label-xs uppercase tracking-wider text-secondary mb-1">
+<span>Office of Human Capital</span>
+<span>/</span>
+<span>Career Pathways &amp; Governance</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">Institutional Opportunities &amp; Talent Mobility</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5 leading-relaxed">Internal vacancies, secondments, temporary committee appointments, and subsidized continuous professional development (CPD) programs across Juune University campuses.</p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md hover:bg-surface-container transition-colors shadow-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+<span>My Saved / Followed (3)</span>
+</button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-secondary transition-colors shadow-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Export Mobility Digest</span>
+</button>
+</div>
+</div>
+<!-- Quick Metrics / Summary Bar -->
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-space-sm mt-space-sm">
+<div class="p-space-sm bg-surface-container-lowest rounded-xl shadow-xs flex flex-col justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Active Opportunities</span>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-lg text-headline-lg text-primary font-semibold">18</span>
+<span class="font-label-xs text-label-xs text-secondary font-data-mono">PORTAL_VERIFIED</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded-xl shadow-xs flex flex-col justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Vacancies &amp; Promotions</span>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-lg text-headline-lg text-primary font-semibold">5</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">T5 – T10 Bands</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded-xl shadow-xs flex flex-col justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Assignments &amp; Committees</span>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-lg text-headline-lg text-primary font-semibold">4</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Secondments</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded-xl shadow-xs flex flex-col justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Training &amp; CPD Programs</span>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-lg text-headline-lg text-primary font-semibold">7</span>
+<span class="font-label-xs text-label-xs text-tertiary-container font-medium">100% Subsidized</span>
+</div>
+</div>
+<div class="p-space-sm bg-error-container/40 rounded-xl shadow-xs flex flex-col justify-between">
+<span class="font-label-xs text-label-xs text-on-error-container uppercase tracking-wider font-semibold">Closing Soon (&lt;72h)</span>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-lg text-headline-lg text-error font-semibold">2</span>
+<span class="font-label-xs text-label-xs text-error font-medium">Action Required</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Search & Filter Controls -->
+<section aria-label="Search and filter opportunities" class="bg-surface-container-lowest rounded-xl p-space-md shadow-xs mb-space-lg flex flex-col gap-space-sm">
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-space-sm">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-[18px] text-outline pointer-events-none">search</span>
+<input class="w-full h-10 pl-9 pr-space-sm bg-surface text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-xs focus:ring-2 focus:ring-secondary/30 placeholder:text-outline" id="opp-search" placeholder="Search opportunities by title, reference, prerequisite, or department..." type="search"/>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs shrink-0">
+<select class="h-10 px-space-sm bg-surface text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-xs focus:ring-1 focus:ring-secondary cursor-pointer" id="filter-type">
+<option value="all">Type: All Types</option>
+<option value="vacancies">Vacancies &amp; Promotions</option>
+<option value="temporary">Temporary / Secondments</option>
+<option value="committees">Committee Roles</option>
+<option value="training">Training &amp; CPD</option>
+</select>
+<select class="h-10 px-space-sm bg-surface text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-xs focus:ring-1 focus:ring-secondary cursor-pointer" id="filter-dept">
+<option value="all">Department: All Departments</option>
+<option value="facilities">Facilities &amp; Maintenance</option>
+<option value="it">IT &amp; Digital Infrastructure</option>
+<option value="registrar">Registrar &amp; Admin</option>
+<option value="science">Natural Sciences Faculty</option>
+<option value="academic">Academic Affairs</option>
+</select>
+<select class="h-10 px-space-sm bg-surface text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-xs focus:ring-1 focus:ring-secondary cursor-pointer" id="filter-eligibility">
+<option value="all">Eligibility: All Eligible</option>
+<option value="all-staff">Open to All Staff</option>
+<option value="technical">Facilities &amp; Technical Only</option>
+<option value="faculty">Academic Faculty Only</option>
+<option value="management">Junior to Mid Management</option>
+</select>
+<select class="h-10 px-space-sm bg-surface text-on-surface font-body-sm text-body-sm rounded-lg outline-none shadow-xs focus:ring-1 focus:ring-secondary cursor-pointer" id="filter-status">
+<option value="active">Status: Active Only</option>
+<option value="closing">Closing Soon (&lt;72h)</option>
+<option value="reviewing">Reviewing Submissions</option>
+<option value="archived">Expired / Archived</option>
+</select>
+</div>
+<button class="text-secondary hover:text-primary font-label-sm text-label-sm self-center whitespace-nowrap px-space-xs py-2 transition-colors" onclick="clearFilters()" type="button">
+        Clear Filters
+      </button>
+</div>
+<!-- Governance Notice Strip -->
+<div class="flex items-center gap-space-xs p-space-xs px-space-sm rounded-lg bg-surface-container-low text-on-surface-variant font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary shrink-0">verified_user</span>
+<span class="leading-normal"><strong class="font-semibold text-primary">Institutional Governance:</strong> Only verified internal opportunities approved by HR Operations &amp; Faculty Deans are listed. All submissions adhere to Juune Fair Opportunity Standards and least-privilege review protocols.</span>
+</div>
+</section>
+<!-- Empty State Container (Shown when state = empty) -->
+<section aria-label="No opportunities found" class="hidden flex flex-col items-center justify-center p-space-xl bg-surface-container-lowest rounded-xl shadow-xs text-center my-space-lg" id="view-empty">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-space-md text-outline">
+<span class="material-symbols-outlined text-[36px]">radar</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary font-semibold">No opportunities are available right now</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-md">Try resetting your category or department filters to see wider institutional listings, or check back after the bi-weekly Monday talent mobility bulletin dispatch.</p>
+<div class="flex items-center gap-space-sm mt-space-md">
+<button class="px-space-md py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-secondary transition-colors" onclick="resetToNormalState()" type="button">
+        Reset All Filters
+      </button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md hover:bg-surface-container transition-colors" type="button">
+        Subscribe to Alerts
+      </button>
+</div>
+</section>
+<!-- Loading State Container (Shown when state = loading) -->
+<div class="hidden grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl" id="view-loading">
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<div class="h-36 bg-surface-container-highest/50 rounded-xl animate-pulse"></div>
+<div class="h-36 bg-surface-container-highest/50 rounded-xl animate-pulse"></div>
+<div class="h-36 bg-surface-container-highest/50 rounded-xl animate-pulse"></div>
+</div>
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl p-space-lg shadow-xs flex flex-col gap-space-md">
+<div class="h-8 bg-surface-container-highest/50 rounded-lg w-3/4 animate-pulse"></div>
+<div class="h-4 bg-surface-container-highest/50 rounded-lg w-1/2 animate-pulse"></div>
+<div class="h-28 bg-surface-container-highest/30 rounded-xl animate-pulse"></div>
+<div class="h-40 bg-surface-container-highest/20 rounded-xl animate-pulse"></div>
+</div>
+</div>
+<!-- Master-Detail Layout (Normal State) -->
+<main class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl" id="view-normal">
+<!-- Left Column: Searchable Opportunity Feed -->
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<!-- Sorting / Count strip -->
+<div class="flex items-center justify-between px-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Showing <span class="font-semibold text-primary" id="opp-count">5</span> opportunities</span>
+<div class="flex items-center gap-1.5 font-label-xs text-label-xs text-on-surface-variant">
+<span>Sort by:</span>
+<select class="bg-transparent text-primary font-semibold outline-none cursor-pointer">
+<option>Closing Date (Earliest)</option>
+<option>Recently Added</option>
+<option>Relevance</option>
+</select>
+</div>
+</div>
+<!-- Opportunity Card 1 (Active / Selected) -->
+<article class="opp-card group cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-xs ring-2 ring-secondary/50 flex flex-col gap-space-xs transition-all relative overflow-hidden" data-id="OPP-2024-FAC-014" onclick="selectOpportunity('card-1')">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono text-label-xs font-semibold">OPP-2024-FAC-014</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs">Vacancy / Promotion</span>
+</div>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-low text-secondary font-label-xs font-medium">Closing in 4 days</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-semibold leading-snug group-hover:text-secondary transition-colors">Senior Building Services Specialist (HVAC &amp; Automation)</h2>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Facilities Management Directorate • Contact: N. Khumalo / HR Talent</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">Leadership role overseeing central chiller plants, pneumatic HVAC telemetry, and contractor compliance across Science and Engineering precincts.</p>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-xs text-label-xs text-secondary font-medium">Eligible: Grade 7+ Facilities &amp; Engineering Staff</span>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs mt-1 text-on-surface-variant font-data-mono text-label-xs">
+<span>T8 Permanent • Pretoria Main</span>
+<span class="text-secondary font-medium font-label-xs flex items-center gap-1">Selected View <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
+</div>
+</article>
+<!-- Opportunity Card 2 (Urgent / Closing in 28 Hours) -->
+<article class="opp-card group cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-xs hover:shadow-md flex flex-col gap-space-xs transition-all relative overflow-hidden" data-id="OPP-2024-COM-008" onclick="selectOpportunity('card-2')">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono text-label-xs font-semibold">OPP-2024-COM-008</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs">Temporary Assignment</span>
+</div>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-error-container text-on-error-container font-label-xs font-bold animate-pulse">Closing in 28 Hours • 25 Oct</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-semibold leading-snug group-hover:text-secondary transition-colors">Operations Process Review Task Team Member (Secondment)</h2>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Office of the Vice-Principal (Operations) • Secretariat</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">Cross-departmental working group auditing service dispatch workflows, SLA escalation policies, and campus maintenance feedback loops.</p>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-xs text-label-xs text-secondary font-medium">Eligible: All Permanent Academic &amp; Support Staff</span>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs mt-1 text-on-surface-variant font-data-mono text-label-xs">
+<span>0.2 FTE Secondment (6 Mo) • Hybrid</span>
+<span class="text-on-surface-variant group-hover:text-secondary font-medium font-label-xs flex items-center gap-1">View Details <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
+</div>
+</article>
+<!-- Opportunity Card 3 (Training & CPD) -->
+<article class="opp-card group cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-xs hover:shadow-md flex flex-col gap-space-xs transition-all relative overflow-hidden" data-id="OPP-2024-TRN-032" onclick="selectOpportunity('card-3')">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono text-label-xs font-semibold">OPP-2024-TRN-032</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs">Training &amp; CPD</span>
+</div>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-low text-secondary font-label-xs font-medium">Next Cohort: 15 Nov</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-semibold leading-snug group-hover:text-secondary transition-colors">Hazardous Biological &amp; Chemical Materials Incident Command</h2>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Campus Safety &amp; Compliance • SA Safety Council Accredited</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">Comprehensive 3-module certification covering containment protocol updates, incident command logs, and emergency decontamination.</p>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-xs text-label-xs text-secondary font-medium">Eligible: Custodial Leads, Facilities Supervisors, Technicians</span>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs mt-1 text-on-surface-variant font-data-mono text-label-xs">
+<span>Fully Subsidized • 16 CPD Credits</span>
+<span class="text-on-surface-variant group-hover:text-secondary font-medium font-label-xs flex items-center gap-1">View Details <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
+</div>
+</article>
+<!-- Opportunity Card 4 (Role Restricted / Ineligible) -->
+<article class="opp-card opp-card-ineligible group cursor-pointer bg-surface-container-lowest/80 rounded-xl p-space-md shadow-xs hover:shadow-md flex flex-col gap-space-xs transition-all relative overflow-hidden" data-id="OPP-2024-ACAD-019" onclick="selectOpportunity('card-4')">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono text-label-xs">OPP-2024-ACAD-019</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs">Faculty Vacancy</span>
+</div>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs">Closing 15 Nov</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-semibold leading-snug">Senior Lecturer: Physical Chemistry &amp; Analytical Spectrometry</h2>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Faculty of Natural Sciences • Department of Chemistry</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">Permanent academic appointment covering undergraduate physical chemistry modules, postgraduate lab oversight, and funded spectroscopy research.</p>
+<!-- Ineligible Banner Pill -->
+<div class="p-space-xs px-space-sm rounded-DEFAULT bg-error-container/30 text-error flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] shrink-0">lock</span>
+<span class="font-label-xs text-label-xs font-semibold">Role Ineligible: Current profile (Facilities Ops) does not meet faculty PhD prerequisite</span>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs mt-1 text-on-surface-variant font-data-mono text-label-xs">
+<span>Academic Scale • Hatfield Labs</span>
+<span class="text-on-surface-variant group-hover:text-secondary font-medium font-label-xs flex items-center gap-1">View Guidance <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
+</div>
+</article>
+<!-- Opportunity Card 5 (Archived / Closed) -->
+<article class="opp-card group cursor-pointer bg-surface-container-high/40 rounded-xl p-space-md shadow-xs flex flex-col gap-space-xs opacity-75 relative overflow-hidden" data-id="OPP-2024-IT-005" onclick="selectOpportunity('card-5')">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-data-mono text-label-xs line-through">OPP-2024-IT-005</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-outline-variant/30 text-on-surface-variant font-label-xs font-medium">Archived / Closed</span>
+</div>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-high text-on-surface-variant font-label-xs">Expired 18 Oct 2024</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface-variant font-medium leading-snug line-through">Assistant Network Security Analyst (12-Mo Coverage)</h2>
+<div class="font-label-xs text-label-xs text-outline">IT &amp; Digital Services • Contact: IT Talent Pool</div>
+<p class="font-body-sm text-body-sm text-outline line-clamp-2 leading-relaxed">Assisting IT Systems lead with firewall upgrade verification and student portal zero-trust security audits.</p>
+<div class="text-label-xs font-label-xs text-outline italic">
+          This posting is closed. Preserved for audit transparency. New submissions are not accepted.
+        </div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs mt-1 text-outline font-data-mono text-label-xs">
+<span>Closed Ledger • Juune IT Hub</span>
+<span class="font-label-xs flex items-center gap-1">Archived Notice <span class="material-symbols-outlined text-[16px]">visibility</span></span>
+</div>
+</article>
+</div>
+<!-- Right Column: Comprehensive Detail Panel -->
+<div class="lg:col-span-7 flex flex-col gap-space-md" id="detail-panel">
+<!-- Main Detail Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-xs flex flex-col gap-space-md">
+<!-- Detail Header -->
+<div class="flex flex-col gap-space-xs pb-space-md border-b border-surface-container">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono text-label-xs font-semibold">OPP-2024-FAC-014</span>
+<span class="font-data-mono text-label-xs text-outline">// RECRUITMENT_LEDGER_#4819</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" title="Print Opportunity Pack" type="button">
+<span class="material-symbols-outlined text-[20px]">print</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" title="Share Ledger Link" type="button">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+<button class="p-1.5 rounded-lg text-secondary hover:bg-secondary-fixed/50 transition-colors" title="Saved" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+</button>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary font-semibold mt-1">Senior Building Services Specialist (HVAC &amp; Building Automation)</h2>
+<!-- Metadata Tags -->
+<div class="flex flex-wrap gap-x-space-md gap-y-1 mt-1 text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">apartment</span>
+<span>Facilities Operations</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">badge</span>
+<span>Job Code: JU-FAC-SR-409</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">payments</span>
+<span>Remuneration: Institutional Scale T8</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">location_on</span>
+<span>Pretoria Main Campus (On-site)</span>
+</div>
+</div>
+<!-- Closing Date Countdown Box -->
+<div class="mt-space-sm p-space-sm rounded-lg bg-surface-container-low flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-secondary">schedule</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary font-semibold">Closing: 31 October 2024, 16:30 SAST</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Automated portal cutoff adheres strictly to Juune HR governance bylaws</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono text-label-xs font-semibold">4 Days Remaining</span>
+</div>
+</div>
+<!-- Audience & Eligibility Verification Block -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-secondary">check_circle</span>
+<span class="font-label-md text-label-md text-primary font-semibold">You Meet Audience Prerequisites</span>
+</div>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-highest text-primary font-data-mono text-label-xs font-semibold">CLEARED</span>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface">
+<strong>Logged Candidate:</strong> Nomvula Khumalo (Facilities Ops Mgr, Grade 8, Active Permanent Staff)
+          </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            This internal vacancy is open to current Juune employees with at least 18 months continuous operational service in technical, mechanical, or facilities engineering roles. Your system credentials and service tenure meet all Tier-1 governance eligibility gates.
+          </p>
+</div>
+<!-- Role Overview -->
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-primary font-semibold">Opportunity Overview</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            The Senior Building Services Specialist provides operational leadership across Juune University’s centralized environmental control and automation telemetry infrastructure. Operating within the Facilities Management Directorate, this role directly oversees chillers, boiler plants, compressed air loops, cleanroom climate compliance, and emergency diesel power interlocks across 14 campus research facilities.
+          </p>
+</div>
+<!-- Core Responsibilities -->
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-primary font-semibold">Key Deliverables &amp; Responsibilities</h3>
+<ul class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">check</span>
+<span><strong>Supervisory Leadership:</strong> Direct operational management of 6 specialized HVAC technicians across East, West, and Science precincts, including emergency on-call roster coordination.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">check</span>
+<span><strong>Telemetry &amp; Energy Charter:</strong> Continuous oversight of Siemens Desigo and Tridium Niagara BMS networks to enforce University 2030 Net-Zero carbon conservation thresholds.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">check</span>
+<span><strong>Research Continuity:</strong> Liaison with Faculty of Health Sciences &amp; Natural Sciences for high-reliability cryo-freezer and biosafety laboratory climate guarantees.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">check</span>
+<span><strong>Statutory Safety Compliance:</strong> Active certification logs satisfying SANS 10400 Part O (Ventilation) and the South African Occupational Health and Safety (OHS) Act.</span>
+</li>
+</ul>
+</div>
+<!-- Approved Internal Submission Protocol -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col gap-space-sm">
+<div class="flex items-center gap-2 text-primary font-headline-sm text-headline-sm font-semibold">
+<span class="material-symbols-outlined text-[20px] text-secondary">assignment_turned_in</span>
+<span>Approved Internal Submission Protocol</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            In accordance with Juune HR Mobility Policy, internal candidates are not required to resubmit standard identification or degree copies already verified in employee ledgers. Submissions require:
+          </p>
+<ol class="list-decimal list-inside font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1.5 ml-1">
+<li><strong>Updated Internal Employee CV:</strong> Highlight relevant BMS telemetry and chiller maintenance certs.</li>
+<li><strong>Line Manager Acknowledgment:</strong> Form automatically dispatches to your reporting Director upon clicking submission.</li>
+<li><strong>Letter of Motivation:</strong> Statement (maximum 500 words) addressing Ref: <span class="font-data-mono font-medium">OPP-2024-FAC-014</span>.</li>
+</ol>
+<!-- Contact Persons Block -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm mt-space-xs pt-space-sm border-t border-outline-variant/30">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">HR Talent Mobility Lead</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold mt-0.5">Sindi Cele</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant font-data-mono">talent-internal@juune.ac.za • Ext. 4102</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Hiring Manager / Department Head</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold mt-0.5">Dr. Bongani Moyo</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Director: Facilities Maintenance</span>
+</div>
+</div>
+</div>
+<!-- Formal Action Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="px-space-lg py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-secondary transition-colors shadow-sm inline-flex items-center gap-2" onclick="showApplicationModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Apply via Internal Portal</span>
+</button>
+<button class="px-space-md py-2.5 rounded-lg bg-surface-container text-primary font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+<span>Contact HR Talent Lead</span>
+</button>
+</div>
+<button class="px-space-sm py-2 rounded-lg text-secondary hover:text-primary font-label-sm text-label-sm inline-flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Job Spec Pack (PDF, 2.1 MB)</span>
+</button>
+</div>
+<!-- Institutional Governance Footnote -->
+<div class="text-on-surface-variant/80 font-body-sm text-body-sm text-center pt-space-xs border-t border-surface-container text-label-xs">
+<strong>Juune Fair Employment Policy:</strong> All internal mobility postings are conducted in accordance with institutional equity charters. Queries or fairness escalations can be directed to the Staff Ombudsman without prejudice.
+        </div>
+</div>
+</div>
+</main>
+<!-- Interactive Submission Modal (Detail Modal Simulation) -->
+<dialog class="fixed inset-0 z-50 w-full h-full bg-primary/40 backdrop-blur-xs flex items-center justify-center p-space-md hidden" id="apply-modal">
+<div class="bg-surface-container-lowest rounded-xl max-w-2xl w-full p-space-lg shadow-xl flex flex-col gap-space-md max-h-[921px] overflow-y-auto">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+<div>
+<span class="font-label-xs text-label-xs font-data-mono text-secondary">OPP-2024-FAC-014 // HR_SUBMISSION</span>
+<h2 class="font-headline-md text-headline-md text-primary font-semibold">Review Department Clearance &amp; Submit Application</h2>
+</div>
+<button class="p-1 rounded-lg text-outline hover:text-primary hover:bg-surface-container transition-colors" onclick="closeApplicationModal()" type="button">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[24px]">verified</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary font-semibold">Verified Candidate: Nomvula Khumalo (Staff #77291)</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Facilities Ops Mgr • Pretoria Campus • Tenured Service: 3.4 Years</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-primary font-semibold">Statement of Motivation (Max 500 words)</label>
+<textarea class="w-full p-space-sm rounded-lg bg-surface text-on-surface font-body-sm text-body-sm outline-none shadow-xs focus:ring-1 focus:ring-secondary placeholder:text-outline" placeholder="Summarize your operational familiarity with Pretoria Main chiller loops, supervisory experience, and BMS automation protocols..." rows="4"></textarea>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-primary font-semibold">Mandatory Governance Confirmations</label>
+<label class="flex items-start gap-2 text-body-sm font-body-sm text-on-surface-variant cursor-pointer">
+<input checked="" class="mt-1 rounded-DEFAULT accent-primary" type="checkbox"/>
+<span>I authorize HR Talent Operations to retrieve my official employee training transcript and annual performance ratings.</span>
+</label>
+<label class="flex items-start gap-2 text-body-sm font-body-sm text-on-surface-variant cursor-pointer">
+<input checked="" class="mt-1 rounded-DEFAULT accent-primary" type="checkbox"/>
+<span>I understand that an automated notification will be dispatched to my direct department director upon submission.</span>
+</label>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-sm border-t border-surface-container">
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-primary font-label-md text-label-md hover:bg-surface-container-high transition-colors" onclick="closeApplicationModal()" type="button">
+          Cancel
+        </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-secondary transition-colors inline-flex items-center gap-1.5" onclick="submitApplicationMock()" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Confirm &amp; Transmit Submission</span>
+</button>
+</div>
+</div>
+</dialog>
+</div>
+<script>
+  // Simulation Tab State Manager
+  const stateButtons = document.querySelectorAll('#state-toggles .state-pill');
+  const audienceButtons = document.querySelectorAll('#audience-toggles .sim-pill');
+
+  const viewNormal = document.getElementById('view-normal');
+  const viewEmpty = document.getElementById('view-empty');
+  const viewLoading = document.getElementById('view-loading');
+  const viewError = document.getElementById('view-error');
+
+  function setSimState(state) {
+    stateButtons.forEach(btn => {
+      const match = btn.getAttribute('data-state') === state;
+      btn.className = match
+        ? 'state-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-primary bg-primary-container shadow-xs transition-colors'
+        : 'state-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors';
+    });
+
+    viewNormal.classList.add('hidden');
+    viewEmpty.classList.add('hidden');
+    viewLoading.classList.add('hidden');
+    viewError.classList.add('hidden');
+
+    if (state === 'normal') {
+      viewNormal.classList.remove('hidden');
+    } else if (state === 'empty') {
+      viewEmpty.classList.remove('hidden');
+    } else if (state === 'loading') {
+      viewLoading.classList.remove('hidden');
+      viewLoading.classList.add('grid');
+    } else if (state === 'error') {
+      viewNormal.classList.remove('hidden');
+      viewError.classList.remove('hidden');
+    }
+  }
+
+  stateButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setSimState(btn.getAttribute('data-state'));
+    });
+  });
+
+  audienceButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const audience = btn.getAttribute('data-audience');
+      audienceButtons.forEach(b => {
+        const match = b === btn;
+        b.className = match
+          ? 'sim-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-primary bg-primary-container shadow-xs transition-colors'
+          : 'sim-pill px-space-sm py-1 rounded-DEFAULT font-label-xs text-on-surface-variant hover:text-on-surface transition-colors';
+      });
+
+      if (audience === 'ineligible') {
+        selectOpportunity('card-4');
+      } else if (audience === 'tech') {
+        selectOpportunity('card-1');
+      }
+    });
+  });
+
+  function resetToNormalState() {
+    setSimState('normal');
+  }
+
+  function clearFilters() {
+    document.getElementById('opp-search').value = '';
+    document.getElementById('filter-type').value = 'all';
+    document.getElementById('filter-dept').value = 'all';
+    document.getElementById('filter-eligibility').value = 'all';
+    document.getElementById('filter-status').value = 'active';
+    resetToNormalState();
+  }
+
+  // Opportunity Detail Data Dictionary
+  const oppData = {
+    'card-1': {
+      ref: 'OPP-2024-FAC-014',
+      ledger: 'RECRUITMENT_LEDGER_#4819',
+      title: 'Senior Building Services Specialist (HVAC & Building Automation)',
+      dept: 'Facilities Operations',
+      jobCode: 'JU-FAC-SR-409',
+      remun: 'Institutional Scale T8',
+      loc: 'Pretoria Main Campus (On-site)',
+      closing: 'Closing: 31 October 2024, 16:30 SAST (4 Days Remaining)',
+      eligible: true,
+      eligibilityMsg: 'You Meet Audience Prerequisites',
+      eligibilityNote: 'Open to current Juune employees with at least 18 months continuous operational service in technical or engineering departments.',
+      overview: 'The Senior Building Services Specialist provides operational leadership across Juune University’s centralized environmental control and automation telemetry infrastructure. Operating within the Facilities Management Directorate, this role directly oversees chillers, boiler plants, compressed air loops, cleanroom climate compliance, and emergency diesel power interlocks across 14 campus research facilities.',
+      canApply: true
+    },
+    'card-2': {
+      ref: 'OPP-2024-COM-008',
+      ledger: 'GOVERNANCE_TASKFORCE_#104',
+      title: 'Operations Process Review Task Team Member (Secondment - 6 Months)',
+      dept: 'Office of the Vice-Principal (Operations)',
+      jobCode: 'JU-SEC-GOV-08',
+      remun: 'Honorarium + 0.2 FTE Workload Offset',
+      loc: 'Hybrid / South Wing Hub',
+      closing: 'Closing: 25 October 2024, 12:00 SAST (28 Hours Remaining)',
+      eligible: true,
+      eligibilityMsg: 'You Meet Audience Prerequisites',
+      eligibilityNote: 'Open to all permanent academic and administrative support staff members with good standing and dean/director clearance.',
+      overview: 'Strategic six-month task team mandated to audit operational bottlenecks, SLA friction points, service dispatch delays, and work order feedback mechanisms across campus directorates.',
+      canApply: true
+    },
+    'card-3': {
+      ref: 'OPP-2024-TRN-032',
+      ledger: 'CPD_TRAINING_LEDGER_#884',
+      title: 'Hazardous Biological & Chemical Materials Incident Command (Accredited)',
+      dept: 'Campus Safety & Compliance Division',
+      jobCode: 'CPD-OHS-302',
+      remun: 'Fully Subsidized by Juune CPD Fund',
+      loc: 'Blended: Online Modules + Practical Drill',
+      closing: 'Rolling Enrollment (Cohort starts 15 Nov 2024)',
+      eligible: true,
+      eligibilityMsg: 'You Meet Audience Prerequisites',
+      eligibilityNote: 'Targeted at lab technicians, custodial leads, and facilities supervisors handling category 2 and 3 laboratory buildings.',
+      overview: 'Accredited 16-credit CPD program providing statutory certification under national hazardous substance control frameworks. Practical exercises include simulated spill mitigation and decontamination.',
+      canApply: true
+    },
+    'card-4': {
+      ref: 'OPP-2024-ACAD-019',
+      ledger: 'FACULTY_LEDGER_#0912',
+      title: 'Senior Lecturer: Physical Chemistry & Analytical Spectrometry',
+      dept: 'Faculty of Natural Sciences • Chemistry',
+      jobCode: 'JU-ACAD-LEC-401',
+      remun: 'Academic Scale L2',
+      loc: 'Hatfield Campus Labs',
+      closing: 'Closing: 15 November 2024, 17:00 SAST',
+      eligible: false,
+      eligibilityMsg: 'Role Ineligible: Audience Gate Restricts Access',
+      eligibilityNote: 'Mandatory prerequisites: Doctoral degree (PhD) in Physical Chemistry or Chemical Physics, with at least 3 years teaching tertiary-level spectroscopy.',
+      overview: 'Academic appointment providing didactic and research leadership in analytical chemistry. Direct oversight of postgraduate students and spectrophotometry core facilities.',
+      canApply: false
+    },
+    'card-5': {
+      ref: 'OPP-2024-IT-005',
+      ledger: 'ARCHIVED_LEDGER_#312',
+      title: 'Assistant Network Security Analyst (Temporary 12-Month Coverage)',
+      dept: 'IT & Digital Infrastructure',
+      jobCode: 'JU-IT-SEC-012',
+      remun: 'Per Scale T6',
+      loc: 'Juune IT Hub',
+      closing: 'Expired on 18 October 2024 (Applications Closed)',
+      eligible: false,
+      eligibilityMsg: 'Archived Opportunity • Submissions Closed',
+      eligibilityNote: 'This listing has completed its evaluation period and is archived for institutional audit transparency.',
+      overview: 'Assisting network operations with next-gen firewall policy enforcement and student account credential security reviews.',
+      canApply: false
+    }
+  };
+
+  function selectOpportunity(cardKey) {
+    const data = oppData[cardKey];
+    if (!data) return;
+
+    // Update active card styling
+    document.querySelectorAll('.opp-card').forEach(c => {
+      c.classList.remove('ring-2', 'ring-secondary/50');
+    });
+    const clickedCard = document.querySelector(`[data-id="${data.ref}"]`);
+    if (clickedCard) clickedCard.classList.add('ring-2', 'ring-secondary/50');
+
+    // Render detail panel
+    const panel = document.getElementById('detail-panel');
+    const eligibleBadge = data.eligible
+      ? `<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[20px] text-secondary">check_circle</span>
+              <span class="font-label-md text-label-md text-primary font-semibold">${data.eligibilityMsg}</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-highest text-primary font-data-mono text-label-xs font-semibold">CLEARED</span>
+          </div>
+          <div class="font-label-sm text-label-sm text-on-surface"><strong>Logged Candidate:</strong> Nomvula Khumalo (Facilities Ops Mgr, Grade 8)</div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">${data.eligibilityNote}</p>
+        </div>`
+      : `<div class="p-space-md rounded-xl bg-error-container/30 text-on-error-container flex flex-col gap-space-xs">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-error">
+              <span class="material-symbols-outlined text-[20px]">error</span>
+              <span class="font-label-md text-label-md font-semibold">${data.eligibilityMsg}</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-DEFAULT bg-error-container text-error font-data-mono text-label-xs font-semibold">RESTRICTED</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-error-container/90 leading-relaxed">${data.eligibilityNote}</p>
+        </div>`;
+
+    const actionButtons = data.canApply
+      ? `<button type="button" onclick="showApplicationModal()" class="px-space-lg py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-secondary transition-colors shadow-sm inline-flex items-center gap-2">
+           <span class="material-symbols-outlined text-[18px]">send</span>
+           <span>Apply via Internal Portal</span>
+         </button>
+         <button type="button" class="px-space-md py-2.5 rounded-lg bg-surface-container text-primary font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5">
+           <span class="material-symbols-outlined text-[18px]">mail</span>
+           <span>Contact HR Talent Lead</span>
+         </button>`
+      : `<button type="button" disabled class="px-space-lg py-2.5 rounded-lg bg-surface-container-high text-outline cursor-not-allowed font-label-md text-label-md inline-flex items-center gap-2">
+           <span class="material-symbols-outlined text-[18px]">lock</span>
+           <span>Submissions Unavailable</span>
+         </button>
+         <button type="button" class="px-space-md py-2.5 rounded-lg bg-surface-container text-primary font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5">
+           <span class="material-symbols-outlined text-[18px]">help</span>
+           <span>Eligibility Assistance</span>
+         </button>`;
+
+    panel.innerHTML = `
+      <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-xs flex flex-col gap-space-md">
+        <div class="flex flex-col gap-space-xs pb-space-md border-b border-surface-container">
+          <div class="flex flex-wrap items-center justify-between gap-space-xs">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-data-mono text-label-xs font-semibold">${data.ref}</span>
+              <span class="font-data-mono text-label-xs text-outline">// ${data.ledger}</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <button type="button" class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">print</span></button>
+              <button type="button" class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">share</span></button>
+              <button type="button" class="p-1.5 rounded-lg text-secondary hover:bg-secondary-fixed/50 transition-colors"><span class="material-symbols-outlined text-[20px]">bookmark</span></button>
+            </div>
+          </div>
+          <h2 class="font-headline-lg text-headline-lg text-primary font-semibold mt-1">${data.title}</h2>
+          <div class="flex flex-wrap gap-x-space-md gap-y-1 mt-1 text-on-surface-variant font-label-sm text-label-sm">
+            <div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-outline">apartment</span><span>${data.dept}</span></div>
+            <div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-outline">badge</span><span>${data.jobCode}</span></div>
+            <div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-outline">payments</span><span>${data.remun}</span></div>
+            <div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-outline">location_on</span><span>${data.loc}</span></div>
+          </div>
+          <div class="mt-space-sm p-space-sm rounded-lg bg-surface-container-low flex flex-wrap items-center justify-between gap-space-xs">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[20px] text-secondary">schedule</span>
+              <span class="font-label-sm text-label-sm text-primary font-semibold">${data.closing}</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-DEFAULT bg-surface-container-highest text-on-surface-variant font-data-mono text-label-xs">AUDITED_POSTING</span>
+          </div>
+        </div>
+
+        ${eligibleBadge}
+
+        <div class="flex flex-col gap-space-xs">
+          <h3 class="font-headline-sm text-headline-sm text-primary font-semibold">Opportunity Overview</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">${data.overview}</p>
+        </div>
+
+        <div class="p-space-md rounded-xl bg-surface-container flex flex-col gap-space-sm">
+          <div class="flex items-center gap-2 text-primary font-headline-sm text-headline-sm font-semibold">
+            <span class="material-symbols-outlined text-[20px] text-secondary">assignment_turned_in</span>
+            <span>Approved Internal Submission Protocol</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            All internal inquiries and mobility packages are recorded under Juune HR Charter. Direct inquiries can be escalated to HR Talent Operations (talent-internal@juune.ac.za).
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+          <div class="flex flex-wrap items-center gap-space-sm">
+            ${actionButtons}
+          </div>
+          <button type="button" class="px-space-sm py-2 rounded-lg text-secondary hover:text-primary font-label-sm text-label-sm inline-flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">download</span>
+            <span>Download Specification Dossier</span>
+          </button>
+        </div>
+
+        <div class="text-on-surface-variant/80 font-body-sm text-body-sm text-center pt-space-xs border-t border-surface-container text-label-xs">
+          <strong>Juune Fair Employment Policy:</strong> Opportunities are reviewed without prejudice under institutional equity charters.
+        </div>
+      </div>
+    `;
+  }
+
+  function showApplicationModal() {
+    const modal = document.getElementById('apply-modal');
+    modal.classList.remove('hidden');
+  }
+
+  function closeApplicationModal() {
+    const modal = document.getElementById('apply-modal');
+    modal.classList.add('hidden');
+  }
+
+  function submitApplicationMock() {
+    alert('Application submitted successfully under reference OPP-2024-FAC-014. An acknowledgement dispatch has been routed to HR Talent Operations.');
+    closeApplicationModal();
+  }
+</script></main></div></body></html>
