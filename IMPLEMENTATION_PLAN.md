@@ -2536,7 +2536,7 @@ NFR and final acceptance
 ## 17. Progress log (the coding agent updates this)
 
 Phase | Date | Status | Tests passed/total | Commit | Notes
-1 | 08 Nov 2026 | Checks passed; owner manual review pending | Unit 16/16; database 1/1; integration 6/6 | — | `npm run check` passes (lint, typecheck, unit/database/integration tests, backend/frontend builds). Browser smoke checks: S1 renders at 375px, 768px and 1440px without horizontal overflow; keyboard focus is visible, controls meet 44px minimum, and sign-in shows the approved safe response through the Vite proxy/API. Tests cover read-only profile/sign-out and denied profile/role/department writes. `.env` is gitignored; no Supabase key identifier was found in the built frontend. Institutional sign-in remains intentionally unavailable pending OQ1/provider adapter; owner review remains pending.
+1 | 08 Nov 2026 | Checks passed; owner manual review pending | Unit 16/16; database 1/1; integration 6/6 | f6e724e | `npm run check` passes (lint, typecheck, unit/database/integration tests, backend/frontend builds). Browser smoke checks: S1 renders at 375px, 768px and 1440px without horizontal overflow; keyboard focus is visible, controls meet 44px minimum, and sign-in shows the approved safe response through the Vite proxy/API. Tests cover read-only profile/sign-out and denied profile/role/department writes. `.env` is gitignored; no Supabase key identifier was found in the built frontend. Institutional sign-in remains intentionally unavailable pending OQ1/provider adapter; owner review remains pending.
 2 | — | Not started | — | — | Depends on Phase 1
 3 | — | Not started | — | — | Depends on Phase 2
 4 | — | Not started | — | — | Depends on Phase 3
