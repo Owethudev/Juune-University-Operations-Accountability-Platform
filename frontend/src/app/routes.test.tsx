@@ -18,6 +18,11 @@ const manager: SessionUser = {
   id: "synthetic-manager-1",
   role: "department_manager",
 };
+const admin: SessionUser = {
+  ...employee,
+  id: "synthetic-admin-1",
+  role: "platform_admin",
+};
 
 function TestAuthProvider({
   children,
@@ -137,5 +142,65 @@ describe("application routes", () => {
       "A connection is required to sign in. Reconnect and try again.",
     );
     expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it("T-SEC-11b denies non-admin access to S9 and lets a platform admin open configuration", async () => {
+    renderRoutes("/admin", employee);
+    expect(
+      screen.getByRole("heading", {
+        name: "You don’t have permission to view this item.",
+      }),
+    ).toBeVisible();
+
+    vi.spyOn(globalThis, "fetch").mockImplementation(async () =>
+      Response.json({
+        departments: [],
+        categories: [],
+        roles: [],
+        rolePermissions: [],
+        permissions: [],
+        users: [],
+        escalation: {
+          trigger: "third_flag",
+          recipientConfigurationEnabled: false,
+        },
+      }),
+    );
+    renderRoutes("/admin", admin);
+    expect(
+      await screen.findByRole("heading", {
+        name: "System Configuration & Operational Governance",
+      }),
+    ).toBeVisible();
+  });
+
+  it("S10 provides a read-only audit view and lets the API enforce reviewer permission", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) =>
+      String(input).includes("/audit-events")
+        ? Response.json({
+            items: [{
+              id: "synthetic-audit-1",
+              actorId: "synthetic-actor-1",
+              actorName: "Synthetic Administrator",
+              action: "request_categories.insert",
+              targetType: "request_categories",
+              targetId: "synthetic-category-1",
+              createdAt: "2026-11-08T10:00:00.000Z",
+              outcome: "success",
+            }],
+          })
+        : Response.json({ items: [], unreadCount: 0, hasMore: false }),
+    );
+    renderRoutes("/audit-log", employee);
+
+    expect(await screen.findByText("Synthetic Administrator")).toBeVisible();
+    expect(
+      screen.getAllByRole("heading", { name: "Audit Log" }).length,
+    ).toBeGreaterThan(0);
+    expect(screen.queryByRole("button", { name: /export/i })).not.toBeInTheDocument();
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.stringContaining("/audit-events"),
+      expect.objectContaining({ headers: expect.any(Object) }),
+    );
   });
 });

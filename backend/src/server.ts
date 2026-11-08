@@ -9,6 +9,8 @@ import { RequestCreationService } from "./requests/service.js";
 import { SupabaseRequestRepository } from "./requests/supabase-repository.js";
 import { ContentManagementService } from "./content/service.js";
 import { SupabaseContentRepository } from "./content/supabase-repository.js";
+import { GovernanceManagementService } from "./governance/service.js";
+import { SupabaseGovernanceRepository } from "./governance/supabase-repository.js";
 
 const unconfiguredAuthenticator: Authenticator = {
   async authenticate() {
@@ -35,6 +37,9 @@ async function startServer(): Promise<void> {
     ),
     content: new ContentManagementService(
       new SupabaseContentRepository(config),
+    ),
+    governance: new GovernanceManagementService(
+      new SupabaseGovernanceRepository(config),
     ),
   });
   app.listen(4000, "127.0.0.1");

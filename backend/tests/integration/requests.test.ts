@@ -1,7 +1,10 @@
 import request from "supertest";
 import { describe, expect, it, vi } from "vitest";
 import { createApp } from "../../src/app.js";
-import { unusedContentService } from "./content-fixture.js";
+import {
+  unusedContentService,
+  unusedGovernanceService,
+} from "./content-fixture.js";
 import type { ProfileView } from "../../src/auth/types.js";
 import type {
   CreatedRequest,
@@ -109,6 +112,7 @@ function createTestApp({
     },
     requests: service,
     content: unusedContentService(),
+    governance: unusedGovernanceService(),
   });
 
   return { app, service };

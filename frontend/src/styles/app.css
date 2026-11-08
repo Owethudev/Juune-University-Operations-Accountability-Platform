@@ -513,6 +513,221 @@
   background: color-mix(in srgb, var(--color-accent-teal) 10%, var(--color-surface));
 }
 
+.governance-page,
+.audit-page {
+  display: grid;
+  gap: var(--space-5);
+  margin: var(--space-5) 0;
+}
+
+.governance-heading,
+.governance-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.governance-heading h1 {
+  max-width: 46rem;
+}
+
+.governance-heading > div > p:last-child,
+.governance-panel > p,
+.governance-panel-heading p {
+  color: var(--color-muted-text);
+}
+
+.governance-pilot,
+.governance-panel,
+.audit-filters {
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+}
+
+.governance-pilot {
+  border-color: var(--color-primary-blue);
+  color: var(--color-primary-navy);
+  background: color-mix(in srgb, var(--color-primary-blue) 10%, var(--color-surface));
+}
+
+.governance-tabs {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+}
+
+.governance-tabs button[aria-pressed="true"] {
+  color: var(--color-surface);
+  background: var(--color-primary-navy);
+}
+
+.governance-panel {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.governance-panel h2,
+.governance-form h3,
+.confirmation-dialog h2 {
+  margin-bottom: 0;
+}
+
+.governance-table-wrap {
+  overflow-x: auto;
+}
+
+.governance-table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.governance-table-wrap th,
+.governance-table-wrap td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.governance-table-wrap th {
+  color: var(--color-muted-text);
+  font-size: var(--font-size-small);
+}
+
+.text-button {
+  padding: 0;
+  border: 0;
+  color: var(--color-primary-blue);
+  background: transparent;
+  text-decoration: underline;
+}
+
+.governance-form {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 42rem;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-background);
+}
+
+.governance-form label,
+.confirmation-dialog label,
+.audit-filters label {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.governance-form input,
+.governance-form select,
+.governance-form textarea,
+.confirmation-dialog select,
+.audit-filters input {
+  width: 100%;
+  min-height: var(--size-touch-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.governance-form textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.governance-checkbox {
+  display: flex !important;
+  align-items: center;
+}
+
+.governance-checkbox input {
+  width: auto;
+}
+
+.governance-actions,
+.audit-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.governance-summary {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.governance-summary dt {
+  color: var(--color-muted-text);
+}
+
+.governance-summary dd {
+  margin: var(--space-1) 0 0;
+}
+
+.audit-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  align-items: end;
+  gap: var(--space-4);
+}
+
+.audit-filter-actions {
+  grid-column: 1 / -1;
+}
+
+.confirmation-backdrop {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  place-items: center;
+  padding: var(--space-4);
+  background: rgb(10 20 34 / 58%);
+}
+
+.confirmation-dialog {
+  display: grid;
+  width: min(100%, 38rem);
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 24%);
+}
+
+.error-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-card);
+  color: var(--color-error);
+  background: var(--color-error-surface);
+}
+
+.error-panel p {
+  margin: 0;
+}
+
+.empty-state {
+  padding: var(--space-5);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-card);
+  color: var(--color-muted-text);
+  text-align: center;
+}
+
 .request-page {
   display: grid;
   gap: var(--space-5);
@@ -1142,6 +1357,17 @@
 }
 
 @media (max-width: 48rem) {
+  .governance-heading,
+  .governance-panel-heading {
+    flex-direction: column;
+  }
+
+  .governance-pilot,
+  .governance-panel,
+  .audit-filters {
+    padding: var(--space-4);
+  }
+
   .content-layout {
     grid-template-columns: 1fr;
   }

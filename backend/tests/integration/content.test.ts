@@ -2,6 +2,7 @@ import request from "supertest";
 import { describe, expect, it, vi } from "vitest";
 import { createApp } from "../../src/app.js";
 import { ContentActionError } from "../../src/content/service.js";
+import { unusedGovernanceService } from "./content-fixture.js";
 import type {
   Announcement,
   AnnouncementInput,
@@ -136,6 +137,7 @@ function createTestApp({
       getDashboardSummary: async () => ({ rows: [], recentRequests: [] }),
     },
     content,
+    governance: unusedGovernanceService(),
   });
   return { app, content };
 }

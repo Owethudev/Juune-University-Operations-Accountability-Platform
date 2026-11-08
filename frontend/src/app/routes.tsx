@@ -11,6 +11,8 @@ import { SignInPage } from "../pages/SignInPage.js";
 import { NotificationsPage } from "../pages/NotificationsPage.js";
 import { AnnouncementsPage } from "../pages/AnnouncementsPage.js";
 import { OpportunitiesPage } from "../pages/OpportunitiesPage.js";
+import { GovernancePage } from "../pages/GovernancePage.js";
+import { AuditLogPage } from "../pages/AuditLogPage.js";
 
 type ProtectedPage =
   | "home"
@@ -20,7 +22,9 @@ type ProtectedPage =
   | "request-detail"
   | "notifications"
   | "announcements"
-  | "opportunities";
+  | "opportunities"
+  | "governance"
+  | "audit-log";
 
 
 function ProtectedShell({ page }: { page: ProtectedPage }) {
@@ -33,6 +37,9 @@ function ProtectedShell({ page }: { page: ProtectedPage }) {
   if (page === "new-request" && user.role !== "employee") {
     return <Navigate to="/access-denied" replace />;
   }
+  if (page === "governance" && user.role !== "platform_admin") {
+    return <Navigate to="/access-denied" replace />;
+  }
 
   const pageTitle = {
     home: "Home",
@@ -43,6 +50,8 @@ function ProtectedShell({ page }: { page: ProtectedPage }) {
     notifications: "Notifications",
     announcements: "Announcements",
     opportunities: "Opportunities",
+    governance: "Admin Console",
+    "audit-log": "Audit Log",
   }[page];
   const content = {
     home: <HomePage user={user} />,
@@ -53,6 +62,8 @@ function ProtectedShell({ page }: { page: ProtectedPage }) {
     notifications: <NotificationsPage />,
     announcements: <AnnouncementsPage />,
     opportunities: <OpportunitiesPage />,
+    governance: <GovernancePage />,
+    "audit-log": <AuditLogPage />,
   }[page];
 
   return (
@@ -98,6 +109,14 @@ export function AppRoutes() {
       <Route
         path="/opportunities"
         element={<ProtectedShell page="opportunities" />}
+      />
+      <Route
+        path="/admin"
+        element={<ProtectedShell page="governance" />}
+      />
+      <Route
+        path="/audit-log"
+        element={<ProtectedShell page="audit-log" />}
       />
       <Route path="/access-denied" element={<AccessDeniedPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />

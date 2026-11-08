@@ -17,6 +17,16 @@ import {
 } from "./requests/service.js";
 import { ContentActionError } from "./content/service.js";
 import type { ContentService } from "./content/types.js";
+import {
+  GovernanceActionError,
+} from "./governance/service.js";
+import type {
+  AuditFilters,
+  GovernanceService,
+  RolePermissionChangeInput,
+  RequestCategoryInput,
+  UserRoleChangeInput,
+} from "./governance/types.js";
 import type {
   DashboardFilters,
   RequestListFilters,
@@ -30,6 +40,7 @@ interface AppDependencies {
   profiles: ProfileRepository;
   requests: RequestService;
   content: ContentService;
+  governance: GovernanceService;
 }
 
 function isUserRole(value: unknown): value is UserRole {
@@ -194,6 +205,55 @@ const dashboardQuerySchema = z
   .refine(
     (filters) => !filters.from || !filters.to || filters.from <= filters.to,
   );
+const governanceCategorySchema = z
+  .object({
+    id: z.string().uuid().optional(),
+    name: z.string().trim().min(1).max(120),
+    description: z.string().trim().max(1000).nullable(),
+    defaultDepartmentId: z.string().uuid(),
+    sensitivityDefault: z.enum(["standard", "restricted"]),
+    active: z.boolean(),
+  })
+  .strict();
+const deactivateDepartmentSchema = z
+  .object({ replacementDepartmentId: z.string().uuid() })
+  .strict();
+const governanceUserRoleSchema = z
+  .object({
+    userId: z.string().uuid(),
+    roleCode: z.enum([
+      "employee",
+      "department_manager",
+      "senior_leadership",
+      "platform_admin",
+    ]),
+    granted: z.boolean(),
+  })
+  .strict();
+const governanceRolePermissionSchema = z
+  .object({
+    roleCode: z.enum([
+      "employee",
+      "department_manager",
+      "senior_leadership",
+      "platform_admin",
+    ]),
+    permissionCode: z.string().trim().min(1).max(40),
+    granted: z.boolean(),
+  })
+  .strict();
+const auditQuerySchema = z
+  .object({
+    from: z.string().date().optional(),
+    to: z.string().date().optional(),
+    actorId: z.string().uuid().optional(),
+    action: z.string().trim().min(1).max(120).optional(),
+    targetId: z.string().trim().min(1).max(120).optional(),
+    page: z.coerce.number().int().min(1).max(10000).default(1),
+    pageSize: z.coerce.number().int().min(1).max(50).default(25),
+  })
+  .strict()
+  .refine((filters) => !filters.from || !filters.to || filters.from <= filters.to);
 
 function respondRequestActionError(
   error: unknown,
@@ -220,6 +280,23 @@ function respondContentActionError(
   next: (error?: unknown) => void,
 ): void {
   if (!(error instanceof ContentActionError)) {
+    next(error);
+    return;
+  }
+  response.status(error.kind === "denied" ? 403 : 400).json({
+    message:
+      error.kind === "denied"
+        ? "You don’t have permission to view this item."
+        : error.message,
+  });
+}
+
+function respondGovernanceActionError(
+  error: unknown,
+  response: Response,
+  next: (error?: unknown) => void,
+): void {
+  if (!(error instanceof GovernanceActionError)) {
     next(error);
     return;
   }
@@ -1210,6 +1287,206 @@ export function createApp(dependencies: AppDependencies) {
         response.status(200).json(content);
       } catch (error) {
         respondContentActionError(error, response, next);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/admin/configuration",
+    requireAuthentication,
+    async (_request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (principal.role !== "platform_admin") {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        const configuration = await dependencies.governance.getConfiguration(
+          principal,
+          authorizationHeader,
+        );
+        response.status(200).json(configuration);
+      } catch (error) {
+        respondGovernanceActionError(error, response, next);
+      }
+    },
+  );
+
+  app.put(
+    "/api/v1/admin/configuration/categories",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (principal.role !== "platform_admin") {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      const parsed = governanceCategorySchema.safeParse(request.body);
+      if (!parsed.success) {
+        response.status(400).json({
+          message: "Check the category details and active department.",
+        });
+        return;
+      }
+      try {
+        const input: RequestCategoryInput = parsed.data;
+        const category = await dependencies.governance.saveCategory(
+          principal,
+          authorizationHeader,
+          input,
+        );
+        response.status(200).json({ category });
+      } catch (error) {
+        respondGovernanceActionError(error, response, next);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/admin/configuration/departments/:departmentId/deactivate",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (principal.role !== "platform_admin") {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      const departmentId = contentIdSchema.safeParse(request.params.departmentId);
+      const parsed = deactivateDepartmentSchema.safeParse(request.body);
+      if (!departmentId.success || !parsed.success) {
+        response.status(400).json({
+          message: "Choose an active replacement department.",
+        });
+        return;
+      }
+      try {
+        const result = await dependencies.governance.deactivateDepartment(
+          principal,
+          authorizationHeader,
+          departmentId.data,
+          parsed.data.replacementDepartmentId,
+        );
+        response.status(200).json(result);
+      } catch (error) {
+        respondGovernanceActionError(error, response, next);
+      }
+    },
+  );
+
+  app.put(
+    "/api/v1/admin/configuration/user-roles",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (principal.role !== "platform_admin") {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      const parsed = governanceUserRoleSchema.safeParse(request.body);
+      if (!parsed.success) {
+        response.status(400).json({ message: "Check the user role details." });
+        return;
+      }
+      try {
+        const input: UserRoleChangeInput = parsed.data;
+        await dependencies.governance.setUserRole(
+          principal,
+          authorizationHeader,
+          input,
+        );
+        response.status(200).json({ saved: true });
+      } catch (error) {
+        respondGovernanceActionError(error, response, next);
+      }
+    },
+  );
+
+  app.put(
+    "/api/v1/admin/configuration/role-permissions",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (principal.role !== "platform_admin") {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      const parsed = governanceRolePermissionSchema.safeParse(request.body);
+      if (!parsed.success) {
+        response.status(400).json({ message: "Check the role permission details." });
+        return;
+      }
+      try {
+        const input: RolePermissionChangeInput = parsed.data;
+        await dependencies.governance.setRolePermission(
+          principal,
+          authorizationHeader,
+          input,
+        );
+        response.status(200).json({ saved: true });
+      } catch (error) {
+        respondGovernanceActionError(error, response, next);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/audit-events",
+    requireAuthentication,
+    async (request, response, next) => {
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      const parsed = auditQuerySchema.safeParse(request.query);
+      if (!parsed.success) {
+        response.status(400).json({ message: "Check the audit filters." });
+        return;
+      }
+      try {
+        const filters: AuditFilters = parsed.data;
+        const items = await dependencies.governance.listAuditEvents(
+          authorizationHeader,
+          filters,
+        );
+        response.status(200).json({ items });
+      } catch (error) {
+        respondGovernanceActionError(error, response, next);
       }
     },
   );

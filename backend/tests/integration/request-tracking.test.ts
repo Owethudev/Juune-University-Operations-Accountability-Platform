@@ -1,7 +1,10 @@
 import request from "supertest";
 import { describe, expect, it, vi } from "vitest";
 import { createApp } from "../../src/app.js";
-import { unusedContentService } from "./content-fixture.js";
+import {
+  unusedContentService,
+  unusedGovernanceService,
+} from "./content-fixture.js";
 import type {
   CreatedRequest,
   RequestDetail,
@@ -171,6 +174,7 @@ function testApp({
     profiles: { findByUserId: vi.fn(async () => null) },
     requests: service,
     content: unusedContentService(),
+    governance: unusedGovernanceService(),
   });
   return { app, service };
 }
@@ -184,6 +188,7 @@ function testAppWithAuthenticatedPrincipal() {
     profiles: { findByUserId: vi.fn(async () => null) },
     requests: service,
     content: unusedContentService(),
+    governance: unusedGovernanceService(),
   });
   return { app, service };
 }
@@ -203,6 +208,7 @@ function testAppForRole(
     profiles: { findByUserId: vi.fn(async () => null) },
     requests: service,
     content: unusedContentService(),
+    governance: unusedGovernanceService(),
   });
   return { app, service };
 }

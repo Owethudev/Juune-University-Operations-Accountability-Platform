@@ -39,6 +39,16 @@ const phaseOneNavigation: NavigationItem[] = [
     roles: ["employee", "department_manager", "senior_leadership", "platform_admin"],
   },
   {
+    label: "Admin Console",
+    to: "/admin",
+    roles: ["platform_admin"],
+  },
+  {
+    label: "Audit Log",
+    to: "/audit-log",
+    roles: ["employee", "department_manager", "senior_leadership", "platform_admin"],
+  },
+  {
     label: "Profile & Settings",
     to: "/profile",
     roles: ["employee", "department_manager", "senior_leadership", "platform_admin"],
