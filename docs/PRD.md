@@ -1821,10 +1821,11 @@ supersede the open-question status recorded in the earlier PRD text. Implement o
 listed institutional or technical approval before its dependent provider, policy, data, feature or deployment is activated.
 • The owner-approved technology and data-access choices are React/Vite, Node.js/Express, TypeScript, root npm workspaces,
 Express-only Supabase client access and PostgreSQL RLS. Do not infer Supabase Auth.
-• Identity-provider selection, Supabase project/region and credentials, hosting, email, evidence policy, privacy schedule, administrator
-approvers and trusted identity-claim mapping remain manual gates as recorded in Section 18.
-• The owner selected a hosted Supabase test project for Phase 1. Its region, project and credentials must be approved/provisioned
-before database integration tests or the full check; do not send credentials in chat.
+• The Phase 2 claim contract is an interim engineering choice recorded in IMPLEMENTATION_PLAN.md Q29. The institutional
+identity provider, issuer, audience and signature/JWKS trust configuration, hosting, email, evidence policy, privacy schedule and
+administrator approvers remain manual gates before real-user use.
+• A dedicated isolated Supabase test project was provisioned in EU West for Phase 2. Its migrations, synthetic seed and rollback-only
+RLS policy suite were exercised there; no production project was changed. Do not send credentials in chat.
 • Use the approved request reference and summary/description limits in Q17/Q18. The remaining rate/session thresholds, reminder
 cadence, estimate threshold, status-transition details, content limits, discussion controls and dashboard metric definitions remain
 gated exactly as described in Section 18.
@@ -1832,6 +1833,14 @@ gated exactly as described in Section 18.
 Q27); no separate PostgreSQL driver is approved. The owner reports the hosted test project is provisioned in an approved region
 (region name not recorded), and resolved Q28 by approving read-only S11 profile fields and sign-out only. Phase 1 may proceed;
 local environment configuration and RPC deployment are required before T-SETUP-3 and the full check.
+• Phase 2 tenant RLS uses the engineering contract selected under the owner's later direction to exercise judgment: the gateway-validated
+JWT `sub` maps to `users.institutional_id` within its signed `institution_id` claim. `role=authenticated` selects the PostgREST database
+role only; app roles and permissions are loaded from database grants, not JWT role claims. Do not assume Supabase Auth, trust
+caller-supplied tenant headers, or use a service-role/bypass-RLS client for user-scoped operations.
+• The actual institution issuer, audience, signature/JWKS trust configuration and provisioning process are still unconfirmed. The
+owner-authorized Phase 2 migrations and synthetic seed were applied only to an isolated test project, and the rollback-only RLS
+allow/deny SQL test passed there. Do not use real users/data, activate the external identity provider or deploy to production until its
+issuer validation and institutional approval are complete. Evidence storage remains disabled pending OQ9.
 
 ## 8. Change log
 
@@ -1866,9 +1875,9 @@ The product owner approved the following implementation stack, superseding confl
 The logical entities and business requirements in the earlier PRD remain in scope, but MongoDB-specific collections, ObjectIds and
 document-model instructions are not implementation requirements. Map those logical entities to a relational PostgreSQL schema
 before Phase 2. The owner-approved approach is TypeScript in root npm workspaces, Supabase client access only through Express,
-server authorization and PostgreSQL RLS. A hosted Supabase test project is selected for Phase 1; project/region, migration tooling,
-trusted identity-claim mapping and server credential provisioning remain manual gates. Do not infer Supabase Auth or expose
-privileged credentials in the frontend.
+server authorization and PostgreSQL RLS. A dedicated isolated Supabase test project was provisioned for Phase 2 and validated with
+synthetic data. Production project/region approval, institutional identity-provider and issuer trust configuration, and server
+credential provisioning remain manual gates. Do not infer Supabase Auth or expose privileged credentials in the frontend.
 
 On 08 November 2026, the product owner also approved the conditional recommendations in IMPLEMENTATION_PLAN.md Section 18.
 Those recommendations define safe interim behavior and phase gates; obtain the listed manual approvals before provisioning external
@@ -1886,3 +1895,8 @@ v1.7 | 08 Nov 2026 | Recorded owner approval of the health-check RPC approach an
 v1.8 | 08 Nov 2026 | Recorded owner confirmation that the hosted test project is provisioned in an approved region; local configuration and RPC deployment remain pending. | Product owner
 v1.9 | 08 Nov 2026 | Added clarification Q28 for the S11/OP20 editable preference fields. | Product owner
 v1.10 | 08 Nov 2026 | Recorded owner approval of read-only S11 profile fields and sign-out for Phase 1; preference writes remain disabled pending field approval. | Product owner
+v1.11 | 08 Nov 2026 | Added the Phase 2 Q29 gate for a trusted identity-claim flow into PostgreSQL RLS; tenant policies and allow/deny verification remain blocked pending approval. | Product owner decision pending
+v1.12 | 08 Nov 2026 | Recorded the owner's candidate preference for institution-issued JWTs validated by Supabase/PostgREST; detailed claim mapping and relational schema approval remain open before Phase 2 migrations. | Product owner
+v1.13 | 08 Nov 2026 | Recorded the owner's schema-and-tests-only direction; RLS and hosted migration remain paused pending schema and trusted-claim approvals. | Product owner
+v1.14 | 08 Nov 2026 | Recorded the owner's later authorization to exercise engineering judgment; added the signed-claim contract and least-privilege Phase 2 RLS draft while retaining issuer-validation and hosted-deployment gates. | Product owner direction
+v1.15 | 08 Nov 2026 | Recorded isolated synthetic Phase 2 deployment and passing PostgreSQL/RLS validation; actual issuer trust remains required before real-user use or production deployment. | Product owner direction

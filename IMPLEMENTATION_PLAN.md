@@ -2013,9 +2013,11 @@ indexes from the PRD.
 • Implement shared tenant-scope middleware, permission policy registry and server-side authorization helpers for SEC1–SEC15.
 • Create deterministic synthetic seed data for all four roles and the three pilot departments only.
 • Implement private-storage adapter boundary; do not enable evidence uploads until OQ9 and privacy approval are resolved.
-• Supabase (PostgreSQL), Express-only Supabase client access and PostgreSQL RLS are approved. Project provisioning, credentials,
-trusted identity-claim mapping and schema/migration details remain gated; do not assume Supabase Auth or expose a service-role key
-to the frontend.
+• Supabase (PostgreSQL), Express-only Supabase client access and PostgreSQL RLS are approved. The Phase 2 engineering contract
+maps signed JWT `sub` to `users.institutional_id` within signed `institution_id`; `role=authenticated` selects the PostgREST
+database role only, while application permissions come from database tables. Do not trust caller-supplied headers, accept JWT role
+claims as application permissions, assume Supabase Auth, or expose a service-role key to the frontend. The real issuer, audience,
+signature/JWKS trust configuration and user-provisioning process remain deployment gates.
 Step 3: Frontend
 No user-interface work in this phase. This is a data, schema, seed and server-security phase only.
 Step 4: Refactor and full check
@@ -2026,6 +2028,7 @@ Step 5: Manual checks (human)
 • Run schema and index checks on a clean database.
 • Inspect seed records to confirm synthetic-only data and institution isolation.
 • Exercise each SEC allow/deny pair against its policy-level test fixture; record results by exact test ID.
+• Run `supabase/tests/phase2_rls.test.sql` only against the isolated test project after migration and seed deployment; the transaction rolls back its test mutations.
 • Verify no UI code or screen is added in this phase.
 Definition of Done
 • Every Step 1 test passes or has a documented, approved external-dependency gate.
@@ -2537,7 +2540,7 @@ NFR and final acceptance
 
 Phase | Date | Status | Tests passed/total | Commit | Notes
 1 | 08 Nov 2026 | Checks passed; owner manual review pending | Unit 16/16; database 1/1; integration 6/6 | f6e724e | `npm run check` passes (lint, typecheck, unit/database/integration tests, backend/frontend builds). Browser smoke checks: S1 renders at 375px, 768px and 1440px without horizontal overflow; keyboard focus is visible, controls meet 44px minimum, and sign-in shows the approved safe response through the Vite proxy/API. Tests cover read-only profile/sign-out and denied profile/role/department writes. `.env` is gitignored; no Supabase key identifier was found in the built frontend. Institutional sign-in remains intentionally unavailable pending OQ1/provider adapter; owner review remains pending.
-2 | — | Not started | — | — | Depends on Phase 1
+2 | 08 Nov 2026 | Implemented and runtime-validated on an isolated synthetic test project; human manual review pending | Unit 16/16; database 11/11; integration 6/6; lint, typecheck, builds, remote Postgres lint, and rollback-only RLS SQL tests pass. Runtime check: 22 RLS tables, 48 indexes, 1 synthetic tenant, 5 users and 3 requests. | — | Applied migrations 001–004 and synthetic seed to the dedicated `juune-phase2-test` project in EU West. The SQL policy suite exposed an institution audit-tenant bug, fixed in migration 004, and then passed. Full `npm run check` passes. The actual institutional issuer/audience/JWKS validation and human manual review remain gates before real-user use; commit is pending those checks.
 3 | — | Not started | — | — | Depends on Phase 2
 4 | — | Not started | — | — | Depends on Phase 3
 5 | — | Not started | — | — | Depends on Phase 4
@@ -2546,14 +2549,17 @@ Phase | Date | Status | Tests passed/total | Commit | Notes
 8 | — | Not started | — | — | Depends on Phase 7
 9 | — | Not started | — | — | Depends on Phase 8
 10 | — | Not started | — | — | Depends on Phase 9
-No implementation is claimed by this document. Update dates, test counts, commits and notes only after the work is actually completed and verified.
+Update implementation claims, dates, test counts, commits and notes only after the work is actually completed and verified.
 
 ## 18. Clarifications needed
 
 The product owner approved PRD v1.1, the S1–S12 designs, and the recommendations in this register on 08 Nov 2026. Q15 and Q16
-are answered directly; Q1–Q14 and Q17–Q28 are resolved by the corresponding owner-approved proposals below. Conditional
-operational gates remain: do not activate an external provider, use real data, enable deferred functionality, or deploy before the
-specific manual approval listed in the relevant proposal.
+are answered directly; Q1–Q14 and Q17–Q28 are resolved by the corresponding owner-approved proposals below. Under the owner's
+direction to exercise engineering judgment, Phase 2 selected and implemented a signed-claim contract for Q29. The owner authorized
+deployment to a dedicated isolated test project; its migrations, synthetic seed and rollback-only policy test have been exercised there.
+The actual institutional issuer, audience, signature/JWKS trust configuration and provisioning process still require confirmation before
+real-user use. Conditional operational gates remain: do not activate an external provider, use real data, enable deferred functionality,
+or deploy beyond the isolated test project before the specific manual approval listed in the relevant proposal.
 # Decision required | Source / phase | Decision owner | Status / answer
 1 Which institutional identity protocol/provider and account
 provisioning/test process are approved?
@@ -2716,6 +2722,15 @@ editing in Phase 1 S11/OP20? The PRD mentions preferences
 if approved, while the supplied screen controls are illustrative.
 PRD OP20/S11; Section 18 Q25; Phase 1
 Product owner and relevant policy owner | Owner-approved: show own profile fields as read-only and sign-out only; do not expose preference editing or save actions in Phase 1. Enable updates only after specific fields are separately approved.
+29 How will trusted user and institution claims reach PostgreSQL
+RLS after the institution's OIDC identity has been validated?
+The owner approved Supabase client access plus server authorization
+and RLS, but did not approve Supabase Auth or a trusted-claim
+translation/signing mechanism. Do not trust caller-supplied tenant
+headers or use a service-role client that bypasses RLS for user
+operations.
+PRD Sections 8, 9 and 11.3; Q1/Q26; Phase 2 T-TENANT-1 and T-SEC-15
+Technical owner, security owner, and institution identity team | Engineering contract selected at the owner's direction: a gateway-validated signed JWT has `sub` equal to `users.institutional_id` and a signed `institution_id` equal to `institutions.id`; `role=authenticated` is only the PostgREST database role, and application permissions are loaded from database grants. Migrations and synthetic seed are applied only to the owner-authorized isolated test project; the rollback-only SQL allow/deny suite passes there. Actual institutional issuer, audience, signature/JWKS validation and provisioning remain gates before real-user use or any production deployment.
 
 Design-reference clarification (Q15)
 • The S1–S12 screen exports and the global DESIGN.md are available under docs/designs/stitch_juune_university_operations_platform/.
@@ -2821,6 +2836,11 @@ v1.9 | 08 Nov 2026 Added Q28 for the S11/OP20 editable preference fields.
 v1.10 | 08 Nov 2026 Recorded owner approval of read-only S11 profile fields and sign-out for Phase 1; preference writes remain disabled pending field approval.
 v1.11 | 08 Nov 2026 Recorded Phase 1 implementation progress, local validation results, the health-check migration prerequisite and the remaining hosted database/manual-check gates.
 v1.12 | 08 Nov 2026 Recorded passing hosted database check and full Phase 1 check; documented browser smoke results, development API proxy behavior and the remaining identity-provider/manual-review gate.
+v1.13 | 08 Nov 2026 Added open Q29 for the trusted identity-claim flow required to implement and test tenant-scoped PostgreSQL RLS in Phase 2; no schema or UI changes made.
+v1.14 | 08 Nov 2026 Recorded the owner's candidate preference for institution-issued JWTs validated by Supabase/PostgREST; exact issuer, audience, claims, tenant mapping and schema approval remain unresolved, so Phase 2 implementation is gated.
+v1.15 | 08 Nov 2026 Recorded the owner's schema-and-tests-only direction; added a non-deployable relational schema and synthetic seed draft while leaving RLS, tenant policy tests and hosted migration paused.
+v1.16 | 08 Nov 2026 Under the owner's later authorization to exercise engineering judgment, selected the signed-claim contract and drafted least-privilege Phase 2 RLS, auditable grants, synthetic authorization fixtures and isolated allow/deny SQL tests; hosted deployment and runtime validation remain pending.
+v1.17 | 08 Nov 2026 Recorded deployment to the isolated synthetic test project, passing PostgreSQL migration/seed/RLS validation, the tenant-audit follow-up migration and full local check; human manual review and institutional issuer validation remain gates.
 
 ## Coding-agent handoff prompt
 
