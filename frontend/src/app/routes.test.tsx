@@ -13,6 +13,12 @@ const employee: SessionUser = {
   role: "employee",
 };
 
+const manager: SessionUser = {
+  ...employee,
+  id: "synthetic-manager-1",
+  role: "department_manager",
+};
+
 function TestAuthProvider({
   children,
   initialUser,
@@ -62,6 +68,18 @@ describe("application routes", () => {
 
     expect(await screen.findByRole("heading", { name: /sign in/i })).toBeVisible();
     expect(screen.queryByText("Synthetic Employee")).not.toBeInTheDocument();
+  });
+
+  it("T-SEC-1b denies non-employees access to the new-request route", () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch");
+    renderRoutes("/requests/new", manager);
+
+    expect(
+      screen.getByRole("heading", {
+        name: "You don’t have permission to view this item.",
+      }),
+    ).toBeVisible();
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
   it("S1 reports the approved safe error when institutional sign-in is unavailable", async () => {

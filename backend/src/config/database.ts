@@ -12,12 +12,20 @@ export class DatabaseConnectionError extends Error {
   }
 }
 
-export function createDatabaseClient(config: AppConfig): SupabaseClient {
+export function createDatabaseClient(
+  config: AppConfig,
+  authorizationHeader?: string,
+): SupabaseClient {
   return createClient(config.supabaseUrl, config.supabaseAnonKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
       detectSessionInUrl: false,
+    },
+    global: {
+      headers: authorizationHeader
+        ? { Authorization: authorizationHeader }
+        : {},
     },
   });
 }

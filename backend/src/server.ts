@@ -5,6 +5,8 @@ import {
   verifyDatabaseConnection,
 } from "./config/database.js";
 import { ConfigurationError, loadConfig } from "./config/environment.js";
+import { RequestCreationService } from "./requests/service.js";
+import { SupabaseRequestRepository } from "./requests/supabase-repository.js";
 
 const unconfiguredAuthenticator: Authenticator = {
   async authenticate() {
@@ -26,6 +28,9 @@ async function startServer(): Promise<void> {
   const app = createApp({
     authenticator: unconfiguredAuthenticator,
     profiles: emptyProfiles,
+    requests: new RequestCreationService(
+      new SupabaseRequestRepository(config),
+    ),
   });
   app.listen(4000, "127.0.0.1");
 }

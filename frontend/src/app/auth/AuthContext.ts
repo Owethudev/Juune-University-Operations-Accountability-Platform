@@ -17,6 +17,7 @@ export type SessionUser = {
 export interface AuthState {
   status: "authenticated" | "unauthenticated";
   user: SessionUser | null;
+  accessToken?: string | null;
   signOut: () => Promise<void>;
 }
 

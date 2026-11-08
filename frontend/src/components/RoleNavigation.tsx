@@ -14,6 +14,11 @@ const phaseOneNavigation: NavigationItem[] = [
     roles: ["employee", "department_manager", "senior_leadership", "platform_admin"],
   },
   {
+    label: "New Request",
+    to: "/requests/new",
+    roles: ["employee"],
+  },
+  {
     label: "Profile & Settings",
     to: "/profile",
     roles: ["employee", "department_manager", "senior_leadership", "platform_admin"],

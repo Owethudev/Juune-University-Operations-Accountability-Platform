@@ -31,6 +31,14 @@ function createTestApp(authenticated = true) {
         userId === profile.id ? profile : null,
       ),
     },
+    requests: {
+      async getOptions() {
+        return { categories: [], departments: [] };
+      },
+      async submit() {
+        throw new Error("Request service should not be called in this test.");
+      },
+    },
   });
 }
 
@@ -56,6 +64,14 @@ describe("Phase 1 API", () => {
       profiles: {
         async findByUserId() {
           throw new Error(sentinel);
+        },
+      },
+      requests: {
+        async getOptions() {
+          return { categories: [], departments: [] };
+        },
+        async submit() {
+          throw new Error("Request service should not be called in this test.");
         },
       },
     });
