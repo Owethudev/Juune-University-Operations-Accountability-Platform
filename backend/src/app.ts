@@ -72,6 +72,20 @@ function principalFromResponse(response: Response): AuthPrincipal | null {
   return isAuthPrincipal(principal) ? principal : null;
 }
 
+function bodyParserErrorStatus(error: unknown): 400 | 413 | null {
+  if (typeof error !== "object" || error === null || !("type" in error)) {
+    return null;
+  }
+
+  if (error.type === "entity.parse.failed") {
+    return 400;
+  }
+  if (error.type === "entity.too.large") {
+    return 413;
+  }
+  return null;
+}
+
 function authorizationFromResponse(response: Response): string | null {
   const authorization: unknown = response.locals.authorizationHeader;
   return typeof authorization === "string" &&
@@ -352,6 +366,18 @@ export function createApp(dependencies: AppDependencies) {
   );
 
   app.disable("x-powered-by");
+  app.use((_request, response, next) => {
+    response.set({
+      "Cache-Control": "no-store",
+      "Content-Security-Policy":
+        "default-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+      "Permissions-Policy": "camera=(), geolocation=(), microphone=()",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+    });
+    next();
+  });
   app.use(express.json({ limit: "10kb" }));
 
   app.get("/api/v1/health", (_request, response) => {
@@ -1497,6 +1523,17 @@ export function createApp(dependencies: AppDependencies) {
     response,
     _next,
   ) => {
+    const bodyErrorStatus = bodyParserErrorStatus(error);
+    if (bodyErrorStatus !== null) {
+      response.status(bodyErrorStatus).json({
+        message:
+          bodyErrorStatus === 400
+            ? "Please check the highlighted fields and try again."
+            : "Something went wrong. Please try again. If the problem continues, contact your university support team.",
+      });
+      return;
+    }
+
     console.error("API request failed.", {
       method: request.method,
       path: request.path,

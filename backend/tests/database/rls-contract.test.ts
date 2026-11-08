@@ -158,6 +158,7 @@ describe("Phase 2 RLS contract", () => {
       "T-SEC-12a",
       "T-SEC-13a",
       "T-SEC-14b",
+      "T-SEC-15a",
       "T-SEC-15b",
     ]) {
       expect(sql).toContain(testId);

@@ -178,6 +178,53 @@ describe("Phase 1 API", () => {
     expect(JSON.stringify(response.body)).not.toContain("SUPABASE");
   });
 
+  it("T-NFR-2 applies defensive headers to API responses", async () => {
+    const response = await request(createTestApp())
+      .get("/api/v1/health")
+      .expect(200);
+
+    expect(response.headers["x-content-type-options"]).toBe("nosniff");
+    expect(response.headers["x-frame-options"]).toBe("DENY");
+    expect(response.headers["referrer-policy"]).toBe("no-referrer");
+    expect(response.headers["permissions-policy"]).toBe(
+      "camera=(), geolocation=(), microphone=()",
+    );
+    expect(response.headers["content-security-policy"]).toBe(
+      "default-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+    );
+    expect(response.headers["cache-control"]).toContain("no-store");
+    expect(response.headers["x-powered-by"]).toBeUndefined();
+  });
+
+  it("T-NFR-2 returns a safe validation error for malformed JSON", async () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    const response = await request(createTestApp())
+      .post("/api/v1/auth/start")
+      .set("Content-Type", "application/json")
+      .send('{"invalid":')
+      .expect(400);
+
+    expect(response.body).toEqual({
+      message: "Please check the highlighted fields and try again.",
+    });
+    expect(JSON.stringify(response.body)).not.toContain("JSON");
+    expect(errorSpy).not.toHaveBeenCalled();
+  });
+
+  it("T-NFR-2 returns a bounded safe error for oversized JSON", async () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    const response = await request(createTestApp())
+      .post("/api/v1/auth/start")
+      .send({ content: "x".repeat(12 * 1024) })
+      .expect(413);
+
+    expect(response.body.message).toBe(
+      "Something went wrong. Please try again. If the problem continues, contact your university support team.",
+    );
+    expect(JSON.stringify(response.body)).not.toContain("request entity too large");
+    expect(errorSpy).not.toHaveBeenCalled();
+  });
+
   it("T-AUTH-1 denies unauthenticated access to protected profile routes", async () => {
     await request(createTestApp(false)).get("/api/v1/profile").expect(401);
   });

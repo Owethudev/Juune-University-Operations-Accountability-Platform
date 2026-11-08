@@ -13,6 +13,11 @@ do $$
 declare
   affected_rows integer;
 begin
+  if juune_private.current_institution_id()
+      <> '00000000-0000-4000-8000-000000000001'::uuid
+    or (select count(*) from public.institutions) <> 1 then
+    raise exception 'T-SEC-15a: valid institution claim must allow access within its tenant';
+  end if;
   if (select count(*) from public.requests) <> 1 then
     raise exception 'T-SEC-2a/b: employee must see only their own request';
   end if;
