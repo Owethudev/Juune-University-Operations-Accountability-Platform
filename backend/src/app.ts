@@ -16,6 +16,7 @@ import {
   RequestIdempotencyConflictError,
 } from "./requests/service.js";
 import type {
+  DashboardFilters,
   RequestListFilters,
   RequestService,
   RequestStatus,
@@ -134,6 +135,17 @@ const notificationListQuerySchema = z
     page: z.coerce.number().int().min(1).max(1000).default(1),
   })
   .strict();
+const dashboardQuerySchema = z
+  .object({
+    departmentId: z.string().uuid().optional(),
+    status: requestStatusSchema.optional(),
+    from: z.string().date().optional(),
+    to: z.string().date().optional(),
+  })
+  .strict()
+  .refine(
+    (filters) => !filters.from || !filters.to || filters.from <= filters.to,
+  );
 
 function respondRequestActionError(
   error: unknown,
@@ -296,6 +308,46 @@ export function createApp(dependencies: AppDependencies) {
           );
       } catch (error) {
         next(error);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/dashboard",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (
+        principal.role !== "department_manager" &&
+        principal.role !== "senior_leadership"
+      ) {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      const parsed = dashboardQuerySchema.safeParse(request.query);
+      if (!parsed.success) {
+        response.status(400).json({
+          message: "Check the dashboard filters and try again.",
+        });
+        return;
+      }
+      try {
+        const filters: DashboardFilters = parsed.data;
+        const summary = await dependencies.requests.getDashboardSummary(
+          principal,
+          authorizationHeader,
+          filters,
+        );
+        response.status(200).json(summary);
+      } catch (error) {
+        respondRequestActionError(error, response, next);
       }
     },
   );

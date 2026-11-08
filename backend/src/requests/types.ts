@@ -73,6 +73,7 @@ export interface RequestListFilters {
   departmentId?: string;
   from?: string;
   to?: string;
+  standardOnly?: boolean;
   page: number;
   pageSize: number;
 }
@@ -126,6 +127,34 @@ export interface NotificationPage {
   items: NotificationItem[];
   unreadCount: number;
   hasMore: boolean;
+}
+
+export interface DashboardFilters {
+  departmentId?: string;
+  status?: RequestStatus;
+  from?: string;
+  to?: string;
+}
+
+export interface DashboardSummaryRow {
+  departmentId: string;
+  departmentName: string;
+  status: RequestStatus;
+  requestCount: number;
+  assignedCount: number;
+}
+
+export interface DashboardRecentRequest {
+  id: string;
+  reference: string;
+  departmentName: string;
+  status: RequestStatus;
+  updatedAt: string;
+}
+
+export interface DashboardSummary {
+  rows: DashboardSummaryRow[];
+  recentRequests: DashboardRecentRequest[];
 }
 
 export interface CreatedRequest extends RequestRecord {
@@ -189,6 +218,10 @@ export interface RequestRepository {
     authorizationHeader: string,
     notificationId: string,
   ): Promise<void>;
+  getDashboardSummary(
+    authorizationHeader: string,
+    filters: DashboardFilters,
+  ): Promise<DashboardSummaryRow[]>;
 }
 
 export interface RequestService {
@@ -247,4 +280,9 @@ export interface RequestService {
     authorizationHeader: string,
     notificationId: string,
   ): Promise<void>;
+  getDashboardSummary(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    filters: DashboardFilters,
+  ): Promise<DashboardSummary>;
 }

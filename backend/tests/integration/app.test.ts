@@ -63,6 +63,9 @@ function createTestApp(authenticated = true) {
         return { items: [], unreadCount: 0, hasMore: false };
       },
       async markNotificationRead() {},
+      async getDashboardSummary() {
+        return { rows: [], recentRequests: [] };
+      },
     },
   });
 }
@@ -123,6 +126,9 @@ describe("Phase 1 API", () => {
           return { items: [], unreadCount: 0, hasMore: false };
         },
         async markNotificationRead() {},
+        async getDashboardSummary() {
+          return { rows: [], recentRequests: [] };
+        },
       },
     });
 

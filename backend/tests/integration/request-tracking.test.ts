@@ -67,6 +67,27 @@ const page: RequestListPage = {
   total: 1,
 };
 const options: RequestOptions = { categories: [], departments: [] };
+const dashboardRows = [
+  {
+    departmentId: employee.departmentId,
+    departmentName: "IT",
+    status: "in_progress" as const,
+    requestCount: 2,
+    assignedCount: 1,
+  },
+];
+const dashboardSummary = {
+  rows: dashboardRows,
+  recentRequests: [
+    {
+      id: requestId,
+      reference: "JU-ABCDEFGH",
+      departmentName: "IT",
+      status: "in_progress" as const,
+      updatedAt: "2026-11-08T12:30:00.000Z",
+    },
+  ],
+};
 const created: CreatedRequest = {
   id: requestId,
   reference: "JU-ABCDEFGH",
@@ -138,6 +159,7 @@ function testApp({
       hasMore: false,
     })),
     markNotificationRead: vi.fn(async () => undefined),
+    getDashboardSummary: vi.fn(async () => dashboardSummary),
   };
   const app = createApp({
     authenticator: {
@@ -163,7 +185,68 @@ function testAppWithAuthenticatedPrincipal() {
   return { app, service };
 }
 
+function testAppForRole(
+  role:
+    | "employee"
+    | "department_manager"
+    | "senior_leadership"
+    | "platform_admin",
+) {
+  const { service } = testApp({ role });
+  const app = createApp({
+    authenticator: {
+      authenticate: vi.fn(async () => ({ ...employee, role })),
+    },
+    profiles: { findByUserId: vi.fn(async () => null) },
+    requests: service,
+  });
+  return { app, service };
+}
+
 describe("Phase 4 request tracking API", () => {
+  it("T-US5-1 filters the manager dashboard server-side and returns aggregates only", async () => {
+    const { app, service } = testAppForRole("department_manager");
+    const response = await request(app)
+      .get("/api/v1/dashboard")
+      .set("Authorization", "Bearer synthetic-token")
+      .query({
+        departmentId: employee.departmentId,
+        status: "in_progress",
+        from: "2026-11-01",
+        to: "2026-11-08",
+      })
+      .expect(200, dashboardSummary);
+
+    expect(response.body.recentRequests[0]).not.toHaveProperty("summary");
+    expect(service.getDashboardSummary).toHaveBeenCalledWith(
+      expect.objectContaining({ role: "department_manager" }),
+      "Bearer synthetic-token",
+      {
+        departmentId: employee.departmentId,
+        status: "in_progress",
+        from: "2026-11-01",
+        to: "2026-11-08",
+      },
+    );
+  });
+
+  it("T-SEC-6b denies dashboard summaries to employees and rejects invalid filters", async () => {
+    const { app, service } = testAppForRole("employee");
+    await request(app)
+      .get("/api/v1/dashboard")
+      .set("Authorization", "Bearer synthetic-token")
+      .expect(403);
+    const managerApp = testAppForRole("department_manager");
+    await request(managerApp.app)
+      .get("/api/v1/dashboard")
+      .set("Authorization", "Bearer synthetic-token")
+      .query({ from: "2026-11-09", to: "2026-11-08" })
+      .expect(400);
+
+    expect(service.getDashboardSummary).not.toHaveBeenCalled();
+    expect(managerApp.service.getDashboardSummary).not.toHaveBeenCalled();
+  });
+
   it("T-US2-1 lists only accessible requests with validated filters and pagination", async () => {
     const { app, service } = testApp();
 

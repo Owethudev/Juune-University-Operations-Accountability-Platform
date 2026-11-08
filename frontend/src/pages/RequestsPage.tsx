@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../app/auth/AuthContext.js";
 import { apiBaseUrl, bearerHeaders, isRecord, responseJson } from "../app/api.js";
 import { FormField } from "../components/FormField.js";
@@ -160,8 +160,17 @@ function statusLabel(status: RequestStatus): string {
 
 export function RequestsPage() {
   const { accessToken, user } = useAuth();
-  const [filters, setFilters] = useState<RequestFilters>(emptyFilters);
-  const [appliedFilters, setAppliedFilters] = useState<RequestFilters>(emptyFilters);
+  const [searchParams] = useSearchParams();
+  const initialFilters = useMemo(() => {
+    const status = searchParams.get("status") ?? "";
+    return {
+      ...emptyFilters,
+      departmentId: searchParams.get("departmentId") ?? "",
+      status: statuses.some((item) => item.value === status) ? status : "",
+    };
+  }, [searchParams]);
+  const [filters, setFilters] = useState<RequestFilters>(initialFilters);
+  const [appliedFilters, setAppliedFilters] = useState<RequestFilters>(initialFilters);
   const [page, setPage] = useState(1);
   const [result, setResult] = useState<RequestListPageData | null>(null);
   const [options, setOptions] = useState<FilterOptions | null>(null);

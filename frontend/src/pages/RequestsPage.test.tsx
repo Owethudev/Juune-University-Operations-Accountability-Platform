@@ -50,9 +50,9 @@ const options = {
   ],
 };
 
-function renderPage() {
+function renderPage(path = "/requests") {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[path]}>
       <AuthContext.Provider value={authState}>
         <RequestsPage />
       </AuthContext.Provider>
@@ -127,6 +127,26 @@ describe("S3 My Requests / Request Queue", () => {
     expect(
       screen.getByRole("option", { name: "Facilities/Maintenance" }),
     ).toBeInTheDocument();
+  });
+
+  it("applies dashboard status and department filters to the queue", async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(Response.json(page))
+      .mockResolvedValueOnce(Response.json(options));
+    renderPage(
+      "/requests?status=in_progress&departmentId=00000000-0000-4000-8000-000000000101",
+    );
+
+    await screen.findByText("JU-ABCDEFGH");
+    expect(String(fetchSpy.mock.calls[0]?.[0])).toContain("status=in_progress");
+    expect(String(fetchSpy.mock.calls[0]?.[0])).toContain(
+      "departmentId=00000000-0000-4000-8000-000000000101",
+    );
+    expect(screen.getByLabelText("Status")).toHaveValue("in_progress");
+    expect(screen.getByLabelText("Department")).toHaveValue(
+      "00000000-0000-4000-8000-000000000101",
+    );
   });
 
   it("shows a retry action when requests cannot be loaded", async () => {

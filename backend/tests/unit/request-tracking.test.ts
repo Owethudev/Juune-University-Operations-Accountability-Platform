@@ -98,6 +98,7 @@ function createRepository(
       hasMore: false,
     })),
     markNotificationRead: vi.fn(async () => undefined),
+    getDashboardSummary: vi.fn(async () => []),
     ...overrides,
   };
 }
@@ -161,6 +162,42 @@ describe("Request tracking service", () => {
       service.listNotifications(employee, "******"),
     ).resolves.toMatchObject({ items: [], unreadCount: 0 });
     expect(repository.listNotifications).toHaveBeenCalledWith("******", 1);
+  });
+
+  it("T-BR10-1 allows manager and leadership summaries and denies other roles", async () => {
+    const rows = [
+      {
+        departmentId: employee.departmentId!,
+        departmentName: "IT",
+        status: "in_progress" as const,
+        requestCount: 2,
+        assignedCount: 1,
+      },
+    ];
+    const repository = createRepository({
+      getDashboardSummary: vi.fn(async () => rows),
+    });
+    const service = new RequestCreationService(repository);
+    const expected = { rows, recentRequests: [] };
+
+    await expect(
+      service.getDashboardSummary(manager, "******", {}),
+    ).resolves.toEqual(expected);
+    await expect(
+      service.getDashboardSummary(
+        { ...employee, role: "senior_leadership" },
+        "******",
+        { from: "2026-11-01", to: "2026-11-08" },
+      ),
+    ).resolves.toEqual(expected);
+    await expect(
+      service.getDashboardSummary(employee, "******", {}),
+    ).rejects.toMatchObject({ kind: "denied" });
+    expect(repository.getDashboardSummary).toHaveBeenCalledTimes(2);
+    expect(repository.list).toHaveBeenCalledWith(
+      "******",
+      expect.objectContaining({ standardOnly: true, page: 1, pageSize: 5 }),
+    );
   });
 
   it("allows only the assigned manager to make an allowed status transition", async () => {

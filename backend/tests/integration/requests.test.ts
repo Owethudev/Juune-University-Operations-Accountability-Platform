@@ -92,6 +92,7 @@ function createTestApp({
       hasMore: false,
     })),
     markNotificationRead: vi.fn(async () => undefined),
+    getDashboardSummary: vi.fn(async () => ({ rows: [], recentRequests: [] })),
   };
 
   const app = createApp({

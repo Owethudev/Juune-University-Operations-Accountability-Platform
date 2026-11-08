@@ -2,6 +2,8 @@ import { randomInt } from "node:crypto";
 import type { AuthPrincipal } from "../auth/types.js";
 import type {
   CreatedRequest,
+  DashboardFilters,
+  DashboardSummary,
   NotificationPage,
   RequestDetail,
   RequestEvent,
@@ -417,6 +419,44 @@ export class RequestCreationService implements RequestService {
       authorizationHeader,
       notificationId,
     );
+  }
+
+  async getDashboardSummary(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    filters: DashboardFilters,
+  ): Promise<DashboardSummary> {
+    if (
+      principal.role !== "department_manager" &&
+      principal.role !== "senior_leadership"
+    ) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to view this item.",
+      );
+    }
+    const [rows, recent] = await Promise.all([
+      this.repository.getDashboardSummary(authorizationHeader, filters),
+      this.repository.list(authorizationHeader, {
+        departmentId: filters.departmentId,
+        status: filters.status,
+        from: filters.from,
+        to: filters.to,
+        standardOnly: true,
+        page: 1,
+        pageSize: 5,
+      }),
+    ]);
+    return {
+      rows,
+      recentRequests: recent.items.map((item) => ({
+        id: item.id,
+        reference: item.reference,
+        departmentName: item.departmentName,
+        status: item.status,
+        updatedAt: item.updatedAt,
+      })),
+    };
   }
 
   private replayOrReject(

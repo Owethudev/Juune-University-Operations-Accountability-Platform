@@ -86,6 +86,7 @@ function createRepository(
       hasMore: false,
     })),
     markNotificationRead: vi.fn(async () => undefined),
+    getDashboardSummary: vi.fn(async () => []),
   };
   return {
     getOptions: overrides.getOptions ?? defaults.getOptions,
@@ -103,6 +104,8 @@ function createRepository(
       overrides.listNotifications ?? defaults.listNotifications,
     markNotificationRead:
       overrides.markNotificationRead ?? defaults.markNotificationRead,
+    getDashboardSummary:
+      overrides.getDashboardSummary ?? defaults.getDashboardSummary,
   };
 }
 

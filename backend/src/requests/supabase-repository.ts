@@ -12,6 +12,8 @@ import type {
   RequestEventType,
   NotificationItem,
   NotificationPage,
+  DashboardFilters,
+  DashboardSummaryRow,
   RequestListFilters,
   RequestListItem,
   RequestListPage,
@@ -121,6 +123,13 @@ const notificationRowSchema = z.object({
   created_at: z.string(),
   read_at: z.string().nullable(),
   status: z.enum(["pending", "sent", "failed", "read"]),
+});
+const dashboardSummaryRowSchema = z.object({
+  department_id: z.string().uuid(),
+  department_name: z.string(),
+  status: detailRowSchema.shape.status,
+  request_count: z.number().int().nonnegative(),
+  assigned_count: z.number().int().nonnegative(),
 });
 
 export class RequestRepositoryError extends Error {
@@ -288,6 +297,7 @@ export class SupabaseRequestRepository implements RequestRepository {
       );
 
     if (filters.status) query = query.eq("status", filters.status);
+    if (filters.standardOnly) query = query.eq("sensitivity", "standard");
     if (filters.categoryId) query = query.eq("category_id", filters.categoryId);
     if (filters.departmentId) {
       query = query.eq("department_id", filters.departmentId);
@@ -655,5 +665,35 @@ export class SupabaseRequestRepository implements RequestRepository {
     if (error) {
       throw new RequestRepositoryError();
     }
+  }
+
+  async getDashboardSummary(
+    authorizationHeader: string,
+    filters: DashboardFilters,
+  ): Promise<DashboardSummaryRow[]> {
+    const database = createDatabaseClient(this.config, authorizationHeader);
+    const { data, error } = await database.rpc(
+      "request_dashboard_summary_filtered",
+      {
+        required_from_date: filters.from ?? null,
+        required_to_date: filters.to ?? null,
+        required_status: filters.status ?? null,
+        required_department_id: filters.departmentId ?? null,
+      },
+    );
+    if (error || !data) {
+      throw new RequestRepositoryError();
+    }
+    const rows = z.array(dashboardSummaryRowSchema).safeParse(data);
+    if (!rows.success) {
+      throw new RequestRepositoryError();
+    }
+    return rows.data.map((row) => ({
+      departmentId: row.department_id,
+      departmentName: row.department_name,
+      status: row.status,
+      requestCount: row.request_count,
+      assignedCount: row.assigned_count,
+    }));
   }
 }
