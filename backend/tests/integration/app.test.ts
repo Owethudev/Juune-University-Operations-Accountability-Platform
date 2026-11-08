@@ -2,6 +2,7 @@ import request from "supertest";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createApp } from "../../src/app.js";
 import type { ProfileView } from "../../src/auth/types.js";
+import { unusedContentService } from "./content-fixture.js";
 
 const profile: ProfileView = {
   id: "synthetic-employee-1",
@@ -67,6 +68,7 @@ function createTestApp(authenticated = true) {
         return { rows: [], recentRequests: [] };
       },
     },
+    content: unusedContentService(),
   });
 }
 
@@ -130,6 +132,7 @@ describe("Phase 1 API", () => {
           return { rows: [], recentRequests: [] };
         },
       },
+      content: unusedContentService(),
     });
 
     const response = await request(app)

@@ -9,6 +9,8 @@ import { RequestDetailPage } from "../pages/RequestDetailPage.js";
 import { RequestsPage } from "../pages/RequestsPage.js";
 import { SignInPage } from "../pages/SignInPage.js";
 import { NotificationsPage } from "../pages/NotificationsPage.js";
+import { AnnouncementsPage } from "../pages/AnnouncementsPage.js";
+import { OpportunitiesPage } from "../pages/OpportunitiesPage.js";
 
 type ProtectedPage =
   | "home"
@@ -16,7 +18,10 @@ type ProtectedPage =
   | "new-request"
   | "requests"
   | "request-detail"
-  | "notifications";
+  | "notifications"
+  | "announcements"
+  | "opportunities";
+
 
 function ProtectedShell({ page }: { page: ProtectedPage }) {
   const { status, user } = useAuth();
@@ -36,6 +41,8 @@ function ProtectedShell({ page }: { page: ProtectedPage }) {
     requests: "My Requests",
     "request-detail": "Request",
     notifications: "Notifications",
+    announcements: "Announcements",
+    opportunities: "Opportunities",
   }[page];
   const content = {
     home: <HomePage user={user} />,
@@ -44,6 +51,8 @@ function ProtectedShell({ page }: { page: ProtectedPage }) {
     requests: <RequestsPage />,
     "request-detail": <RequestDetailPage />,
     notifications: <NotificationsPage />,
+    announcements: <AnnouncementsPage />,
+    opportunities: <OpportunitiesPage />,
   }[page];
 
   return (
@@ -81,6 +90,14 @@ export function AppRoutes() {
       <Route
         path="/notifications"
         element={<ProtectedShell page="notifications" />}
+      />
+      <Route
+        path="/announcements"
+        element={<ProtectedShell page="announcements" />}
+      />
+      <Route
+        path="/opportunities"
+        element={<ProtectedShell page="opportunities" />}
       />
       <Route path="/access-denied" element={<AccessDeniedPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />

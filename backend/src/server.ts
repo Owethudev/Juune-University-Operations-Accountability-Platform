@@ -7,6 +7,8 @@ import {
 import { ConfigurationError, loadConfig } from "./config/environment.js";
 import { RequestCreationService } from "./requests/service.js";
 import { SupabaseRequestRepository } from "./requests/supabase-repository.js";
+import { ContentManagementService } from "./content/service.js";
+import { SupabaseContentRepository } from "./content/supabase-repository.js";
 
 const unconfiguredAuthenticator: Authenticator = {
   async authenticate() {
@@ -30,6 +32,9 @@ async function startServer(): Promise<void> {
     profiles: emptyProfiles,
     requests: new RequestCreationService(
       new SupabaseRequestRepository(config),
+    ),
+    content: new ContentManagementService(
+      new SupabaseContentRepository(config),
     ),
   });
   app.listen(4000, "127.0.0.1");

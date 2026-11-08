@@ -15,6 +15,8 @@ import {
   RequestFieldValidationError,
   RequestIdempotencyConflictError,
 } from "./requests/service.js";
+import { ContentActionError } from "./content/service.js";
+import type { ContentService } from "./content/types.js";
 import type {
   DashboardFilters,
   RequestListFilters,
@@ -27,6 +29,7 @@ interface AppDependencies {
   authenticator: Authenticator;
   profiles: ProfileRepository;
   requests: RequestService;
+  content: ContentService;
 }
 
 function isUserRole(value: unknown): value is UserRole {
@@ -129,6 +132,51 @@ const requestStatusChangeSchema = z
   })
   .strict();
 const emptyAssignmentSchema = z.object({}).strict();
+const contentSearchSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .max(80);
+const announcementInputSchema = z
+  .object({
+    title: z.string().trim().min(5).max(120),
+    body: z.string().trim().min(10).max(5000),
+    audienceDepartmentIds: z.array(z.string().uuid()).max(100),
+    expiresAt: z.string().datetime({ offset: true }).nullable(),
+    publish: z.boolean(),
+  })
+  .strict();
+const opportunityInputSchema = z
+  .object({
+    title: z.string().trim().min(5).max(120),
+    type: z.enum([
+      "vacancy",
+      "promotion",
+      "temporary_assignment",
+      "training",
+      "professional_development",
+    ]),
+    description: z.string().trim().min(10).max(5000),
+    audienceDepartmentIds: z.array(z.string().uuid()).max(100),
+    opensAt: z.string().datetime({ offset: true }).nullable(),
+    closesAt: z.string().datetime({ offset: true }).nullable(),
+    applicationUrl: z.string().trim().max(2048).nullable(),
+    instructions: z.string().trim().min(10).max(5000).nullable(),
+    publish: z.boolean(),
+  })
+  .strict()
+  .refine(
+    (value) => !(value.applicationUrl && value.instructions),
+    "Provide either an HTTPS application link or application instructions.",
+  );
+const contentIdSchema = z.string().uuid();
+const opportunityTypeSchema = z.enum([
+  "vacancy",
+  "promotion",
+  "temporary_assignment",
+  "training",
+  "professional_development",
+]);
 const emptyActionSchema = z.object({}).strict();
 const notificationListQuerySchema = z
   .object({
@@ -159,6 +207,23 @@ function respondRequestActionError(
   const status =
     error.kind === "denied" ? 403 : error.kind === "conflict" ? 409 : 400;
   response.status(status).json({
+    message:
+      error.kind === "denied"
+        ? "You don’t have permission to view this item."
+        : error.message,
+  });
+}
+
+function respondContentActionError(
+  error: unknown,
+  response: Response,
+  next: (error?: unknown) => void,
+): void {
+  if (!(error instanceof ContentActionError)) {
+    next(error);
+    return;
+  }
+  response.status(error.kind === "denied" ? 403 : 400).json({
     message:
       error.kind === "denied"
         ? "You don’t have permission to view this item."
@@ -705,6 +770,446 @@ export function createApp(dependencies: AppDependencies) {
         response.status(200).json(detail);
       } catch (error) {
         respondRequestActionError(error, response, next);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/content/publishing-permissions",
+    requireAuthentication,
+    async (_request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      try {
+        const permissions = await dependencies.content.getPublishingPermissions(
+          principal,
+          authorizationHeader,
+        );
+        response.status(200).json(permissions);
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/announcements",
+    requireAuthentication,
+    async (request, response, next) => {
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      const parsed = z
+        .object({
+          search: contentSearchSchema.optional(),
+          departmentId: z.string().uuid().optional(),
+        })
+        .strict()
+        .safeParse(request.query);
+      if (!parsed.success) {
+        response.status(400).json({ message: "Check the announcement filters." });
+        return;
+      }
+      try {
+        const items = await dependencies.content.listAnnouncements(
+          authorizationHeader,
+          parsed.data,
+        );
+        response.status(200).json({ items });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/announcements/drafts",
+    requireAuthentication,
+    async (_request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      try {
+        const items = await dependencies.content.listAnnouncementDrafts(
+          principal,
+          authorizationHeader,
+        );
+        response.status(200).json({ items });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/announcements/:announcementId",
+    requireAuthentication,
+    async (request, response, next) => {
+      const authorizationHeader = authorizationFromResponse(response);
+      const announcementId = contentIdSchema.safeParse(
+        request.params.announcementId,
+      );
+      if (!authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!announcementId.success) {
+        response.status(404).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        const item = await dependencies.content.getAnnouncement(
+          authorizationHeader,
+          announcementId.data,
+        );
+        if (!item) {
+          response.status(404).json({
+            message: "You don’t have permission to view this item.",
+          });
+          return;
+        }
+        response.status(200).json({ item });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/announcements",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      const parsed = announcementInputSchema.safeParse(request.body);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!parsed.success) {
+        response.status(400).json({ message: "Check the announcement details." });
+        return;
+      }
+      try {
+        const content = await dependencies.content.createAnnouncement(
+          principal,
+          authorizationHeader,
+          parsed.data,
+        );
+        response.status(201).json(content);
+      } catch (error) {
+        respondContentActionError(error, response, next);
+      }
+    },
+  );
+
+  app.patch(
+    "/api/v1/announcements/:announcementId",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      const announcementId = contentIdSchema.safeParse(
+        request.params.announcementId,
+      );
+      const parsed = announcementInputSchema.safeParse(request.body);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!announcementId.success || !parsed.success || parsed.data.publish) {
+        response.status(400).json({ message: "Check the announcement details." });
+        return;
+      }
+      try {
+        const content = await dependencies.content.updateAnnouncementDraft(
+          principal,
+          authorizationHeader,
+          announcementId.data,
+          parsed.data,
+        );
+        response.status(200).json(content);
+      } catch (error) {
+        respondContentActionError(error, response, next);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/announcements/:announcementId/publish",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      const announcementId = contentIdSchema.safeParse(
+        request.params.announcementId,
+      );
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (
+        !announcementId.success ||
+        !emptyActionSchema.safeParse(request.body ?? {}).success
+      ) {
+        response.status(404).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        const content = await dependencies.content.publishAnnouncementDraft(
+          principal,
+          authorizationHeader,
+          announcementId.data,
+        );
+        response.status(200).json(content);
+      } catch (error) {
+        respondContentActionError(error, response, next);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/opportunities",
+    requireAuthentication,
+    async (request, response, next) => {
+      const authorizationHeader = authorizationFromResponse(response);
+      const parsed = z
+        .object({
+          search: contentSearchSchema.optional(),
+          departmentId: z.string().uuid().optional(),
+          type: opportunityTypeSchema.optional(),
+          closingFrom: z.string().date().optional(),
+          closingTo: z.string().date().optional(),
+        })
+        .strict()
+        .refine(
+          (filters) =>
+            !filters.closingFrom ||
+            !filters.closingTo ||
+            filters.closingFrom <= filters.closingTo,
+          "Closing date range is invalid.",
+        )
+        .safeParse(request.query);
+      if (!authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!parsed.success) {
+        response.status(400).json({ message: "Check the opportunity filters." });
+        return;
+      }
+      try {
+        const items = await dependencies.content.listOpportunities(
+          authorizationHeader,
+          parsed.data,
+        );
+        response.status(200).json({ items });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/opportunities/drafts",
+    requireAuthentication,
+    async (_request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      try {
+        const items = await dependencies.content.listOpportunityDrafts(
+          principal,
+          authorizationHeader,
+        );
+        response.status(200).json({ items });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/opportunities/:opportunityId/application",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      const opportunityId = contentIdSchema.safeParse(
+        request.params.opportunityId,
+      );
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!opportunityId.success) {
+        response.status(404).json({
+          message: "This opportunity is no longer available.",
+        });
+        return;
+      }
+      try {
+        const applicationUrl = await dependencies.content.getOpportunityApplication(
+          principal,
+          authorizationHeader,
+          opportunityId.data,
+        );
+        if (!applicationUrl) {
+          response.status(404).json({
+            message: "This opportunity is no longer available.",
+          });
+          return;
+        }
+        response.status(200).json({ applicationUrl });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/opportunities/:opportunityId",
+    requireAuthentication,
+    async (request, response, next) => {
+      const authorizationHeader = authorizationFromResponse(response);
+      const opportunityId = contentIdSchema.safeParse(
+        request.params.opportunityId,
+      );
+      if (!authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!opportunityId.success) {
+        response.status(404).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        const item = await dependencies.content.getOpportunity(
+          authorizationHeader,
+          opportunityId.data,
+        );
+        if (!item) {
+          response.status(404).json({
+            message: "You don’t have permission to view this item.",
+          });
+          return;
+        }
+        response.status(200).json({ item });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/opportunities",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      const parsed = opportunityInputSchema.safeParse(request.body);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!parsed.success) {
+        response.status(400).json({ message: "Check the opportunity details." });
+        return;
+      }
+      try {
+        const content = await dependencies.content.createOpportunity(
+          principal,
+          authorizationHeader,
+          parsed.data,
+        );
+        response.status(201).json(content);
+      } catch (error) {
+        respondContentActionError(error, response, next);
+      }
+    },
+  );
+
+  app.patch(
+    "/api/v1/opportunities/:opportunityId",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      const opportunityId = contentIdSchema.safeParse(
+        request.params.opportunityId,
+      );
+      const parsed = opportunityInputSchema.safeParse(request.body);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!opportunityId.success || !parsed.success || parsed.data.publish) {
+        response.status(400).json({ message: "Check the opportunity details." });
+        return;
+      }
+      try {
+        const content = await dependencies.content.updateOpportunityDraft(
+          principal,
+          authorizationHeader,
+          opportunityId.data,
+          parsed.data,
+        );
+        response.status(200).json(content);
+      } catch (error) {
+        respondContentActionError(error, response, next);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/opportunities/:opportunityId/publish",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      const opportunityId = contentIdSchema.safeParse(
+        request.params.opportunityId,
+      );
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (
+        !opportunityId.success ||
+        !emptyActionSchema.safeParse(request.body ?? {}).success
+      ) {
+        response.status(404).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        const content = await dependencies.content.publishOpportunityDraft(
+          principal,
+          authorizationHeader,
+          opportunityId.data,
+        );
+        response.status(200).json(content);
+      } catch (error) {
+        respondContentActionError(error, response, next);
       }
     },
   );

@@ -50,4 +50,21 @@ describe("RoleNavigation", () => {
     expect(screen.getByRole("link", { name: "Admin Console" })).toBeVisible();
     expect(screen.getByRole("link", { name: "Audit Log" })).toBeVisible();
   });
+
+  it("shows announcements and opportunities to every authenticated staff role", () => {
+    render(
+      <MemoryRouter>
+        <RoleNavigation role="employee" />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole("link", { name: "Announcements" })).toHaveAttribute(
+      "href",
+      "/announcements",
+    );
+    expect(screen.getByRole("link", { name: "Opportunities" })).toHaveAttribute(
+      "href",
+      "/opportunities",
+    );
+  });
 });
