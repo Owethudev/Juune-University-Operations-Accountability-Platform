@@ -32,8 +32,85 @@ export interface RequestRecord {
   departmentId: string;
   summary: string;
   description: string;
-  status: "submitted";
+  status: RequestStatus;
   createdAt: string;
+}
+
+export type RequestStatus =
+  | "submitted"
+  | "acknowledged"
+  | "in_progress"
+  | "waiting_for_requester"
+  | "on_hold"
+  | "resolved"
+  | "closed"
+  | "reopened";
+
+export type RequestEventType =
+  | "created"
+  | "status_changed"
+  | "assigned"
+  | "response"
+  | "flag"
+  | "escalation"
+  | "evidence_added"
+  | "reopened"
+  | "closed";
+
+export interface RequestEvent {
+  id: string;
+  eventType: RequestEventType;
+  actorName: string;
+  message: string | null;
+  metadata: Record<string, unknown>;
+  createdAt: string;
+}
+
+export interface RequestListFilters {
+  search?: string;
+  status?: RequestStatus;
+  categoryId?: string;
+  departmentId?: string;
+  from?: string;
+  to?: string;
+  page: number;
+  pageSize: number;
+}
+
+export interface RequestListItem {
+  id: string;
+  reference: string;
+  summary: string;
+  categoryId: string;
+  categoryName: string;
+  departmentId: string;
+  departmentName: string;
+  status: RequestStatus;
+  updatedAt: string;
+}
+
+export interface RequestListPage {
+  items: RequestListItem[];
+  page: number;
+  pageSize: number;
+  total: number;
+}
+
+export interface RequestParticipant {
+  id: string;
+  name: string;
+}
+
+export interface RequestDetail extends RequestRecord {
+  requester: RequestParticipant;
+  category: RequestDepartmentOption;
+  department: RequestDepartmentOption;
+  assignedTo: RequestParticipant | null;
+  statusReason: string | null;
+  updatedAt: string;
+  sensitivity: "standard" | "restricted";
+  events: RequestEvent[];
+  attachments: [];
 }
 
 export interface CreatedRequest extends RequestRecord {
@@ -54,6 +131,37 @@ export interface RequestRepository {
     reference: string,
     sensitivity: RequestCategoryOption["sensitivityDefault"],
   ): Promise<RequestRecord>;
+  list(
+    authorizationHeader: string,
+    filters: RequestListFilters,
+  ): Promise<RequestListPage>;
+  getDetail(
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<RequestDetail | null>;
+  addResponse(
+    authorizationHeader: string,
+    principal: AuthPrincipal,
+    requestId: string,
+    message: string,
+    kind?: "response" | "reopen_request",
+  ): Promise<RequestEvent>;
+  hasReopenRequest(
+    authorizationHeader: string,
+    requestId: string,
+    requesterId: string,
+  ): Promise<boolean>;
+  changeStatus(
+    authorizationHeader: string,
+    requestId: string,
+    status: RequestStatus,
+    reason: string | null,
+  ): Promise<RequestDetail>;
+  assignToSelf(
+    authorizationHeader: string,
+    principal: AuthPrincipal,
+    requestId: string,
+  ): Promise<RequestDetail>;
 }
 
 export interface RequestService {
@@ -63,4 +171,38 @@ export interface RequestService {
     authorizationHeader: string,
     input: RequestSubmission,
   ): Promise<CreatedRequest>;
+  list(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    filters: RequestListFilters,
+  ): Promise<RequestListPage>;
+  getDetail(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<RequestDetail | null>;
+  addResponse(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+    message: string,
+  ): Promise<RequestEvent>;
+  requestReopen(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+    reason: string,
+  ): Promise<RequestEvent>;
+  changeStatus(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+    status: RequestStatus,
+    reason: string | null,
+  ): Promise<RequestDetail>;
+  assignToSelf(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<RequestDetail>;
 }

@@ -55,14 +55,42 @@ const record: RequestRecord = {
 function createRepository(
   overrides: Partial<RequestRepository> = {},
 ): RequestRepository {
-  return {
+  const defaults: RequestRepository = {
     getOptions: vi.fn(async () => ({
       categories: [category],
       departments: [department],
     })),
     findByIdempotencyKey: vi.fn(async () => null),
     insert: vi.fn(async () => record),
-    ...overrides,
+    list: vi.fn(async () => ({ items: [], page: 1, pageSize: 10, total: 0 })),
+    getDetail: vi.fn(async () => null),
+    addResponse: vi.fn(async (_authorization, _principal, _id, message) => ({
+      id: record.id,
+      eventType: "response" as const,
+      actorName: "Synthetic Employee",
+      message,
+      metadata: {},
+      createdAt: record.createdAt,
+    })),
+    hasReopenRequest: vi.fn(async () => false),
+    changeStatus: vi.fn(async () => {
+      throw new Error("Request status service should not be called in this test.");
+    }),
+    assignToSelf: vi.fn(async () => {
+      throw new Error("Request assignment service should not be called in this test.");
+    }),
+  };
+  return {
+    getOptions: overrides.getOptions ?? defaults.getOptions,
+    findByIdempotencyKey:
+      overrides.findByIdempotencyKey ?? defaults.findByIdempotencyKey,
+    insert: overrides.insert ?? defaults.insert,
+    list: overrides.list ?? defaults.list,
+    getDetail: overrides.getDetail ?? defaults.getDetail,
+    addResponse: overrides.addResponse ?? defaults.addResponse,
+    hasReopenRequest: overrides.hasReopenRequest ?? defaults.hasReopenRequest,
+    changeStatus: overrides.changeStatus ?? defaults.changeStatus,
+    assignToSelf: overrides.assignToSelf ?? defaults.assignToSelf,
   };
 }
 
@@ -112,14 +140,15 @@ describe("RequestCreationService", () => {
     ).rejects.toBeInstanceOf(RequestIdempotencyConflictError);
   });
 
-  it("rejects a destination outside the selected category's configured destination", async () => {
+  it("T-BR2-1 allows an active alternate department for an advisory recommendation", async () => {
+    const alternateDepartmentId = "00000000-0000-4000-8000-000000000102";
     const repository = createRepository({
       getOptions: vi.fn(async () => ({
         categories: [category],
         departments: [
           department,
           {
-            id: "00000000-0000-4000-8000-000000000102",
+            id: alternateDepartmentId,
             name: "Facilities/Maintenance",
           },
         ],
@@ -129,6 +158,32 @@ describe("RequestCreationService", () => {
 
     await expect(
       service.submit(principal, "Bearer verified-test-token", {
+        ...input,
+        departmentId: alternateDepartmentId,
+      }),
+    ).resolves.toMatchObject({ replayed: false });
+    const insertCall = vi.mocked(repository.insert).mock.calls[0];
+    expect(insertCall?.[0]).toEqual(expect.any(String));
+    expect(insertCall?.[1]).toEqual(principal);
+    expect(insertCall?.[2]).toEqual({
+      ...input,
+      departmentId: alternateDepartmentId,
+    });
+    expect(insertCall?.[3]).toMatch(/^JU-[A-Z0-9]{8}$/);
+    expect(insertCall?.[4]).toBe("standard");
+  });
+
+  it("rejects a destination that is not active and available to the institution", async () => {
+    const repository = createRepository({
+      getOptions: vi.fn(async () => ({
+        categories: [category],
+        departments: [department],
+      })),
+    });
+    const service = new RequestCreationService(repository);
+
+    await expect(
+      service.submit(principal, "******", {
         ...input,
         departmentId: "00000000-0000-4000-8000-000000000102",
       }),

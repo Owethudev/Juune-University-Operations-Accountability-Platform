@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FormField } from "../components/FormField.js";
 import { useAuth } from "../app/auth/AuthContext.js";
 
@@ -173,11 +173,12 @@ export function NewRequestPage() {
   const availableDepartments = useMemo(
     () =>
       selectedCategory
-        ? (options?.departments.filter(
-            (department) => department.id === selectedCategory.defaultDepartmentId,
-          ) ?? [])
+        ? (options?.departments ?? [])
         : [],
     [options?.departments, selectedCategory],
+  );
+  const recommendedDepartment = options?.departments.find(
+    (department) => department.id === selectedCategory?.defaultDepartmentId,
   );
 
   const loadOptions = useCallback(async (signal?: AbortSignal) => {
@@ -376,7 +377,14 @@ export function NewRequestPage() {
                   (category) => category.id === event.target.value,
                 );
                 setCategoryId(event.target.value);
-                setDepartmentId(nextCategory?.defaultDepartmentId ?? "");
+                const recommendedId = nextCategory?.defaultDepartmentId;
+                setDepartmentId(
+                  options.departments.some(
+                    (department) => department.id === recommendedId,
+                  )
+                    ? recommendedId ?? ""
+                    : "",
+                );
                 setErrors((current) => ({ ...current, categoryId: undefined, departmentId: undefined }));
                 resetSubmissionKey();
               }}
@@ -390,8 +398,12 @@ export function NewRequestPage() {
             </select>
           </FormField>
 
-          <p className="routing-placeholder">
-            Routing recommendation is based on the selected category.
+          <p className="routing-placeholder" role="status">
+            {!selectedCategory
+              ? "Choose a category to see its recommended destination."
+              : recommendedDepartment
+                ? `Recommended destination: ${recommendedDepartment.name}. You can choose another active department.`
+                : "No destination is configured for this category. Choose an active destination department."}
           </p>
 
           <FormField
@@ -494,48 +506,5 @@ export function NewRequestPage() {
         </div>
       </form>
     </div>
-  );
-}
-
-export function RequestDetailPage() {
-  const { requestId } = useParams();
-  const location = useLocation();
-  const state: unknown = location.state;
-  const request = isRecord(state) ? parseSubmittedRequest(state.request) : null;
-
-  if (!request || request.id !== requestId) {
-    return (
-      <section className="request-confirmation" aria-labelledby="request-detail-unavailable-title">
-        <h2 id="request-detail-unavailable-title">Request details unavailable</h2>
-        <p>Open a request after it has been submitted.</p>
-        <Link className="button button-primary" to="/">
-          Return home
-        </Link>
-      </section>
-    );
-  }
-
-  return (
-    <section className="request-confirmation" aria-labelledby="request-detail-title">
-      <p className="eyebrow">Submitted request</p>
-      <h2 id="request-detail-title">Request {request.reference}</h2>
-      <dl className="request-detail-list">
-        <div>
-          <dt>Status</dt>
-          <dd>Submitted</dd>
-        </div>
-        <div>
-          <dt>Summary</dt>
-          <dd>{request.summary}</dd>
-        </div>
-        <div>
-          <dt>Description</dt>
-          <dd>{request.description}</dd>
-        </div>
-      </dl>
-      <Link className="button button-secondary" to="/">
-        Return home
-      </Link>
-    </section>
   );
 }

@@ -38,6 +38,24 @@ function createTestApp(authenticated = true) {
       async submit() {
         throw new Error("Request service should not be called in this test.");
       },
+      async list() {
+        return { items: [], page: 1, pageSize: 10, total: 0 };
+      },
+      async getDetail() {
+        return null;
+      },
+      async addResponse() {
+        throw new Error("Request service should not be called in this test.");
+      },
+      async requestReopen() {
+        throw new Error("Request service should not be called in this test.");
+      },
+      async changeStatus() {
+        throw new Error("Request service should not be called in this test.");
+      },
+      async assignToSelf() {
+        throw new Error("Request service should not be called in this test.");
+      },
     },
   });
 }
@@ -71,6 +89,24 @@ describe("Phase 1 API", () => {
           return { categories: [], departments: [] };
         },
         async submit() {
+          throw new Error("Request service should not be called in this test.");
+        },
+        async list() {
+          return { items: [], page: 1, pageSize: 10, total: 0 };
+        },
+        async getDetail() {
+          return null;
+        },
+        async addResponse() {
+          throw new Error("Request service should not be called in this test.");
+        },
+        async requestReopen() {
+          throw new Error("Request service should not be called in this test.");
+        },
+        async changeStatus() {
+          throw new Error("Request service should not be called in this test.");
+        },
+        async assignToSelf() {
           throw new Error("Request service should not be called in this test.");
         },
       },

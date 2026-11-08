@@ -2,7 +2,8 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AuthContext, type AuthState, type SessionUser } from "../app/auth/AuthContext.js";
-import { NewRequestPage, RequestDetailPage } from "./NewRequestPage.js";
+import { NewRequestPage } from "./NewRequestPage.js";
+import { RequestDetailPage } from "./RequestDetailPage.js";
 
 const user: SessionUser = {
   id: "00000000-0000-4000-8000-000000000201",
@@ -24,6 +25,10 @@ const options = {
     {
       id: "00000000-0000-4000-8000-000000000101",
       name: "IT",
+    },
+    {
+      id: "00000000-0000-4000-8000-000000000102",
+      name: "Facilities/Maintenance",
     },
   ],
 };
@@ -163,7 +168,33 @@ describe("S5 New Request", () => {
     const fetchSpy = vi
       .spyOn(globalThis, "fetch")
       .mockResolvedValueOnce(Response.json(options, { status: 200 }))
-      .mockResolvedValueOnce(Response.json(created, { status: 201 }));
+      .mockResolvedValueOnce(Response.json(created, { status: 201 }))
+      .mockResolvedValueOnce(
+        Response.json(
+          {
+            ...created,
+            requester: { id: user.id, name: user.name },
+            category: { id: created.categoryId, name: "IT support" },
+            department: { id: created.departmentId, name: "IT" },
+            assignedTo: null,
+            statusReason: null,
+            updatedAt: created.createdAt,
+            sensitivity: "standard",
+            events: [
+              {
+                id: "00000000-0000-4000-8000-000000000501",
+                eventType: "created",
+                actorName: user.name,
+                message: null,
+                metadata: {},
+                createdAt: created.createdAt,
+              },
+            ],
+            attachments: [],
+          },
+          { status: 200 },
+        ),
+      );
     vi.spyOn(globalThis.crypto, "randomUUID").mockReturnValue(
       "00000000-0000-4000-8000-000000000501",
     );
@@ -185,10 +216,67 @@ describe("S5 New Request", () => {
 
     fireEvent.click(screen.getByRole("link", { name: "View request" }));
     expect(
-      await screen.findByRole("heading", { name: "Request JU-ABCDEFGH" }),
+      await screen.findByRole("heading", { name: "JU-ABCDEFGH" }),
     ).toBeVisible();
     expect(screen.getByText("A synthetic IT request")).toBeVisible();
     expect(screen.getByText("Submitted")).toBeVisible();
+  });
+
+  it("T-US3-1 and T-BR2-1 shows the recommendation and permits an active correction", async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(Response.json(options, { status: 200 }))
+      .mockResolvedValueOnce(Response.json(created, { status: 201 }));
+    vi.spyOn(globalThis.crypto, "randomUUID").mockReturnValue(
+      "00000000-0000-4000-8000-000000000503",
+    );
+    renderPage();
+    await fillValidRequest();
+
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "Recommended destination: IT. You can choose another active department.",
+    );
+    fireEvent.change(
+      screen.getByRole("combobox", { name: "Destination department" }),
+      { target: { value: "00000000-0000-4000-8000-000000000102" } },
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Submit Request" }));
+    await screen.findByText("Request submitted.");
+
+    expect(JSON.parse(String(fetchSpy.mock.calls[1]?.[1]?.body))).toMatchObject({
+      departmentId: "00000000-0000-4000-8000-000000000102",
+    });
+  });
+
+  it("T-US3-3 requires a manual destination when no recommendation is configured", async () => {
+    const unmatchedOptions = {
+      ...options,
+      categories: [
+        {
+          ...options.categories[0]!,
+          defaultDepartmentId: "00000000-0000-4000-8000-000000000199",
+        },
+      ],
+    };
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      Response.json(unmatchedOptions, { status: 200 }),
+    );
+    renderPage();
+
+    await screen.findByRole("option", { name: "IT support" });
+    fireEvent.change(screen.getByRole("combobox", { name: "Category" }), {
+      target: { value: options.categories[0]!.id },
+    });
+
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "No destination is configured for this category. Choose an active destination department.",
+    );
+    expect(
+      screen.getByRole("combobox", { name: "Destination department" }),
+    ).toHaveValue("");
+    expect(
+      screen.getByRole("option", { name: "Facilities/Maintenance" }),
+    ).toBeInTheDocument();
   });
 
   it("T-EDGE-3 retains request details and reuses the idempotency key after a network error", async () => {

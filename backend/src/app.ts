@@ -11,11 +11,14 @@ import type {
   UserRole,
 } from "./auth/types.js";
 import {
+  RequestActionError,
   RequestFieldValidationError,
   RequestIdempotencyConflictError,
 } from "./requests/service.js";
 import type {
+  RequestListFilters,
   RequestService,
+  RequestStatus,
   RequestSubmission,
 } from "./requests/types.js";
 
@@ -82,6 +85,68 @@ const requestSubmissionSchema = z
       .max(5000, { error: "Enter a description." }),
   })
   .strict();
+const requestStatusSchema = z.enum([
+  "submitted",
+  "acknowledged",
+  "in_progress",
+  "waiting_for_requester",
+  "on_hold",
+  "resolved",
+  "closed",
+  "reopened",
+]);
+const requestListQuerySchema = z.object({
+  search: z
+    .string()
+    .trim()
+    .min(1)
+    .max(80)
+    .regex(/^[\p{L}\p{N} _-]+$/u)
+    .optional(),
+  status: requestStatusSchema.optional(),
+  categoryId: z.string().uuid().optional(),
+  departmentId: z.string().uuid().optional(),
+  from: z.string().date().optional(),
+  to: z.string().date().optional(),
+  page: z.coerce.number().int().min(1).max(10000).default(1),
+  pageSize: z.coerce.number().int().min(1).max(50).default(10),
+});
+const requestMessageSchema = z
+  .object({
+    message: z.string().trim().min(1, "Enter a response.").max(5000),
+  })
+  .strict();
+const reopenRequestSchema = z
+  .object({
+    reason: z.string().trim().min(1, "Enter a reason to reopen this request.").max(5000),
+  })
+  .strict();
+const requestStatusChangeSchema = z
+  .object({
+    status: requestStatusSchema,
+    reason: z.string().trim().max(5000).nullable().optional(),
+  })
+  .strict();
+const emptyAssignmentSchema = z.object({}).strict();
+
+function respondRequestActionError(
+  error: unknown,
+  response: Response,
+  next: (error?: unknown) => void,
+): void {
+  if (!(error instanceof RequestActionError)) {
+    next(error);
+    return;
+  }
+  const status =
+    error.kind === "denied" ? 403 : error.kind === "conflict" ? 409 : 400;
+  response.status(status).json({
+    message:
+      error.kind === "denied"
+        ? "You don’t have permission to view this item."
+        : error.message,
+  });
+}
 
 function validationErrors(error: z.ZodError): Record<string, string> {
   const errors: Record<string, string> = {};
@@ -190,16 +255,50 @@ export function createApp(dependencies: AppDependencies) {
         response.status(401).json({ message: "Authentication required." });
         return;
       }
-      if (!isEmployee(principal)) {
-        response.status(403).json({
-          message: "You don’t have permission to submit this request.",
+      response
+        .status(200)
+        .json(await dependencies.requests.getOptions(authorizationHeader));
+    },
+  );
+
+  app.get(
+    "/api/v1/requests",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+
+      const parsed = requestListQuerySchema.safeParse(request.query);
+      if (
+        !parsed.success ||
+        (parsed.data.from !== undefined &&
+          parsed.data.to !== undefined &&
+          parsed.data.from > parsed.data.to)
+      ) {
+        response.status(400).json({
+          message: "Check the request filters and try again.",
         });
         return;
       }
 
-      response
-        .status(200)
-        .json(await dependencies.requests.getOptions(authorizationHeader));
+      const filters: RequestListFilters = parsed.data;
+      try {
+        response
+          .status(200)
+          .json(
+            await dependencies.requests.list(
+              principal,
+              authorizationHeader,
+              filters,
+            ),
+          );
+      } catch (error) {
+        next(error);
+      }
     },
   );
 
@@ -265,6 +364,188 @@ export function createApp(dependencies: AppDependencies) {
           return;
         }
         next(error);
+      }
+    },
+  );
+
+  app.get(
+    "/api/v1/requests/:requestId",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      const requestId = z.string().uuid().safeParse(request.params.requestId);
+      if (!requestId.success) {
+        response.status(404).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        const detail = await dependencies.requests.getDetail(
+          principal,
+          authorizationHeader,
+          requestId.data,
+        );
+        if (!detail) {
+          response.status(404).json({
+            message: "You don’t have permission to view this item.",
+          });
+          return;
+        }
+        response.status(200).json(detail);
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/requests/:requestId/responses",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      const requestId = z.string().uuid().safeParse(request.params.requestId);
+      const parsed = requestMessageSchema.safeParse(request.body);
+      if (!requestId.success || !parsed.success) {
+        response.status(400).json({ message: "Enter a response." });
+        return;
+      }
+      try {
+        const event = await dependencies.requests.addResponse(
+          principal,
+          authorizationHeader,
+          requestId.data,
+          parsed.data.message,
+        );
+        response.status(201).json({ event });
+      } catch (error) {
+        respondRequestActionError(error, response, next);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/requests/:requestId/reopen-requests",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (!isEmployee(principal)) {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      const requestId = z.string().uuid().safeParse(request.params.requestId);
+      const parsed = reopenRequestSchema.safeParse(request.body);
+      if (!requestId.success || !parsed.success) {
+        response.status(400).json({
+          message: "Enter a reason to reopen this request.",
+        });
+        return;
+      }
+      try {
+        const event = await dependencies.requests.requestReopen(
+          principal,
+          authorizationHeader,
+          requestId.data,
+          parsed.data.reason,
+        );
+        response.status(201).json({ event });
+      } catch (error) {
+        respondRequestActionError(error, response, next);
+      }
+    },
+  );
+
+  app.patch(
+    "/api/v1/requests/:requestId/status",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (principal.role !== "department_manager") {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      const requestId = z.string().uuid().safeParse(request.params.requestId);
+      const parsed = requestStatusChangeSchema.safeParse(request.body);
+      if (!requestId.success || !parsed.success) {
+        response.status(400).json({
+          message: "Check the status update and try again.",
+        });
+        return;
+      }
+      try {
+        const detail = await dependencies.requests.changeStatus(
+          principal,
+          authorizationHeader,
+          requestId.data,
+          parsed.data.status as RequestStatus,
+          parsed.data.reason ?? null,
+        );
+        response.status(200).json(detail);
+      } catch (error) {
+        respondRequestActionError(error, response, next);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/requests/:requestId/assignment",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      if (
+        principal.role !== "department_manager" ||
+        !emptyAssignmentSchema.safeParse(request.body).success
+      ) {
+        response.status(403).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      const requestId = z.string().uuid().safeParse(request.params.requestId);
+      if (!requestId.success) {
+        response.status(404).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        const detail = await dependencies.requests.assignToSelf(
+          principal,
+          authorizationHeader,
+          requestId.data,
+        );
+        response.status(200).json(detail);
+      } catch (error) {
+        respondRequestActionError(error, response, next);
       }
     },
   );

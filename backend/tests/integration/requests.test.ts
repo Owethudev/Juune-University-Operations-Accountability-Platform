@@ -63,6 +63,25 @@ function createTestApp({
   const service = {
     getOptions: vi.fn(async () => options),
     submit,
+    list: vi.fn(async () => ({
+      items: [],
+      page: 1,
+      pageSize: 10,
+      total: 0,
+    })),
+    getDetail: vi.fn(async () => null),
+    addResponse: vi.fn(async () => {
+      throw new Error("Request service should not be called in this test.");
+    }),
+    requestReopen: vi.fn(async () => {
+      throw new Error("Request service should not be called in this test.");
+    }),
+    changeStatus: vi.fn(async () => {
+      throw new Error("Request service should not be called in this test.");
+    }),
+    assignToSelf: vi.fn(async () => {
+      throw new Error("Request service should not be called in this test.");
+    }),
   };
 
   const app = createApp({

@@ -4,13 +4,17 @@ import { AppShell } from "./AppShell.js";
 import { AccessDeniedPage } from "../pages/AccessDeniedPage.js";
 import { HomePage } from "../pages/HomePage.js";
 import { ProfilePage } from "../pages/ProfilePage.js";
-import {
-  NewRequestPage,
-  RequestDetailPage,
-} from "../pages/NewRequestPage.js";
+import { NewRequestPage } from "../pages/NewRequestPage.js";
+import { RequestDetailPage } from "../pages/RequestDetailPage.js";
+import { RequestsPage } from "../pages/RequestsPage.js";
 import { SignInPage } from "../pages/SignInPage.js";
 
-type ProtectedPage = "home" | "profile" | "new-request" | "request-detail";
+type ProtectedPage =
+  | "home"
+  | "profile"
+  | "new-request"
+  | "requests"
+  | "request-detail";
 
 function ProtectedShell({ page }: { page: ProtectedPage }) {
   const { status, user } = useAuth();
@@ -27,12 +31,14 @@ function ProtectedShell({ page }: { page: ProtectedPage }) {
     home: "Home",
     profile: "Profile & Settings",
     "new-request": "New Request",
+    requests: "My Requests",
     "request-detail": "Request",
   }[page];
   const content = {
     home: <HomePage user={user} />,
     profile: <ProfilePage user={user} />,
     "new-request": <NewRequestPage />,
+    requests: <RequestsPage />,
     "request-detail": <RequestDetailPage />,
   }[page];
 
@@ -59,6 +65,10 @@ export function AppRoutes() {
       <Route
         path="/requests/new"
         element={<ProtectedShell page="new-request" />}
+      />
+      <Route
+        path="/requests"
+        element={<ProtectedShell page="requests" />}
       />
       <Route
         path="/requests/:requestId"

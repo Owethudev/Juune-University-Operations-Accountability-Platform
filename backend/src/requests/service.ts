@@ -2,9 +2,14 @@ import { randomInt } from "node:crypto";
 import type { AuthPrincipal } from "../auth/types.js";
 import type {
   CreatedRequest,
+  RequestDetail,
+  RequestEvent,
+  RequestListFilters,
+  RequestListPage,
   RequestRecord,
   RequestRepository,
   RequestService,
+  RequestStatus,
   RequestSubmission,
 } from "./types.js";
 
@@ -33,6 +38,38 @@ export class RequestUniqueViolationError extends Error {
     super("A request uniqueness constraint was violated.");
     this.name = "RequestUniqueViolationError";
   }
+}
+
+export class RequestActionError extends Error {
+  constructor(
+    readonly kind: "denied" | "conflict" | "invalid",
+    message: string,
+  ) {
+    super(message);
+    this.name = "RequestActionError";
+  }
+}
+
+const transitions: Record<RequestStatus, readonly RequestStatus[]> = {
+  submitted: ["acknowledged"],
+  acknowledged: [
+    "in_progress",
+    "waiting_for_requester",
+    "on_hold",
+    "resolved",
+  ],
+  in_progress: ["waiting_for_requester", "on_hold", "resolved"],
+  waiting_for_requester: ["in_progress", "on_hold", "resolved"],
+  on_hold: ["in_progress", "waiting_for_requester", "resolved"],
+  resolved: ["reopened"],
+  closed: [],
+  reopened: ["in_progress", "on_hold", "resolved"],
+};
+
+const requiredReasonStatuses = new Set<RequestStatus>(["on_hold", "resolved"]);
+
+function isManager(principal: AuthPrincipal): boolean {
+  return principal.role === "department_manager";
 }
 
 function createRequestReference(): string {
@@ -84,7 +121,7 @@ export class RequestCreationService implements RequestService {
     const department = options.departments.find(
       (option) => option.id === input.departmentId,
     );
-    if (!department || category.defaultDepartmentId !== department.id) {
+    if (!department) {
       throw new RequestFieldValidationError(
         "departmentId",
         "Choose a destination department.",
@@ -127,6 +164,213 @@ export class RequestCreationService implements RequestService {
     }
 
     throw new Error("Unable to generate a unique request reference.");
+  }
+
+  list(
+    _principal: AuthPrincipal,
+    authorizationHeader: string,
+    filters: RequestListFilters,
+  ): Promise<RequestListPage> {
+    return this.repository.list(authorizationHeader, filters);
+  }
+
+  getDetail(
+    _principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<RequestDetail | null> {
+    return this.repository.getDetail(authorizationHeader, requestId);
+  }
+
+  async addResponse(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+    message: string,
+  ): Promise<RequestEvent> {
+    const request = await this.repository.getDetail(
+      authorizationHeader,
+      requestId,
+    );
+    if (!request) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to view this item.",
+      );
+    }
+    if (
+      request.requester.id !== principal.userId &&
+      request.assignedTo?.id !== principal.userId
+    ) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to respond to this item.",
+      );
+    }
+    if (request.status === "closed") {
+      throw new RequestActionError(
+        "conflict",
+        "Responses are not available for a closed request.",
+      );
+    }
+
+    return this.repository.addResponse(
+      authorizationHeader,
+      principal,
+      requestId,
+      message.trim(),
+    );
+  }
+
+  async requestReopen(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+    reason: string,
+  ): Promise<RequestEvent> {
+    const request = await this.repository.getDetail(
+      authorizationHeader,
+      requestId,
+    );
+    if (!request || request.requester.id !== principal.userId) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to view this item.",
+      );
+    }
+    if (request.status !== "resolved") {
+      throw new RequestActionError(
+        "conflict",
+        "Only a resolved request can be reopened.",
+      );
+    }
+
+    return this.repository.addResponse(
+      authorizationHeader,
+      principal,
+      requestId,
+      reason.trim(),
+      "reopen_request",
+    );
+  }
+
+  async changeStatus(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+    status: RequestStatus,
+    reason: string | null,
+  ): Promise<RequestDetail> {
+    if (!isManager(principal)) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to change this request.",
+      );
+    }
+
+    const current = await this.repository.getDetail(
+      authorizationHeader,
+      requestId,
+    );
+    if (!current) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to view this item.",
+      );
+    }
+    if (current.assignedTo?.id !== principal.userId) {
+      throw new RequestActionError(
+        "denied",
+        "Only the assigned department manager can change this request.",
+      );
+    }
+    if (!transitions[current.status].includes(status)) {
+      throw new RequestActionError(
+        "conflict",
+        "This status change is not available for the current request.",
+      );
+    }
+    const normalizedReason = reason?.trim() || null;
+    if (
+      requiredReasonStatuses.has(status) &&
+      (!normalizedReason || normalizedReason.length > 5000)
+    ) {
+      throw new RequestActionError(
+        "invalid",
+        "Enter a reason for this status change.",
+      );
+    }
+    if (status === "reopened") {
+      const hasReopenRequest = await this.repository.hasReopenRequest(
+        authorizationHeader,
+        requestId,
+        current.requester.id,
+      );
+      if (!hasReopenRequest) {
+        throw new RequestActionError(
+          "conflict",
+          "The requester must submit a reasoned reopen request first.",
+        );
+      }
+    }
+
+    const updated = await this.repository.changeStatus(
+      authorizationHeader,
+      requestId,
+      status,
+      normalizedReason,
+    );
+    if (updated.status !== status) {
+      throw new RequestActionError(
+        "conflict",
+        "The request changed before your update was saved. Reload and try again.",
+      );
+    }
+    return updated;
+  }
+
+  async assignToSelf(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<RequestDetail> {
+    if (!isManager(principal)) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to change this request.",
+      );
+    }
+    const current = await this.repository.getDetail(
+      authorizationHeader,
+      requestId,
+    );
+    if (!current) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to view this item.",
+      );
+    }
+    if (current.assignedTo?.id === principal.userId) {
+      return current;
+    }
+    if (current.assignedTo) {
+      throw new RequestActionError(
+        "conflict",
+        "This request is already assigned. Reload to see the latest owner.",
+      );
+    }
+    const updated = await this.repository.assignToSelf(
+      authorizationHeader,
+      principal,
+      requestId,
+    );
+    if (updated.assignedTo?.id !== principal.userId) {
+      throw new RequestActionError(
+        "conflict",
+        "The request changed before your assignment was saved. Reload and try again.",
+      );
+    }
+    return updated;
   }
 
   private replayOrReject(
