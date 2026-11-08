@@ -2,6 +2,7 @@ import { randomInt } from "node:crypto";
 import type { AuthPrincipal } from "../auth/types.js";
 import type {
   CreatedRequest,
+  NotificationPage,
   RequestDetail,
   RequestEvent,
   RequestListFilters,
@@ -371,6 +372,51 @@ export class RequestCreationService implements RequestService {
       );
     }
     return updated;
+  }
+
+  async flagRequest(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<{ flagCount: number; reviewTriggered: boolean }> {
+    const request = await this.repository.getDetail(
+      authorizationHeader,
+      requestId,
+    );
+    if (!request || request.requester.id !== principal.userId) {
+      throw new RequestActionError(
+        "denied",
+        "You don’t have permission to view this item.",
+      );
+    }
+
+    const flagCount = await this.repository.flagRequest(
+      authorizationHeader,
+      requestId,
+    );
+    if (!Number.isInteger(flagCount) || flagCount < 1) {
+      throw new Error("The request flag could not be recorded.");
+    }
+    return { flagCount, reviewTriggered: flagCount === 3 };
+  }
+
+  listNotifications(
+    _principal: AuthPrincipal,
+    authorizationHeader: string,
+    page = 1,
+  ): Promise<NotificationPage> {
+    return this.repository.listNotifications(authorizationHeader, page);
+  }
+
+  markNotificationRead(
+    _principal: AuthPrincipal,
+    authorizationHeader: string,
+    notificationId: string,
+  ): Promise<void> {
+    return this.repository.markNotificationRead(
+      authorizationHeader,
+      notificationId,
+    );
   }
 
   private replayOrReject(

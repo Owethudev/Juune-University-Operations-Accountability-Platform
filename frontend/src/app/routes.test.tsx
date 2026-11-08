@@ -82,6 +82,24 @@ describe("application routes", () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
+  it("routes authenticated staff to the notification history", async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockImplementation(async () =>
+        Response.json({ items: [], unreadCount: 0, hasMore: false }),
+      );
+    renderRoutes("/notifications", employee);
+
+    expect(
+      await screen.findByRole("heading", { name: "Notifications" }),
+    ).toBeVisible();
+    expect(await screen.findByText("You’re all caught up.")).toBeVisible();
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.stringContaining("/notifications"),
+      expect.objectContaining({ headers: expect.any(Object) }),
+    );
+  });
+
   it("S1 reports the approved safe error when institutional sign-in is unavailable", async () => {
     const fetchSpy = vi
       .spyOn(globalThis, "fetch")

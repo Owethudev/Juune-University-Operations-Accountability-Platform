@@ -17,8 +17,8 @@ describe("ResponsiveTopBar", () => {
 
     expect(screen.getByRole("heading", { name: "Home" })).toBeVisible();
     expect(
-      screen.getByRole("button", { name: /notifications.*2/i }),
-    ).toBeDisabled();
+      screen.getByRole("link", { name: /notifications.*2/i }),
+    ).toHaveAttribute("href", "/notifications");
     expect(screen.getByRole("link", { name: /profile/i })).toBeVisible();
   });
 });

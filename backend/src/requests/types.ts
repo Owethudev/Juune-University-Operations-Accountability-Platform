@@ -113,6 +113,21 @@ export interface RequestDetail extends RequestRecord {
   attachments: [];
 }
 
+export interface NotificationItem {
+  id: string;
+  eventType: string;
+  relatedEntityType: string | null;
+  relatedEntityId: string | null;
+  createdAt: string;
+  isRead: boolean;
+}
+
+export interface NotificationPage {
+  items: NotificationItem[];
+  unreadCount: number;
+  hasMore: boolean;
+}
+
 export interface CreatedRequest extends RequestRecord {
   replayed: boolean;
 }
@@ -162,6 +177,18 @@ export interface RequestRepository {
     principal: AuthPrincipal,
     requestId: string,
   ): Promise<RequestDetail>;
+  flagRequest(
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<number>;
+  listNotifications(
+    authorizationHeader: string,
+    page: number,
+  ): Promise<NotificationPage>;
+  markNotificationRead(
+    authorizationHeader: string,
+    notificationId: string,
+  ): Promise<void>;
 }
 
 export interface RequestService {
@@ -205,4 +232,19 @@ export interface RequestService {
     authorizationHeader: string,
     requestId: string,
   ): Promise<RequestDetail>;
+  flagRequest(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<{ flagCount: number; reviewTriggered: boolean }>;
+  listNotifications(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    page: number,
+  ): Promise<NotificationPage>;
+  markNotificationRead(
+    principal: AuthPrincipal,
+    authorizationHeader: string,
+    notificationId: string,
+  ): Promise<void>;
 }

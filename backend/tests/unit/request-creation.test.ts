@@ -79,6 +79,13 @@ function createRepository(
     assignToSelf: vi.fn(async () => {
       throw new Error("Request assignment service should not be called in this test.");
     }),
+    flagRequest: vi.fn(async () => 1),
+    listNotifications: vi.fn(async () => ({
+      items: [],
+      unreadCount: 0,
+      hasMore: false,
+    })),
+    markNotificationRead: vi.fn(async () => undefined),
   };
   return {
     getOptions: overrides.getOptions ?? defaults.getOptions,
@@ -91,6 +98,11 @@ function createRepository(
     hasReopenRequest: overrides.hasReopenRequest ?? defaults.hasReopenRequest,
     changeStatus: overrides.changeStatus ?? defaults.changeStatus,
     assignToSelf: overrides.assignToSelf ?? defaults.assignToSelf,
+    flagRequest: overrides.flagRequest ?? defaults.flagRequest,
+    listNotifications:
+      overrides.listNotifications ?? defaults.listNotifications,
+    markNotificationRead:
+      overrides.markNotificationRead ?? defaults.markNotificationRead,
   };
 }
 

@@ -91,6 +91,13 @@ function createRepository(
     assignToSelf: vi.fn(async (_authorization, principal) =>
       requestDetail("in_progress", principal.userId),
     ),
+    flagRequest: vi.fn(async () => 1),
+    listNotifications: vi.fn(async () => ({
+      items: [],
+      unreadCount: 0,
+      hasMore: false,
+    })),
+    markNotificationRead: vi.fn(async () => undefined),
     ...overrides,
   };
 }
@@ -112,6 +119,48 @@ describe("Request tracking service", () => {
       service.addResponse(unrelated, "******", requestId, "Unauthorized update."),
     ).rejects.toMatchObject({ kind: "denied" });
     expect(repository.addResponse).toHaveBeenCalledOnce();
+  });
+
+  it("T-US4-3 records requester flags and identifies the third-flag review trigger", async () => {
+    const repository = createRepository({
+      flagRequest: vi
+        .fn()
+        .mockResolvedValueOnce(1)
+        .mockResolvedValueOnce(2)
+        .mockResolvedValueOnce(3),
+    });
+    const service = new RequestCreationService(repository);
+
+    await expect(
+      service.flagRequest(employee, "******", requestId),
+    ).resolves.toEqual({ flagCount: 1, reviewTriggered: false });
+    await expect(
+      service.flagRequest(employee, "******", requestId),
+    ).resolves.toEqual({ flagCount: 2, reviewTriggered: false });
+    await expect(
+      service.flagRequest(employee, "******", requestId),
+    ).resolves.toEqual({ flagCount: 3, reviewTriggered: true });
+    expect(repository.flagRequest).toHaveBeenCalledTimes(3);
+  });
+
+  it("denies a manager flagging a request they do not own before updating the counter", async () => {
+    const repository = createRepository();
+    const service = new RequestCreationService(repository);
+
+    await expect(
+      service.flagRequest(manager, "******", requestId),
+    ).rejects.toMatchObject({ kind: "denied" });
+    expect(repository.flagRequest).not.toHaveBeenCalled();
+  });
+
+  it("returns only notifications scoped by the repository and keeps escalation notification behavior gated", async () => {
+    const repository = createRepository();
+    const service = new RequestCreationService(repository);
+
+    await expect(
+      service.listNotifications(employee, "******"),
+    ).resolves.toMatchObject({ items: [], unreadCount: 0 });
+    expect(repository.listNotifications).toHaveBeenCalledWith("******", 1);
   });
 
   it("allows only the assigned manager to make an allowed status transition", async () => {

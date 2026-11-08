@@ -10,6 +10,8 @@ import type {
   RequestDetail,
   RequestEvent,
   RequestEventType,
+  NotificationItem,
+  NotificationPage,
   RequestListFilters,
   RequestListItem,
   RequestListPage,
@@ -110,6 +112,15 @@ const queueRowSchema = z.object({
   department_id: z.string().uuid(),
   status: detailRowSchema.shape.status,
   updated_at: z.string(),
+});
+const notificationRowSchema = z.object({
+  id: z.string().uuid(),
+  event_type: z.string().min(1).max(80),
+  related_entity_type: z.string().nullable(),
+  related_entity_id: z.string().uuid().nullable(),
+  created_at: z.string(),
+  read_at: z.string().nullable(),
+  status: z.enum(["pending", "sent", "failed", "read"]),
 });
 
 export class RequestRepositoryError extends Error {
@@ -564,5 +575,85 @@ export class SupabaseRequestRepository implements RequestRepository {
       throw new RequestRepositoryError();
     }
     return updated;
+  }
+
+  async flagRequest(
+    authorizationHeader: string,
+    requestId: string,
+  ): Promise<number> {
+    const database = createDatabaseClient(this.config, authorizationHeader);
+    const { data, error } = await database.rpc("flag_request", {
+      required_request_id: requestId,
+    });
+    if (error || typeof data !== "number" || !Number.isInteger(data)) {
+      throw new RequestRepositoryError();
+    }
+    return data;
+  }
+
+  async listNotifications(
+    authorizationHeader: string,
+    page: number,
+  ): Promise<NotificationPage> {
+    const database = createDatabaseClient(this.config, authorizationHeader);
+    const [itemsResult, unreadResult] = await Promise.all([
+      database
+        .from("notifications")
+        .select(
+          "id, event_type, related_entity_type, related_entity_id, created_at, read_at, status",
+          { count: "exact" },
+        )
+        .eq("channel", "in_app")
+        .order("created_at", { ascending: false })
+        .order("id", { ascending: false })
+        .range((page - 1) * 50, page * 50 - 1),
+      database
+        .from("notifications")
+        .select("id", { count: "exact", head: true })
+        .eq("channel", "in_app")
+        .is("read_at", null)
+        .neq("status", "read"),
+    ]);
+    if (
+      itemsResult.error ||
+      !itemsResult.data ||
+      unreadResult.error ||
+      itemsResult.count === null
+    ) {
+      throw new RequestRepositoryError();
+    }
+    const rows = z.array(notificationRowSchema).safeParse(itemsResult.data);
+    if (!rows.success) {
+      throw new RequestRepositoryError();
+    }
+    const items: NotificationItem[] = rows.data.map((row) => ({
+      id: row.id,
+      eventType: row.event_type,
+      relatedEntityType: row.related_entity_type,
+      relatedEntityId: row.related_entity_id,
+      createdAt: row.created_at,
+      isRead: row.read_at !== null || row.status === "read",
+    }));
+    return {
+      items,
+      unreadCount: unreadResult.count ?? 0,
+      hasMore: page * 50 < itemsResult.count,
+    };
+  }
+
+  async markNotificationRead(
+    authorizationHeader: string,
+    notificationId: string,
+  ): Promise<void> {
+    const database = createDatabaseClient(this.config, authorizationHeader);
+    const { error } = await database
+      .from("notifications")
+      .update({ read_at: new Date().toISOString() })
+      .eq("id", notificationId)
+      .eq("channel", "in_app")
+      .is("read_at", null);
+    if (error) {
+      throw new RequestRepositoryError();
+    }
   }
 }

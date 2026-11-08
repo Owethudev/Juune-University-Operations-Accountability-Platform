@@ -56,6 +56,13 @@ function createTestApp(authenticated = true) {
       async assignToSelf() {
         throw new Error("Request service should not be called in this test.");
       },
+      async flagRequest() {
+        return { flagCount: 0, reviewTriggered: false };
+      },
+      async listNotifications() {
+        return { items: [], unreadCount: 0, hasMore: false };
+      },
+      async markNotificationRead() {},
     },
   });
 }
@@ -109,6 +116,13 @@ describe("Phase 1 API", () => {
         async assignToSelf() {
           throw new Error("Request service should not be called in this test.");
         },
+        async flagRequest() {
+          return { flagCount: 0, reviewTriggered: false };
+        },
+        async listNotifications() {
+          return { items: [], unreadCount: 0, hasMore: false };
+        },
+        async markNotificationRead() {},
       },
     });
 

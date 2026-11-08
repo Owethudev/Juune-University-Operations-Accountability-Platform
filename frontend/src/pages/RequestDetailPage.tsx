@@ -177,6 +177,7 @@ function eventTitle(event: RequestEvent): string {
   }
   if (event.eventType === "assigned") return "Request assigned";
   if (event.eventType === "reopened") return "Request reopened";
+  if (event.eventType === "escalation") return "Request flagged for review";
   return event.eventType === "response" ? "Response" : "Request update";
 }
 
@@ -220,6 +221,9 @@ export function RequestDetailPage() {
   const [actionError, setActionError] = useState("");
   const [reopenReason, setReopenReason] = useState("");
   const [reopenError, setReopenError] = useState("");
+  const [flagConfirmation, setFlagConfirmation] = useState(false);
+  const [flagError, setFlagError] = useState("");
+  const [flagSuccess, setFlagSuccess] = useState("");
   const [offline, setOffline] = useState(() => !navigator.onLine);
   const [savingAction, setSavingAction] = useState(false);
 
@@ -400,6 +404,47 @@ export function RequestDetailPage() {
     }
   }
 
+  async function submitFlag() {
+    if (!requestId || offline || savingAction) return;
+    setSavingAction(true);
+    setFlagError("");
+    setFlagSuccess("");
+    try {
+      const response = await fetch(
+        `${apiBaseUrl()}/requests/${encodeURIComponent(requestId)}/flags`,
+        {
+          method: "POST",
+          headers: {
+            ...bearerHeaders(accessToken),
+            "Content-Type": "application/json",
+          },
+          body: "{}",
+        },
+      );
+      const result: unknown = response.ok ? await responseJson(response) : null;
+      if (
+        !isRecord(result) ||
+        typeof result.flagCount !== "number" ||
+        !Number.isInteger(result.flagCount) ||
+        typeof result.reviewTriggered !== "boolean"
+      ) {
+        setFlagError("We couldn’t record your concern. Try again.");
+        return;
+      }
+      setFlagSuccess(
+        result.reviewTriggered
+          ? "Your concern was recorded. This request is flagged for review."
+          : "Your concern was recorded for review.",
+      );
+      setFlagConfirmation(false);
+      await refresh();
+    } catch {
+      setFlagError("We couldn’t record your concern. Try again.");
+    } finally {
+      setSavingAction(false);
+    }
+  }
+
   if (loading) {
     return <section className="tracking-panel"><p role="status">Loading request…</p></section>;
   }
@@ -539,7 +584,54 @@ export function RequestDetailPage() {
         <div className="section-heading">
           <h2 id="request-assistance-title">Need assistance?</h2>
         </div>
-        <p className="read-only-note">Lack-of-assistance flags are not available yet.</p>
+        {flagSuccess && <p className="feedback-success" role="status">{flagSuccess}</p>}
+        {flagError && <p className="request-error" role="alert">{flagError}</p>}
+        {isRequester && (
+          <>
+            <p className="read-only-note">
+              Record a concern if you need more assistance with this request.
+            </p>
+            {!flagConfirmation ? (
+              <button
+                className="button button-secondary"
+                type="button"
+                disabled={offline || savingAction}
+                onClick={() => setFlagConfirmation(true)}
+              >
+                Flag lack of assistance
+              </button>
+            ) : (
+              <div
+                className="flag-confirmation"
+                role="alertdialog"
+                aria-labelledby="flag-confirmation-title"
+                aria-describedby="flag-confirmation-description"
+              >
+                <h3 id="flag-confirmation-title">Confirm this concern</h3>
+                <p id="flag-confirmation-description">
+                  Three flags on the same request create a review event. This is a review trigger; it does not imply blame or close the request.
+                </p>
+                <button
+                  className="button button-primary"
+                  type="button"
+                  disabled={offline || savingAction}
+                  onClick={() => void submitFlag()}
+                >
+                  {savingAction ? "Recording…" : "Confirm flag"}
+                </button>
+                <button
+                  className="button button-secondary"
+                  type="button"
+                  disabled={savingAction}
+                  onClick={() => setFlagConfirmation(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+          </>
+        )}
+        {offline && <p className="read-only-note">Reconnect to record a concern.</p>}
       </section>
 
       {user?.role === "department_manager" && (

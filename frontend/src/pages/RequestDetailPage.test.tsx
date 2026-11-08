@@ -147,4 +147,31 @@ describe("S4 Request Detail", () => {
     expect(screen.queryByLabelText(/attachment|upload/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/storage_key|bucket|supabase\.co/i)).not.toBeInTheDocument();
   });
+
+  it("records a flag only after confirmation and uses neutral third-flag language", async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(Response.json(detail))
+      .mockResolvedValueOnce(Response.json({ flagCount: 3, reviewTriggered: true }))
+      .mockResolvedValueOnce(Response.json(detail));
+    renderPage();
+    await screen.findByRole("heading", { name: "JU-ABCDEFGH" });
+
+    fireEvent.click(screen.getByRole("button", { name: "Flag lack of assistance" }));
+    expect(screen.getByRole("alertdialog")).toHaveTextContent(
+      "Three flags on the same request create a review event.",
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Confirm flag" }));
+
+    expect(await screen.findByRole("status")).toHaveTextContent(
+      "Your concern was recorded. This request is flagged for review.",
+    );
+    expect(fetchSpy.mock.calls[1]?.[0]).toContain(
+      "/requests/00000000-0000-4000-8000-000000000401/flags",
+    );
+    expect(fetchSpy.mock.calls[1]?.[1]?.method).toBe("POST");
+    expect(
+      screen.getByText("A reliable resolution estimate isn’t available for this category yet."),
+    ).toBeVisible();
+  });
 });

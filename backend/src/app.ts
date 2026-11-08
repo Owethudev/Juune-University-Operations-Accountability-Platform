@@ -128,6 +128,12 @@ const requestStatusChangeSchema = z
   })
   .strict();
 const emptyAssignmentSchema = z.object({}).strict();
+const emptyActionSchema = z.object({}).strict();
+const notificationListQuerySchema = z
+  .object({
+    page: z.coerce.number().int().min(1).max(1000).default(1),
+  })
+  .strict();
 
 function respondRequestActionError(
   error: unknown,
@@ -258,6 +264,74 @@ export function createApp(dependencies: AppDependencies) {
       response
         .status(200)
         .json(await dependencies.requests.getOptions(authorizationHeader));
+    },
+  );
+
+  app.get(
+    "/api/v1/notifications",
+    requireAuthentication,
+    async (_request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      const parsed = notificationListQuerySchema.safeParse(_request.query);
+      if (!parsed.success) {
+        response.status(400).json({
+          message: "Check the notification page and try again.",
+        });
+        return;
+      }
+      try {
+        response
+          .status(200)
+          .json(
+            await dependencies.requests.listNotifications(
+              principal,
+              authorizationHeader,
+              parsed.data.page,
+            ),
+          );
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  app.patch(
+    "/api/v1/notifications/:notificationId/read",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      const notificationId = z.string().uuid().safeParse(
+        request.params.notificationId,
+      );
+      if (
+        !notificationId.success ||
+        !emptyActionSchema.safeParse(request.body ?? {}).success
+      ) {
+        response.status(404).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        await dependencies.requests.markNotificationRead(
+          principal,
+          authorizationHeader,
+          notificationId.data,
+        );
+        response.status(204).end();
+      } catch (error) {
+        next(error);
+      }
     },
   );
 
@@ -428,6 +502,39 @@ export function createApp(dependencies: AppDependencies) {
           parsed.data.message,
         );
         response.status(201).json({ event });
+      } catch (error) {
+        respondRequestActionError(error, response, next);
+      }
+    },
+  );
+
+  app.post(
+    "/api/v1/requests/:requestId/flags",
+    requireAuthentication,
+    async (request, response, next) => {
+      const principal = principalFromResponse(response);
+      const authorizationHeader = authorizationFromResponse(response);
+      if (!principal || !authorizationHeader) {
+        response.status(401).json({ message: "Authentication required." });
+        return;
+      }
+      const requestId = z.string().uuid().safeParse(request.params.requestId);
+      if (
+        !requestId.success ||
+        !emptyActionSchema.safeParse(request.body ?? {}).success
+      ) {
+        response.status(404).json({
+          message: "You don’t have permission to view this item.",
+        });
+        return;
+      }
+      try {
+        const result = await dependencies.requests.flagRequest(
+          principal,
+          authorizationHeader,
+          requestId.data,
+        );
+        response.status(200).json(result);
       } catch (error) {
         respondRequestActionError(error, response, next);
       }

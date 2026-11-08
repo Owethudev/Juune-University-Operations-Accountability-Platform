@@ -8,13 +8,15 @@ import { NewRequestPage } from "../pages/NewRequestPage.js";
 import { RequestDetailPage } from "../pages/RequestDetailPage.js";
 import { RequestsPage } from "../pages/RequestsPage.js";
 import { SignInPage } from "../pages/SignInPage.js";
+import { NotificationsPage } from "../pages/NotificationsPage.js";
 
 type ProtectedPage =
   | "home"
   | "profile"
   | "new-request"
   | "requests"
-  | "request-detail";
+  | "request-detail"
+  | "notifications";
 
 function ProtectedShell({ page }: { page: ProtectedPage }) {
   const { status, user } = useAuth();
@@ -33,6 +35,7 @@ function ProtectedShell({ page }: { page: ProtectedPage }) {
     "new-request": "New Request",
     requests: "My Requests",
     "request-detail": "Request",
+    notifications: "Notifications",
   }[page];
   const content = {
     home: <HomePage user={user} />,
@@ -40,6 +43,7 @@ function ProtectedShell({ page }: { page: ProtectedPage }) {
     "new-request": <NewRequestPage />,
     requests: <RequestsPage />,
     "request-detail": <RequestDetailPage />,
+    notifications: <NotificationsPage />,
   }[page];
 
   return (
@@ -73,6 +77,10 @@ export function AppRoutes() {
       <Route
         path="/requests/:requestId"
         element={<ProtectedShell page="request-detail" />}
+      />
+      <Route
+        path="/notifications"
+        element={<ProtectedShell page="notifications" />}
       />
       <Route path="/access-denied" element={<AccessDeniedPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />

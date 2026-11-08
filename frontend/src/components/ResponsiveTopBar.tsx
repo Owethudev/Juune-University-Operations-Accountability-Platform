@@ -6,13 +6,15 @@ export function ResponsiveTopBar({
   user,
 }: {
   pageTitle: string;
-  unreadCount: number;
+  unreadCount: number | null;
   user: { name: string };
 }) {
   const notificationLabel =
-    unreadCount === 1
-      ? "Notifications, 1 unread"
-      : `Notifications, ${unreadCount} unread`;
+    unreadCount === null
+      ? "Notifications, unread count unavailable"
+      : unreadCount === 1
+        ? "Notifications, 1 unread"
+        : `Notifications, ${unreadCount} unread`;
 
   return (
     <header className="top-bar">
@@ -21,19 +23,18 @@ export function ResponsiveTopBar({
         <h1>{pageTitle}</h1>
       </div>
       <div className="top-bar-actions">
-        <button
+        <Link
           className="notification-indicator"
-          type="button"
+          to="/notifications"
           aria-label={notificationLabel}
-          disabled
         >
           <span aria-hidden="true">Notifications</span>
-          {unreadCount > 0 && (
+          {unreadCount !== null && unreadCount > 0 && (
             <span className="notification-count" aria-hidden="true">
               {unreadCount}
             </span>
           )}
-        </button>
+        </Link>
         <Link className="profile-shortcut" to="/profile" aria-label={`Profile for ${user.name}`}>
           <span className="avatar" aria-hidden="true">
             {user.name.trim().charAt(0).toUpperCase()}

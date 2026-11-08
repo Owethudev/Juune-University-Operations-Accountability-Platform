@@ -82,6 +82,16 @@ function createTestApp({
     assignToSelf: vi.fn(async () => {
       throw new Error("Request service should not be called in this test.");
     }),
+    flagRequest: vi.fn(async () => ({
+      flagCount: 0,
+      reviewTriggered: false,
+    })),
+    listNotifications: vi.fn(async () => ({
+      items: [],
+      unreadCount: 0,
+      hasMore: false,
+    })),
+    markNotificationRead: vi.fn(async () => undefined),
   };
 
   const app = createApp({

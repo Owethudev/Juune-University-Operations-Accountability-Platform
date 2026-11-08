@@ -119,12 +119,43 @@ function testApp({
       ...detail,
       assignedTo: { id: manager.userId, name: "Synthetic Manager" },
     })),
+    flagRequest: vi.fn(async () => ({
+      flagCount: 3,
+      reviewTriggered: true,
+    })),
+    listNotifications: vi.fn(async () => ({
+      items: [
+        {
+          id: "00000000-0000-4000-8000-000000000601",
+          eventType: "request_status_changed",
+          relatedEntityType: "request",
+          relatedEntityId: requestId,
+          createdAt: "2026-11-08T12:40:00.000Z",
+          isRead: false,
+        },
+      ],
+      unreadCount: 1,
+      hasMore: false,
+    })),
+    markNotificationRead: vi.fn(async () => undefined),
   };
   const app = createApp({
     authenticator: {
       authenticate: vi.fn(async (authorization: string | undefined) =>
         authorization === "Bearer synthetic-token" ? principal : null,
       ),
+    },
+    profiles: { findByUserId: vi.fn(async () => null) },
+    requests: service,
+  });
+  return { app, service };
+}
+
+function testAppWithAuthenticatedPrincipal() {
+  const { service } = testApp();
+  const app = createApp({
+    authenticator: {
+      authenticate: vi.fn(async () => employee),
     },
     profiles: { findByUserId: vi.fn(async () => null) },
     requests: service,
@@ -220,6 +251,58 @@ describe("Phase 4 request tracking API", () => {
       "Bearer synthetic-token",
       requestId,
       message,
+    );
+  });
+
+  it("T-US4-3 flags a requester-owned request and creates a review event on the third flag", async () => {
+    const { app, service } = testAppWithAuthenticatedPrincipal();
+    const response = await request(app)
+      .post(`/api/v1/requests/${requestId}/flags`)
+      .set("Authorization", "Bearer phase5-test-token")
+      .send({})
+      .expect(200);
+
+    expect(response.body).toEqual({ flagCount: 3, reviewTriggered: true });
+    expect(service.flagRequest).toHaveBeenCalledWith(
+      expect.objectContaining({ userId: employee.userId }),
+      "Bearer phase5-test-token",
+      requestId,
+    );
+  });
+
+  it("T-SEC-4a lists only the authenticated user's in-app notifications and marks them read", async () => {
+    const { app, service } = testAppWithAuthenticatedPrincipal();
+    await request(app)
+      .get("/api/v1/notifications")
+      .set("Authorization", "Bearer phase5-test-token")
+      .expect(200, {
+        items: [
+          {
+            id: "00000000-0000-4000-8000-000000000601",
+            eventType: "request_status_changed",
+            relatedEntityType: "request",
+            relatedEntityId: requestId,
+            createdAt: "2026-11-08T12:40:00.000Z",
+            isRead: false,
+          },
+        ],
+        unreadCount: 1,
+        hasMore: false,
+      });
+    await request(app)
+      .patch("/api/v1/notifications/00000000-0000-4000-8000-000000000601/read")
+      .set("Authorization", "Bearer phase5-test-token")
+      .expect(204);
+
+    expect(service.listNotifications).toHaveBeenCalledWith(
+      expect.objectContaining({ userId: employee.userId }),
+      "Bearer phase5-test-token",
+      1,
+    );
+    expect(service.markNotificationRead).toHaveBeenCalledWith(
+      expect.objectContaining({ userId: employee.userId }),
+      "Bearer phase5-test-token",
+      "00000000-0000-4000-8000-000000000601",
     );
   });
 
