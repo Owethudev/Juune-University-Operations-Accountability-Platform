@@ -154,7 +154,8 @@ describe("application routes", () => {
     );
     renderRoutes("/sign-in", null, true);
 
-    expect(screen.getByText(/synthetic, in-memory data only/i)).toBeVisible();
+    expect(screen.getByText(/UI preview uses a synthetic account only/i))
+      .toBeVisible();
     fireEvent.change(screen.getByLabelText("Demo role"), {
       target: { value: "department_manager" },
     });

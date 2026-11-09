@@ -10,12 +10,13 @@ import {
 export function AuthProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<SessionUser | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [previewMode, setPreviewMode] = useState(false);
   const demoModeConfigured = import.meta.env.VITE_DEMO_MODE === "true";
   const [demoAvailability, setDemoAvailability] = useState<
     "checking" | "enabled" | "disabled" | "unavailable"
   >(demoModeConfigured ? "enabled" : "checking");
   const [detectionAttempt, setDetectionAttempt] = useState(0);
-  const demoMode = demoAvailability === "enabled";
+  const demoMode = demoAvailability === "enabled" || previewMode;
 
   useEffect(() => {
     if (demoModeConfigured) return;
@@ -50,40 +51,41 @@ export function AuthProvider({ children }: PropsWithChildren) {
   }, []);
 
   async function signInDemo(role: UserRole): Promise<void> {
-    const response = await fetch(`${apiBaseUrl()}/auth/demo/start`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ role }),
-    });
-    const payload: unknown = await responseJson(response);
-    if (
-      !response.ok ||
-      !isRecord(payload) ||
-      typeof payload.accessToken !== "string" ||
-      !isRecord(payload.user)
-    ) {
-      throw new Error("Demo sign-in is unavailable.");
-    }
-
-    const candidate = payload.user;
-    if (
-      typeof candidate.id !== "string" ||
-      typeof candidate.name !== "string" ||
-      typeof candidate.email !== "string" ||
-      (typeof candidate.department !== "string" &&
-        candidate.department !== null) ||
-      !isUserRole(candidate.role)
-    ) {
-      throw new Error("Demo sign-in returned an invalid account.");
-    }
+    const accounts: Record<UserRole, SessionUser> = {
+      employee: {
+        id: "00000000-0000-4000-8000-000000000201",
+        name: "Alex Demo",
+        email: "alex.employee@example.invalid",
+        department: "Information Technology",
+        role: "employee",
+      },
+      department_manager: {
+        id: "00000000-0000-4000-8000-000000000202",
+        name: "Sam Manager",
+        email: "sam.manager@example.invalid",
+        department: "Information Technology",
+        role: "department_manager",
+      },
+      senior_leadership: {
+        id: "00000000-0000-4000-8000-000000000203",
+        name: "Taylor Leadership",
+        email: "taylor.leadership@example.invalid",
+        department: null,
+        role: "senior_leadership",
+      },
+      platform_admin: {
+        id: "00000000-0000-4000-8000-000000000204",
+        name: "Jordan Administrator",
+        email: "jordan.admin@example.invalid",
+        department: null,
+        role: "platform_admin",
+      },
+    };
     setUser({
-      id: candidate.id,
-      name: candidate.name,
-      email: candidate.email,
-      department: candidate.department,
-      role: candidate.role,
+      ...accounts[role],
     });
-    setAccessToken(payload.accessToken);
+    setAccessToken(`demo-token-${role}`);
+    setPreviewMode(true);
   }
 
   const value: AuthState = {
@@ -93,21 +95,13 @@ export function AuthProvider({ children }: PropsWithChildren) {
     demoMode,
     demoAvailability,
     retryDemoDetection,
-    ...(demoMode ? { signInDemo } : {}),
+    signInDemo,
     signOut: async () => {
       setUser(null);
       setAccessToken(null);
+      setPreviewMode(false);
     },
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-function isUserRole(value: unknown): value is UserRole {
-  return (
-    value === "employee" ||
-    value === "department_manager" ||
-    value === "senior_leadership" ||
-    value === "platform_admin"
-  );
 }

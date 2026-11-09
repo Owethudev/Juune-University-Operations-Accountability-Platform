@@ -17,18 +17,6 @@ describe("demo authentication provider", () => {
       if (url.endsWith("/health")) {
         return Response.json({ status: "ok", demoMode: true });
       }
-      if (url.endsWith("/auth/demo/start")) {
-        return Response.json({
-          accessToken: "demo-token-employee",
-          user: {
-            id: "00000000-0000-4000-8000-000000000201",
-            name: "Alex Demo",
-            email: "alex.employee@example.invalid",
-            department: "Information Technology",
-            role: "employee",
-          },
-        });
-      }
       return Response.json({ items: [], unreadCount: 0, hasMore: false });
     });
 
@@ -49,7 +37,7 @@ describe("demo authentication provider", () => {
     );
   });
 
-  it("explains backend or CORS connection failures instead of showing the institutional sign-in error", async () => {
+  it("opens a UI-only demo even when the backend health check fails", async () => {
     vi.stubEnv("VITE_DEMO_MODE", "false");
     vi.spyOn(globalThis, "fetch").mockRejectedValue(new TypeError("fetch failed"));
 
@@ -61,29 +49,19 @@ describe("demo authentication provider", () => {
       </MemoryRouter>,
     );
 
-    expect(
-      await screen.findByRole("alert"),
-    ).toHaveTextContent(/verify the backend URL and its CORS settings/i);
-    expect(screen.queryByRole("button", { name: "Sign in with your institution" }))
-      .not.toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: "Continue to demo" }))
+      .toBeEnabled();
+    expect(await screen.findByText(/UI preview uses a synthetic account only/i))
+      .toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Continue to demo" }));
+    expect(await screen.findByRole("heading", { name: "Welcome, Alex Demo" }))
+      .toBeVisible();
   });
 
-  it("exchanges the selected demo role for a bearer session", async () => {
+  it("opens the selected role immediately using a local synthetic session", async () => {
     vi.stubEnv("VITE_DEMO_MODE", "true");
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {
       const url = String(input);
-      if (url.endsWith("/auth/demo/start")) {
-        return Response.json({
-          accessToken: "demo-token-department_manager",
-          user: {
-            id: "00000000-0000-4000-8000-000000000202",
-            name: "Sam Manager",
-            email: "sam.manager@example.invalid",
-            department: "Information Technology",
-            role: "department_manager",
-          },
-        });
-      }
       if (url.includes("/dashboard")) {
         return Response.json({ rows: [], recentRequests: [] });
       }
@@ -106,12 +84,9 @@ describe("demo authentication provider", () => {
     expect(
       await screen.findByRole("heading", { name: "Department dashboard" }),
     ).toBeVisible();
-    expect(fetchSpy).toHaveBeenCalledWith(
+    expect(fetchSpy).not.toHaveBeenCalledWith(
       expect.stringMatching(/\/auth\/demo\/start$/),
-      expect.objectContaining({
-        method: "POST",
-        body: JSON.stringify({ role: "department_manager" }),
-      }),
+      expect.anything(),
     );
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.stringContaining("/dashboard"),

@@ -7,7 +7,6 @@ export function SignInPage() {
   const {
     demoMode,
     demoAvailability = "disabled",
-    retryDemoDetection,
     signInDemo,
   } = useAuth();
   const [signInFailed, setSignInFailed] = useState(false);
@@ -65,13 +64,7 @@ export function SignInPage() {
         <p className="eyebrow">University operations</p>
         <h1 id="sign-in-title">Sign in</h1>
         <p className="sign-in-description">
-          {demoMode
-            ? "Explore Juune using a synthetic demo account."
-            : demoAvailability === "checking"
-              ? "Checking the available sign-in options…"
-              : demoAvailability === "unavailable"
-                ? "The Juune server could not be reached."
-                : "Sign in with your institution to continue to Juune."}
+          Explore Juune immediately using a synthetic demo account.
         </p>
         {signInFailed && (
           <NotificationToast
@@ -89,71 +82,48 @@ export function SignInPage() {
             A connection is required to sign in. Reconnect and try again.
           </div>
         )}
-        {demoAvailability === "checking" ? (
-          <button
-            className="button button-primary sign-in-button"
-            type="button"
-            disabled
+        <label className="form-field">
+          Demo role
+          <select
+            value={demoRole}
+            onChange={(event) => {
+              if (isUserRole(event.target.value)) {
+                setDemoRole(event.target.value);
+              }
+            }}
           >
-            Checking sign-in options…
-          </button>
-        ) : demoAvailability === "unavailable" ? (
-          <>
-            <div className="offline-banner" role="alert">
-              Couldn’t check demo availability. Verify the backend URL and its
-              CORS settings, then retry.
-            </div>
-            <button
-              className="button button-primary sign-in-button"
-              type="button"
-              onClick={retryDemoDetection}
-            >
-              Retry connection
-            </button>
-          </>
-        ) : demoMode ? (
-          <>
-            <label className="form-field">
-              Demo role
-              <select
-                value={demoRole}
-                onChange={(event) => {
-                  if (isUserRole(event.target.value)) {
-                    setDemoRole(event.target.value);
-                  }
-                }}
-              >
-                <option value="employee">Employee</option>
-                <option value="department_manager">Department manager</option>
-                <option value="senior_leadership">Senior leadership</option>
-                <option value="platform_admin">Platform administrator</option>
-              </select>
-            </label>
-            <div className="offline-banner" role="note">
-              Demo mode uses synthetic, in-memory data only. It is not for
-              confidential information or real university operations.
-            </div>
-            <button
-              className="button button-primary sign-in-button"
-              type="button"
-              onClick={() => void beginDemoSignIn()}
-              disabled={isConnecting}
-            >
-              {isConnecting ? "Opening demo…" : "Continue to demo"}
-            </button>
-          </>
-        ) : (
-          <button
-            className="button button-primary sign-in-button"
-            type="button"
-            onClick={() => void beginInstitutionalSignIn()}
-            disabled={isConnecting}
-          >
-            {isConnecting
-              ? "Connecting to your institution…"
-              : "Sign in with your institution"}
-          </button>
+            <option value="employee">Employee</option>
+            <option value="department_manager">Department manager</option>
+            <option value="senior_leadership">Senior leadership</option>
+            <option value="platform_admin">Platform administrator</option>
+          </select>
+        </label>
+        <div className="offline-banner" role="note">
+          UI preview uses a synthetic account only. Live data is never accessed;
+          demo API data is available only when connected to the dedicated demo
+          backend.
+        </div>
+        <button
+          className="button button-primary sign-in-button"
+          type="button"
+          onClick={() => void beginDemoSignIn()}
+          disabled={isConnecting}
+        >
+          {isConnecting ? "Opening demo…" : "Continue to demo"}
+        </button>
+        {demoAvailability === "unavailable" && (
+          <p className="sign-in-support" role="status">
+            Backend unavailable; the UI preview will still open.
+          </p>
         )}
+        <button
+          className="button button-secondary sign-in-button"
+          type="button"
+          onClick={() => void beginInstitutionalSignIn()}
+          disabled={isConnecting}
+        >
+          Sign in with your institution
+        </button>
         <p className="sign-in-support">
           {demoMode
             ? "Demo changes are temporary and reset when the backend restarts."

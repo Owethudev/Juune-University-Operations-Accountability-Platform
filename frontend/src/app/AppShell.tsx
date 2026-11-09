@@ -63,7 +63,7 @@ export function AppShell({
         />
         {demoMode && (
           <aside className="demo-mode-banner" role="note">
-            Demo mode · synthetic data only · changes are temporary
+            Demo preview · synthetic account · live data is not accessed
           </aside>
         )}
         {isOffline && <OfflineBanner />}
