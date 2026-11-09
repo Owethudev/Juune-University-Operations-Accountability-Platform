@@ -27,21 +27,38 @@ const admin: SessionUser = {
 function TestAuthProvider({
   children,
   initialUser,
-}: PropsWithChildren<{ initialUser: SessionUser | null }>) {
+  demoMode = false,
+}: PropsWithChildren<{ initialUser: SessionUser | null; demoMode?: boolean }>) {
   const [user, setUser] = useState(initialUser);
   const value: AuthState = {
     status: user ? "authenticated" : "unauthenticated",
     user,
+    demoMode,
+    signInDemo: demoMode
+      ? async (role) => {
+          setUser({
+            id: `synthetic-${role}`,
+            name: role === "employee" ? "Alex Demo" : "Sam Manager",
+            email: "demo@example.invalid",
+            department: "Information Technology",
+            role,
+          });
+        }
+      : undefined,
     signOut: async () => setUser(null),
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-function renderRoutes(path: string, initialUser: SessionUser | null) {
+function renderRoutes(
+  path: string,
+  initialUser: SessionUser | null,
+  demoMode = false,
+) {
   return render(
     <MemoryRouter initialEntries={[path]}>
-      <TestAuthProvider initialUser={initialUser}>
+      <TestAuthProvider initialUser={initialUser} demoMode={demoMode}>
         <AppRoutes />
       </TestAuthProvider>
     </MemoryRouter>,
@@ -126,6 +143,29 @@ describe("application routes", () => {
       {
       method: "POST",
       },
+    );
+  });
+
+  it("offers a clearly labeled synthetic demo role and enters the selected workspace", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) =>
+      String(input).includes("/dashboard")
+        ? Response.json({ rows: [], recentRequests: [] })
+        : Response.json({ items: [], unreadCount: 0, hasMore: false }),
+    );
+    renderRoutes("/sign-in", null, true);
+
+    expect(screen.getByText(/synthetic, in-memory data only/i)).toBeVisible();
+    fireEvent.change(screen.getByLabelText("Demo role"), {
+      target: { value: "department_manager" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Continue to demo" }));
+
+    expect(
+      await screen.findByRole("heading", { name: "Department dashboard" }),
+    ).toBeVisible();
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.stringContaining("/notifications"),
+      expect.objectContaining({ headers: expect.any(Object) }),
     );
   });
 

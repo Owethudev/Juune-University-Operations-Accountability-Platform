@@ -15,7 +15,10 @@ const profile: ProfileView = {
   role: "employee",
 };
 
-function createTestApp(authenticated = true) {
+function createTestApp(
+  authenticated = true,
+  allowedOrigins: readonly string[] = [],
+) {
   return createApp({
     authenticator: {
       authenticate: vi.fn(async (authorization: string | undefined) => {
@@ -73,7 +76,7 @@ function createTestApp(authenticated = true) {
     },
     content: unusedContentService(),
     governance: unusedGovernanceService(),
-  });
+  }, { allowedOrigins });
 }
 
 afterEach(() => {
@@ -176,6 +179,68 @@ describe("Phase 1 API", () => {
 
     expect(response.body).toEqual({ status: "ok" });
     expect(JSON.stringify(response.body)).not.toContain("SUPABASE");
+  });
+
+  it("allows only configured origins and returns the exact origin", async () => {
+    const response = await request(
+      createTestApp(true, ["https://juune.example.edu"]),
+    )
+      .get("/api/v1/health")
+      .set("Origin", "https://juune.example.edu")
+      .expect(200);
+
+    expect(response.headers["access-control-allow-origin"]).toBe(
+      "https://juune.example.edu",
+    );
+    expect(response.headers.vary).toContain("Origin");
+  });
+
+  it("does not grant CORS access when no origin is configured", async () => {
+    const response = await request(createTestApp())
+      .get("/api/v1/health")
+      .set("Origin", "https://juune.example.edu")
+      .expect(200);
+
+    expect(response.headers["access-control-allow-origin"]).toBeUndefined();
+  });
+
+  it("accepts a preflight for an allowed origin and supported request headers", async () => {
+    const response = await request(
+      createTestApp(true, ["https://juune.example.edu"]),
+    )
+      .options("/api/v1/requests")
+      .set("Origin", "https://juune.example.edu")
+      .set("Access-Control-Request-Method", "POST")
+      .set(
+        "Access-Control-Request-Headers",
+        "authorization, content-type, idempotency-key",
+      )
+      .expect(204);
+
+    expect(response.headers["access-control-allow-origin"]).toBe(
+      "https://juune.example.edu",
+    );
+    expect(response.headers["access-control-allow-methods"]).toContain("POST");
+    expect(response.headers["access-control-allow-headers"]).toBe(
+      "authorization, content-type, idempotency-key",
+    );
+    expect(response.headers["access-control-allow-credentials"]).toBeUndefined();
+  });
+
+  it("rejects disallowed preflight origins and request headers", async () => {
+    const app = createTestApp(true, ["https://juune.example.edu"]);
+
+    await request(app)
+      .options("/api/v1/requests")
+      .set("Origin", "https://attacker.example")
+      .set("Access-Control-Request-Method", "POST")
+      .expect(403);
+    await request(app)
+      .options("/api/v1/requests")
+      .set("Origin", "https://juune.example.edu")
+      .set("Access-Control-Request-Method", "POST")
+      .set("Access-Control-Request-Headers", "x-unapproved-header")
+      .expect(403);
   });
 
   it("T-NFR-2 applies defensive headers to API responses", async () => {

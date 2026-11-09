@@ -938,6 +938,34 @@
   width: 100%;
 }
 
+.demo-mode-banner {
+  margin: var(--space-4) var(--space-5) 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-accent-teal);
+  border-radius: var(--radius-card);
+  color: var(--color-text);
+  background: var(--color-background);
+  font-size: var(--font-size-small);
+}
+
+.sign-in-card .form-field {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.sign-in-card .form-field select {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  color: var(--color-text);
+  background: var(--color-surface);
+  font: inherit;
+}
+
 .sign-in-support {
   margin: var(--space-4) 0 0;
   font-size: var(--font-size-small);

@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { NotificationToast } from "../components/NotificationToast.js";
+import { useAuth, type UserRole } from "../app/auth/AuthContext.js";
 
 export function SignInPage() {
+  const { demoMode, signInDemo } = useAuth();
   const [signInFailed, setSignInFailed] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [connectionRequired, setConnectionRequired] = useState(false);
+  const [demoRole, setDemoRole] = useState<UserRole>("employee");
 
   async function beginInstitutionalSignIn() {
     setSignInFailed(false);
@@ -32,6 +35,19 @@ export function SignInPage() {
     }
   }
 
+  async function beginDemoSignIn() {
+    setSignInFailed(false);
+    setIsConnecting(true);
+    try {
+      if (!signInDemo) throw new Error("Demo sign-in is not enabled.");
+      await signInDemo(demoRole);
+    } catch {
+      setSignInFailed(true);
+    } finally {
+      setIsConnecting(false);
+    }
+  }
+
   return (
     <main className="sign-in-page">
       <section className="sign-in-card" aria-labelledby="sign-in-title">
@@ -44,11 +60,17 @@ export function SignInPage() {
         <p className="eyebrow">University operations</p>
         <h1 id="sign-in-title">Sign in</h1>
         <p className="sign-in-description">
-          Sign in with your institution to continue to Juune.
+          {demoMode
+            ? "Explore Juune using a synthetic demo account."
+            : "Sign in with your institution to continue to Juune."}
         </p>
         {signInFailed && (
           <NotificationToast
-            message="We couldn’t sign you in. Check your institutional account or contact your university support team."
+            message={
+              demoMode
+                ? "Demo sign-in is unavailable. Try again or contact the demo administrator."
+                : "We couldn’t sign you in. Check your institutional account or contact your university support team."
+            }
             variant="error"
             persistent
           />
@@ -58,20 +80,64 @@ export function SignInPage() {
             A connection is required to sign in. Reconnect and try again.
           </div>
         )}
-        <button
-          className="button button-primary sign-in-button"
-          type="button"
-          onClick={() => void beginInstitutionalSignIn()}
-          disabled={isConnecting}
-        >
-          {isConnecting
-            ? "Connecting to your institution…"
-            : "Sign in with your institution"}
-        </button>
+        {demoMode ? (
+          <>
+            <label className="form-field">
+              Demo role
+              <select
+                value={demoRole}
+                onChange={(event) => {
+                  if (isUserRole(event.target.value)) {
+                    setDemoRole(event.target.value);
+                  }
+                }}
+              >
+                <option value="employee">Employee</option>
+                <option value="department_manager">Department manager</option>
+                <option value="senior_leadership">Senior leadership</option>
+                <option value="platform_admin">Platform administrator</option>
+              </select>
+            </label>
+            <div className="offline-banner" role="note">
+              Demo mode uses synthetic, in-memory data only. It is not for
+              confidential information or real university operations.
+            </div>
+            <button
+              className="button button-primary sign-in-button"
+              type="button"
+              onClick={() => void beginDemoSignIn()}
+              disabled={isConnecting}
+            >
+              {isConnecting ? "Opening demo…" : "Continue to demo"}
+            </button>
+          </>
+        ) : (
+          <button
+            className="button button-primary sign-in-button"
+            type="button"
+            onClick={() => void beginInstitutionalSignIn()}
+            disabled={isConnecting}
+          >
+            {isConnecting
+              ? "Connecting to your institution…"
+              : "Sign in with your institution"}
+          </button>
+        )}
         <p className="sign-in-support">
-          For help, contact your university support team.
+          {demoMode
+            ? "Demo changes are temporary and reset when the backend restarts."
+            : "For help, contact your university support team."}
         </p>
       </section>
     </main>
+  );
+}
+
+function isUserRole(value: string): value is UserRole {
+  return (
+    value === "employee" ||
+    value === "department_manager" ||
+    value === "senior_leadership" ||
+    value === "platform_admin"
   );
 }

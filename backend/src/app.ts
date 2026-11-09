@@ -10,6 +10,8 @@ import type {
   ProfileRepository,
   UserRole,
 } from "./auth/types.js";
+import { createCorsMiddleware } from "./config/cors.js";
+import { demoSession, isDemoRole } from "./demo/environment.js";
 import {
   RequestActionError,
   RequestFieldValidationError,
@@ -359,7 +361,10 @@ function createAuthenticationMiddleware(
   };
 }
 
-export function createApp(dependencies: AppDependencies) {
+export function createApp(
+  dependencies: AppDependencies,
+  options: { allowedOrigins?: readonly string[]; demoMode?: boolean } = {},
+) {
   const app = express();
   const requireAuthentication = createAuthenticationMiddleware(
     dependencies.authenticator,
@@ -376,13 +381,34 @@ export function createApp(dependencies: AppDependencies) {
       "X-Content-Type-Options": "nosniff",
       "X-Frame-Options": "DENY",
     });
+    if (options.demoMode) {
+      response.set("X-Demo-Mode", "true");
+    }
     next();
   });
+  app.use(createCorsMiddleware(options.allowedOrigins ?? []));
   app.use(express.json({ limit: "10kb" }));
 
   app.get("/api/v1/health", (_request, response) => {
-    response.status(200).json({ status: "ok" });
+    response
+      .status(200)
+      .json({ status: "ok", ...(options.demoMode ? { demoMode: true } : {}) });
   });
+
+  if (options.demoMode) {
+    app.post("/api/v1/auth/demo/start", (request, response) => {
+      const body: unknown = request.body;
+      const role =
+        typeof body === "object" && body !== null && "role" in body
+          ? body.role
+          : undefined;
+      if (!isDemoRole(role)) {
+        response.status(400).json({ message: "Choose a demo role." });
+        return;
+      }
+      response.set("X-Demo-Mode", "true").status(200).json(demoSession(role));
+    });
+  }
 
   app.post("/api/v1/auth/start", (_request, response) => {
     response.status(503).json({

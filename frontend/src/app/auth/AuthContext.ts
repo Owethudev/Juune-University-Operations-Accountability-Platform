@@ -18,6 +18,8 @@ export interface AuthState {
   status: "authenticated" | "unauthenticated";
   user: SessionUser | null;
   accessToken?: string | null;
+  demoMode?: boolean;
+  signInDemo?: (role: UserRole) => Promise<void>;
   signOut: () => Promise<void>;
 }
 

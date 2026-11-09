@@ -6,9 +6,22 @@ import {
 } from "./config/database.js";
 import { ConfigurationError, loadConfig } from "./config/environment.js";
 import {
+  CorsConfigurationError,
+  loadCorsAllowedOrigins,
+} from "./config/cors.js";
+import {
   loadServerConfig,
   ServerConfigurationError,
 } from "./config/server.js";
+import {
+  DemoModeConfigurationError,
+  loadDemoMode,
+} from "./config/demo.js";
+import {
+  createDemoAuthenticator,
+  createDemoProfiles,
+  createDemoServices,
+} from "./demo/environment.js";
 import { RequestCreationService } from "./requests/service.js";
 import { SupabaseRequestRepository } from "./requests/supabase-repository.js";
 import { ContentManagementService } from "./content/service.js";
@@ -29,8 +42,24 @@ const emptyProfiles: ProfileRepository = {
 };
 
 async function startServer(): Promise<void> {
-  const config = loadConfig(process.env);
+  const demoMode = loadDemoMode(process.env);
   const serverConfig = loadServerConfig(process.env);
+  const allowedOrigins = loadCorsAllowedOrigins(process.env);
+  if (demoMode) {
+    const services = createDemoServices();
+    const app = createApp(
+      {
+        authenticator: createDemoAuthenticator(),
+        profiles: createDemoProfiles(),
+        ...services,
+      },
+      { allowedOrigins, demoMode: true },
+    );
+    app.listen(serverConfig.port, serverConfig.host);
+    return;
+  }
+
+  const config = loadConfig(process.env);
   const database = createDatabaseClient(config);
   await verifyDatabaseConnection(database);
 
@@ -46,14 +75,16 @@ async function startServer(): Promise<void> {
     governance: new GovernanceManagementService(
       new SupabaseGovernanceRepository(config),
     ),
-  });
+  }, { allowedOrigins });
   app.listen(serverConfig.port, serverConfig.host);
 }
 
 void startServer().catch((error: unknown) => {
   if (
     error instanceof ConfigurationError ||
-    error instanceof ServerConfigurationError
+    error instanceof ServerConfigurationError ||
+    error instanceof CorsConfigurationError ||
+    error instanceof DemoModeConfigurationError
   ) {
     console.error(error.message);
   } else {

@@ -14,7 +14,7 @@ export function AppShell({
   children,
   pageTitle,
 }: PropsWithChildren<{ pageTitle: string }>) {
-  const { accessToken, user } = useAuth();
+  const { accessToken, demoMode, user } = useAuth();
   const [isOffline, setIsOffline] = useState(() => !navigator.onLine);
   const [unreadCount, setUnreadCount] = useState<number | null>(null);
 
@@ -61,6 +61,11 @@ export function AppShell({
           unreadCount={unreadCount}
           user={user}
         />
+        {demoMode && (
+          <aside className="demo-mode-banner" role="note">
+            Demo mode · synthetic data only · changes are temporary
+          </aside>
+        )}
         {isOffline && <OfflineBanner />}
         <main className="page-content">{children}</main>
       </div>
