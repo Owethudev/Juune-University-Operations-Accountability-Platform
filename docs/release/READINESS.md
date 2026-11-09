@@ -16,10 +16,26 @@ developer configuration or substitute synthetic production settings.
 
 | Test | Status | Evidence or remaining gate |
 |---|---|---|
-| T-REL-1: clean install and automated checks | Local checks pass; environment setup is incomplete | `npm ci` and `npm run check` pass locally. The Vercel failure reported for commit `38b3053` was caused by the production Vite config importing `vitest/config`; Vite and Vitest settings are now separated so a production frontend build does not load Vitest. A fresh-clone run and approved environment configuration/seed validation have not been completed. No hosted database was changed. |
+| T-REL-1: clean install and automated checks | Local checks pass; environment setup is incomplete | `npm ci` and `npm run check` pass locally. The Vercel failure reported for commit `38b3053` was caused by the production Vite config importing `vitest/config`; Vite and Vitest settings are now separated so a production frontend build does not load Vitest. The backend now has a production start script and honors the platform port/interface. A fresh-clone run and approved environment configuration/seed validation have not been completed. No hosted database was changed. |
 | T-REL-2: PRD five-minute demo | Blocked; not run end to end | The production authenticator is unconfigured and fails closed. Configure an institution-approved identity provider and synthetic accounts, then run the browser journey below against the approved isolated environment. |
 | T-REL-3: security and institutional approvals | Incomplete | HTTPS/public-host checks, privacy/security/governance approvals, backup and retention validation, secrets review in the release environment, and hosting sign-off must be recorded by their institutional owners. |
 | T-REL-4: rollback and restore | Runbooks written; rehearsal not done | Follow [ROLLBACK.md](./ROLLBACK.md) and [RESTORE.md](./RESTORE.md) in an approved isolated environment. Record evidence and approvals; never rehearse against production. |
+
+## Backend service commands
+
+For a Node hosting service that supports a long-running process, configure the
+repository root as the project root and use:
+
+- Build: `npm run build --workspace backend`
+- Start: `npm run start --workspace backend`
+
+The backend binds to `0.0.0.0` and uses the platform-provided `PORT` (defaults
+to `4000` for local development). Configure `SUPABASE_URL` and
+`SUPABASE_ANON_KEY` as deployment environment variables using the platform's
+secret settings; do not commit them. This is a persistent Node server, not a
+serverless-function adapter. The current authenticator is intentionally
+unconfigured, so successful deployment does not mean users can sign in or that
+the service is ready for pilot data.
 
 ## T-REL-2 synthetic browser journey
 

@@ -5,6 +5,10 @@ import {
   verifyDatabaseConnection,
 } from "./config/database.js";
 import { ConfigurationError, loadConfig } from "./config/environment.js";
+import {
+  loadServerConfig,
+  ServerConfigurationError,
+} from "./config/server.js";
 import { RequestCreationService } from "./requests/service.js";
 import { SupabaseRequestRepository } from "./requests/supabase-repository.js";
 import { ContentManagementService } from "./content/service.js";
@@ -26,6 +30,7 @@ const emptyProfiles: ProfileRepository = {
 
 async function startServer(): Promise<void> {
   const config = loadConfig(process.env);
+  const serverConfig = loadServerConfig(process.env);
   const database = createDatabaseClient(config);
   await verifyDatabaseConnection(database);
 
@@ -42,11 +47,14 @@ async function startServer(): Promise<void> {
       new SupabaseGovernanceRepository(config),
     ),
   });
-  app.listen(4000, "127.0.0.1");
+  app.listen(serverConfig.port, serverConfig.host);
 }
 
 void startServer().catch((error: unknown) => {
-  if (error instanceof ConfigurationError) {
+  if (
+    error instanceof ConfigurationError ||
+    error instanceof ServerConfigurationError
+  ) {
     console.error(error.message);
   } else {
     console.error("Backend startup failed; check the approved database configuration.");
