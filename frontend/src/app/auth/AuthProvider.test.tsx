@@ -49,6 +49,25 @@ describe("demo authentication provider", () => {
     );
   });
 
+  it("explains backend or CORS connection failures instead of showing the institutional sign-in error", async () => {
+    vi.stubEnv("VITE_DEMO_MODE", "false");
+    vi.spyOn(globalThis, "fetch").mockRejectedValue(new TypeError("fetch failed"));
+
+    render(
+      <MemoryRouter initialEntries={["/sign-in"]}>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </MemoryRouter>,
+    );
+
+    expect(
+      await screen.findByRole("alert"),
+    ).toHaveTextContent(/verify the backend URL and its CORS settings/i);
+    expect(screen.queryByRole("button", { name: "Sign in with your institution" }))
+      .not.toBeInTheDocument();
+  });
+
   it("exchanges the selected demo role for a bearer session", async () => {
     vi.stubEnv("VITE_DEMO_MODE", "true");
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {

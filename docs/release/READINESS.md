@@ -45,7 +45,11 @@ pilot data.
 ### Synthetic demo-only deployment
 
 For a public demonstration without institutional sign-in, deploy the backend
-with `DEMO_MODE=true` and build the frontend with `VITE_DEMO_MODE=true`.
+with `DEMO_MODE=true`. The frontend checks the backend `/health` endpoint and
+automatically shows the demo role picker when the response reports
+`demoMode: true`; no frontend demo flag is required. `VITE_DEMO_MODE=true` is
+an optional override for a demo-only frontend build, but the normal
+health-detection path is preferred.
 In this mode, the backend does not load Supabase configuration or connect to a
 database; all accounts and records are synthetic, in-memory demo fixtures, and
 changes reset when the backend restarts. The role picker is intentionally open

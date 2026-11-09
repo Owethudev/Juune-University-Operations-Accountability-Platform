@@ -21,7 +21,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     if (demoModeConfigured) return;
 
     let active = true;
-    void fetch(`${apiBaseUrl()}/health`)
+    void fetch(`${apiBaseUrl()}/health`, { method: "GET" })
       .then(async (response) => {
         const payload: unknown = await responseJson(response);
         if (
