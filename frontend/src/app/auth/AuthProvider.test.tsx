@@ -10,6 +10,45 @@ afterEach(() => {
 });
 
 describe("demo authentication provider", () => {
+  it("detects demo mode from the backend health endpoint without a frontend flag", async () => {
+    vi.stubEnv("VITE_DEMO_MODE", "false");
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.endsWith("/health")) {
+        return Response.json({ status: "ok", demoMode: true });
+      }
+      if (url.endsWith("/auth/demo/start")) {
+        return Response.json({
+          accessToken: "demo-token-employee",
+          user: {
+            id: "00000000-0000-4000-8000-000000000201",
+            name: "Alex Demo",
+            email: "alex.employee@example.invalid",
+            department: "Information Technology",
+            role: "employee",
+          },
+        });
+      }
+      return Response.json({ items: [], unreadCount: 0, hasMore: false });
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/sign-in"]}>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByLabelText("Demo role")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Continue to demo" }));
+    expect(await screen.findByRole("heading", { name: "Welcome, Alex Demo" })).toBeVisible();
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.stringMatching(/\/health$/),
+      expect.objectContaining({ method: "GET" }),
+    );
+  });
+
   it("exchanges the selected demo role for a bearer session", async () => {
     vi.stubEnv("VITE_DEMO_MODE", "true");
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {

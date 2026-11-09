@@ -1,4 +1,4 @@
-import { useState, type PropsWithChildren } from "react";
+import { useCallback, useEffect, useState, type PropsWithChildren } from "react";
 import { apiBaseUrl, isRecord, responseJson } from "../api.js";
 import {
   AuthContext,
@@ -10,7 +10,44 @@ import {
 export function AuthProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<SessionUser | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const demoMode = import.meta.env.VITE_DEMO_MODE === "true";
+  const demoModeConfigured = import.meta.env.VITE_DEMO_MODE === "true";
+  const [demoAvailability, setDemoAvailability] = useState<
+    "checking" | "enabled" | "disabled" | "unavailable"
+  >(demoModeConfigured ? "enabled" : "checking");
+  const [detectionAttempt, setDetectionAttempt] = useState(0);
+  const demoMode = demoAvailability === "enabled";
+
+  useEffect(() => {
+    if (demoModeConfigured) return;
+
+    let active = true;
+    void fetch(`${apiBaseUrl()}/health`)
+      .then(async (response) => {
+        const payload: unknown = await responseJson(response);
+        if (
+          !response.ok ||
+          !isRecord(payload) ||
+          payload.status !== "ok"
+        ) {
+          throw new Error("Backend health check failed.");
+        }
+        if (active) {
+          setDemoAvailability(payload.demoMode === true ? "enabled" : "disabled");
+        }
+      })
+      .catch(() => {
+        if (active) setDemoAvailability("unavailable");
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [demoModeConfigured, detectionAttempt]);
+
+  const retryDemoDetection = useCallback(() => {
+    setDemoAvailability("checking");
+    setDetectionAttempt((attempt) => attempt + 1);
+  }, []);
 
   async function signInDemo(role: UserRole): Promise<void> {
     const response = await fetch(`${apiBaseUrl()}/auth/demo/start`, {
@@ -54,6 +91,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
     user,
     accessToken,
     demoMode,
+    demoAvailability,
+    retryDemoDetection,
     ...(demoMode ? { signInDemo } : {}),
     signOut: async () => {
       setUser(null);

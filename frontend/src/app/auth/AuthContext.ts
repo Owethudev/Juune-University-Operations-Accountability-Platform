@@ -19,7 +19,9 @@ export interface AuthState {
   user: SessionUser | null;
   accessToken?: string | null;
   demoMode?: boolean;
+  demoAvailability?: "checking" | "enabled" | "disabled" | "unavailable";
   signInDemo?: (role: UserRole) => Promise<void>;
+  retryDemoDetection?: () => void;
   signOut: () => Promise<void>;
 }
 
